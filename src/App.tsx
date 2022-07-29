@@ -18,10 +18,10 @@ function App() {
 
 	useEffect(() => {
 		// listen
-		const messageListener = ({ messageData }: any) => {
-			console.log('=-=-=-=-=-=-> system heard message', messageData)
+		const messageListener = ({ data: payload }: any) => {
+			console.log('=-=-=-=-=-=-> system heard message', payload)
 
-			const { message, source, data } = messageData
+			const { message, source, data } = payload
 
 			switch (message) {
 				case 'loadData':
