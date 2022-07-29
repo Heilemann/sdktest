@@ -19,14 +19,14 @@ function App() {
 	useEffect(() => {
 		// listen
 		const messageListener = (msg: any) => {
+			console.log('=-=-=-=-=-=-> system heard message', msg)
+
 			const { message, source, data } = msg
 
 			switch (message) {
 				case 'loadData':
-					console.log('loadData', data)
+					console.log('=-=-=-=-=-=> system loadData', data)
 			}
-
-			console.log('=-=-=-=-=-=-> system heard message', msg)
 		}
 
 		window.addEventListener('message', messageListener)
