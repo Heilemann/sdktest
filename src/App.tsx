@@ -24,9 +24,9 @@ function App() {
 
 			switch (message) {
 				case 'loadData':
-					const { id } = data
+					const { documentId } = data
 					documents.current = data.documents as IDocument[]
-					document.current = documents.current.find(d => d._id === id)
+					document.current = documents.current.find(d => d._id === documentId)
 
 					console.log(document.current, data)
 			}
