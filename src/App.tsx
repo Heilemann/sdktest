@@ -1,10 +1,11 @@
-import logo from './logo.svg'
-import './App.css'
 import { useEffect, useRef } from 'react'
+import './App.css'
+import { IDocument } from './interfaces'
+import logo from './logo.svg'
 
 function App() {
-	const document = useRef<any>()
-	console.log('system loaded')
+	const document = useRef<IDocument>()
+	const documents = useRef<IDocument[]>()
 
 	const message = (message: string, data?: any) => {
 		const parent = window.parent
@@ -19,13 +20,15 @@ function App() {
 	useEffect(() => {
 		// listen
 		const messageListener = ({ data: payload }: any) => {
-			console.log('=-=-=-=-=-=-> system heard message', payload)
-
 			const { message, source, data } = payload
 
 			switch (message) {
 				case 'loadData':
-					console.log('=-=-=-=-=-=> system loadData', data)
+					const { id } = data
+					documents.current = data.documents as IDocument[]
+					document.current = documents.current.find(d => d._id === id)
+
+					console.log(document.current, data)
 			}
 		}
 
