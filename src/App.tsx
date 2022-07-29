@@ -45,7 +45,7 @@ function App() {
 	return (
 		<div className='App'>
 			<header className='App-header'>
-				<img src={logo} className='App-logo' alt='logo' />
+				<p className='App-logo'>{document.current?._id}</p>
 			</header>
 		</div>
 	)
