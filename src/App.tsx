@@ -10,14 +10,11 @@ function App() {
 
 		console.log('POSTMESSAGE', window.parent)
 
-		parent.postMessage(
-			{
-				source: 'App',
-				message,
-				data,
-			},
-			window.location.origin,
-		)
+		parent.postMessage({
+			source: 'App',
+			message,
+			data,
+		})
 	}
 
 	const document = useRef<any>()
