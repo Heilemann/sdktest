@@ -5,7 +5,19 @@ import { useEffect } from 'react'
 function App() {
 	console.log('system loaded')
 
+	const message = (message: string, data?: any) => {
+		const parent = window.top!
+
+		parent.postMessage({
+			source: 'App',
+			message,
+			data,
+		})
+	}
+
 	useEffect(() => {
+		message('test', 'hello world')
+
 		window.addEventListener('message', message => {
 			console.log('message', message)
 		})
