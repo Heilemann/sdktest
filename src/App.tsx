@@ -8,6 +8,8 @@ function App() {
 	const message = (message: string, data?: any) => {
 		const parent = window.parent
 
+		console.log('POSTMESSAGE', window.parent)
+
 		parent.postMessage(
 			{
 				source: 'App',
