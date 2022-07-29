@@ -11,10 +11,10 @@
 			"singularName": "Character",
 			"pluralName": "Characters",
 			"description": "A player character.",
-			"hasEditMode": true,
+			"hasEditMode": "true",
 			"windowSize": "large",
 			"thumbnailField": ["portrait", "token"],
-			"allowCreate": true
+			"allowCreate": "true"
 		}
 	]
 }
