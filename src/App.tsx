@@ -3,6 +3,8 @@ import './App.css'
 import { useEffect } from 'react'
 
 function App() {
+	console.log('system loaded')
+
 	useEffect(() => {
 		window.addEventListener('message', message => {
 			console.log('message', message)
