@@ -20,8 +20,7 @@ function App() {
 	const document = useRef<any>()
 
 	useEffect(() => {
-		message('test', 'hello world')
-
+		// listen
 		const messageListener = (msg: any) => {
 			const { message, source, data } = msg
 
@@ -34,6 +33,9 @@ function App() {
 		}
 
 		window.addEventListener('message', messageListener)
+
+		// tell aux server we're ready to load data
+		message('loadData')
 
 		return () => {
 			window.removeEventListener('message', messageListener)
