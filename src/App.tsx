@@ -1,6 +1,6 @@
 import logo from './logo.svg'
 import './App.css'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 function App() {
 	console.log('system loaded')
@@ -16,14 +16,23 @@ function App() {
 				message,
 				data,
 			},
-			'*',
+			window.location.origin,
 		)
 	}
+
+	const document = useRef<any>()
 
 	useEffect(() => {
 		message('test', 'hello world')
 
-		const messageListener = (message: any) => {
+		const messageListener = (msg: any) => {
+			const { message, source, data } = msg
+
+			switch (message) {
+				case 'loadData':
+					console.log('loadData', data)
+			}
+
 			console.log('=-=-=-=-=-=-> system heard message', message)
 		}
 
