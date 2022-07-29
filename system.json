@@ -1,0 +1,20 @@
+{
+	"name": "SDK v2 Test",
+	"version": "0.0.1",
+	"author": "Michael Heilemann",
+	"description": "Attempt at a better system... system.",
+	"code": "dist/index.html",
+	"assetsPath": "build/static/media/",
+	"collections": [
+		{
+			"type": "character",
+			"singularName": "Character",
+			"pluralName": "Characters",
+			"description": "A player character.",
+			"hasEditMode": true,
+			"windowSize": "large",
+			"thumbnailField": ["portrait", "token"],
+			"allowCreate": "true"
+		}
+	]
+}
