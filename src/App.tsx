@@ -23,14 +23,14 @@ function App() {
 	useEffect(() => {
 		message('test', 'hello world')
 
-		window.addEventListener('message', message => {
-			console.log('message', message)
-		})
+		const messageListener = (message: any) => {
+			console.log('=-=-=-=-=-=-> system heard message', message)
+		}
+
+		window.addEventListener('message', messageListener)
 
 		return () => {
-			window.removeEventListener('message', message => {
-				console.log('message', message)
-			})
+			window.removeEventListener('message', messageListener)
 		}
 	}, [])
 
