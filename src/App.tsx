@@ -6,15 +6,16 @@ function App() {
 	console.log('system loaded')
 
 	const message = (message: string, data?: any) => {
-		const parent = window.top!
+		const parent = window.parent
 
-		debugger
-
-		parent.postMessage({
-			source: 'App',
-			message,
-			data,
-		})
+		parent.postMessage(
+			{
+				source: 'App',
+				message,
+				data,
+			},
+			'*',
+		)
 	}
 
 	useEffect(() => {
