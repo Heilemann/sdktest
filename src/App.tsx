@@ -3,12 +3,11 @@ import './App.css'
 import { useEffect, useRef } from 'react'
 
 function App() {
+	const document = useRef<any>()
 	console.log('system loaded')
 
 	const message = (message: string, data?: any) => {
 		const parent = window.parent
-
-		console.log('POSTMESSAGE', window.parent)
 
 		parent.postMessage({
 			source: 'App',
@@ -16,8 +15,6 @@ function App() {
 			data,
 		})
 	}
-
-	const document = useRef<any>()
 
 	useEffect(() => {
 		// listen
@@ -29,7 +26,7 @@ function App() {
 					console.log('loadData', data)
 			}
 
-			console.log('=-=-=-=-=-=-> system heard message', message)
+			console.log('=-=-=-=-=-=-> system heard message', msg)
 		}
 
 		window.addEventListener('message', messageListener)
