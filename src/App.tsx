@@ -26,7 +26,7 @@ function App() {
 	const { document } = state
 	const { type } = document
 
-	const message = (message: string, data?: any) => {
+	const messageToApp = (message: string, data?: any) => {
 		const parent = window.parent
 
 		parent.postMessage({
@@ -52,7 +52,7 @@ function App() {
 
 			console.log('system saving', payload)
 
-			message('save', payload)
+			messageToApp('save', payload)
 		})
 
 		return () => {
@@ -86,13 +86,24 @@ function App() {
 						type: 'LOAD',
 						payload,
 					})
+
+					break
+
+				case 'onUpload':
+					const { name } = data
+
+					messageToApp('onUpload', {
+						name,
+					})
+
+					break
 			}
 		}
 
 		window.addEventListener('message', messageListener)
 
 		// tell aux server we're ready to load data
-		message('system is ready')
+		messageToApp('system is ready')
 
 		return () => {
 			window.removeEventListener('message', messageListener)
@@ -105,7 +116,11 @@ function App() {
 				{type === 'character' && <Character register={register} />}
 				{type === 'note' && <Note register={register} />}
 				{type === 'scene' && (
-					<Scene register={register} setValue={setValue} message={message} />
+					<Scene
+						register={register}
+						setValue={setValue}
+						messageToApp={messageToApp}
+					/>
 				)}
 			</div>
 		</Context.Provider>
