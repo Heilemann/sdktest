@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import './App.css'
 import Character from './components/Character'
@@ -47,6 +47,10 @@ function App() {
 		}
 	}
 	useEffect(changeHandler, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		console.log('system state', state)
+	}, [state])
 
 	const message = (message: string, data?: any) => {
 		const parent = window.parent
