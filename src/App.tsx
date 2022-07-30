@@ -27,6 +27,16 @@ function App() {
 	const { document } = state
 	const { type } = document
 
+	const message = (message: string, data?: any) => {
+		const parent = window.parent
+
+		parent.postMessage({
+			source: 'System',
+			message,
+			data,
+		})
+	}
+
 	const changeHandler = () => {
 		const subscription = watch(values => {
 			if (!document || !values) return
@@ -38,6 +48,8 @@ function App() {
 					...values,
 				},
 			}
+
+			console.log('system saving', payload)
 
 			message('save', payload)
 		})
@@ -52,16 +64,6 @@ function App() {
 		console.log('system state', state)
 	}, [state])
 
-	const message = (message: string, data?: any) => {
-		const parent = window.parent
-
-		parent.postMessage({
-			source: 'System',
-			message,
-			data,
-		})
-	}
-
 	useEffect(() => {
 		const messageListener = ({ data: payload }: any) => {
 			const { message, source, data } = payload
@@ -72,7 +74,8 @@ function App() {
 					const { documentId } = data
 
 					const payload = {
-						...data,
+						documents: data.documents,
+						assets: data.assets,
 						document: data.documents?.find(
 							(d: TDocument) => d._id === documentId,
 						),
