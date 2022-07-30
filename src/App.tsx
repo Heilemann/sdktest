@@ -12,7 +12,7 @@ function App() {
 		const parent = window.parent
 
 		parent.postMessage({
-			source: 'App',
+			source: 'System',
 			message,
 			data,
 		})
@@ -26,12 +26,12 @@ function App() {
 			switch (message) {
 				case 'load':
 					const { documentId } = data
+
 					documents.current = data.documents as TDocument[]
+
 					document.current = data.documents?.(
 						(d: TDocument) => d._id === documentId,
 					)
-
-					console.log(document.current, data)
 			}
 		}
 
@@ -50,7 +50,7 @@ function App() {
 		window.addEventListener('message', messageListener)
 
 		// tell aux server we're ready to load data
-		message('loadData')
+		message('system is ready')
 
 		return () => {
 			window.removeEventListener('message', messageListener)
