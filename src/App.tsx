@@ -32,6 +32,8 @@ function App() {
 					document.current = data.documents?.(
 						(d: TDocument) => d._id === documentId,
 					)
+
+					console.log('loaded', document.current)
 			}
 		}
 
@@ -43,6 +45,8 @@ function App() {
 					...values,
 				},
 			}
+
+			console.log('system saving document', payload)
 
 			message('save', payload)
 		})
