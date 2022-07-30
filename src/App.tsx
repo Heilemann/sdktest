@@ -47,6 +47,13 @@ function App() {
 					document.current = data.documents?.find(
 						(d: TDocument) => d._id === documentId,
 					)
+
+					console.log(
+						'loaded document:',
+						document.current,
+						documentId,
+						documents.current,
+					)
 			}
 		}
 
