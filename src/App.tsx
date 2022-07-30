@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react'
+import { useEffect, useReducer } from 'react'
 import { useForm } from 'react-hook-form'
 import './App.css'
 import Character from './components/Character'
@@ -6,7 +6,7 @@ import Context from './components/context'
 import Note from './components/Note'
 import Reducer from './components/reducer'
 import Scene from './components/Scene'
-import { TDocument } from './interfaces'
+import { TDocument, TState } from './interfaces'
 
 const initialData = {
 	document: {
@@ -43,6 +43,8 @@ function App() {
 		const subscription = watch(values => {
 			if (!document || !values) return
 
+			debugger
+
 			const payload = {
 				...document,
 				values: {
@@ -60,7 +62,7 @@ function App() {
 			subscription.unsubscribe()
 		}
 	}
-	useEffect(changeHandler, [state]) // eslint-disable-line react-hooks/exhaustive-deps
+	useEffect(changeHandler, [document, watch])
 
 	useEffect(() => {
 		console.log('system state', state)
