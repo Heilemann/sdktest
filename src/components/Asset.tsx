@@ -28,7 +28,7 @@ const Asset: FC<AssetProps> = ({
 	// if (process.env.NODE_ENV === 'development') {
 	const protocol = window.location.protocol
 	const host = window.location.hostname
-	parentOrigin = `${protocol}//${host}:3000`
+	parentOrigin = `http://localhost:3000`
 	// } else {
 	// 	parentOrigin = 'https://newreal.ms'
 	// }
