@@ -60,6 +60,8 @@ function App() {
 		}
 	}, [])
 
+	console.log('system document', document.current)
+
 	return (
 		<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
 			{document.current?.type === 'character' && (
