@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Character from './components/Character'
 import Note from './components/Notes'
@@ -17,8 +17,10 @@ const testDocument = {
 }
 
 function App() {
-	const document = useRef<TDocument>()
-	const documents = useRef<TDocument[]>()
+	// const document = useRef<TDocument>()
+	// const documents = useRef<TDocument[]>()
+	const [document, setDocument] = useState<TDocument>()
+	const [documents, setDocuments] = useState<TDocument[]>([])
 
 	const message = (message: string, data?: any) => {
 		const parent = window.parent
@@ -42,18 +44,13 @@ function App() {
 				case 'load':
 					const { documentId } = data
 
-					documents.current = data.documents as TDocument[]
+					// documents.current = data.documents as TDocument[]
+					setDocuments(data.documents as TDocument[])
 
-					document.current = data.documents?.find(
-						(d: TDocument) => d._id === documentId,
-					)
+					const d = data.documents?.find((d: TDocument) => d._id === documentId)
+					setDocument(d)
 
-					console.log(
-						'loaded document:',
-						document.current,
-						documentId,
-						documents.current,
-					)
+					console.log('loaded document:', document, documentId, documents)
 			}
 		}
 
@@ -65,35 +62,35 @@ function App() {
 		return () => {
 			window.removeEventListener('message', messageListener)
 		}
-	}, [])
+	}, [document, documents])
 
-	console.log('system document', document.current)
+	console.log('system document', document)
 
 	return (
 		<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
-			{document.current?.type}
+			{document?.type}
 
-			{document.current?.type === 'character' && (
+			{document?.type === 'character' && (
 				<Character
 					message={message}
-					document={document.current}
-					documents={documents.current || []}
+					document={document}
+					documents={documents || []}
 				/>
 			)}
 
-			{document.current?.type === 'note' && (
+			{document?.type === 'note' && (
 				<Note
 					message={message}
-					document={document.current}
-					documents={documents.current || []}
+					document={document}
+					documents={documents || []}
 				/>
 			)}
 
-			{document.current?.type === 'scene' && (
+			{document?.type === 'scene' && (
 				<Scene
 					message={message}
-					document={document.current}
-					documents={documents.current || []}
+					document={document}
+					documents={documents || []}
 				/>
 			)}
 		</div>
