@@ -30,9 +30,13 @@ function App() {
 
 					documents.current = data.documents as TDocument[]
 
+					console.log('documents', documents.current)
+
 					document.current = data.documents?.(
 						(d: TDocument) => d._id === documentId,
 					)
+
+					console.log('document', document.current)
 
 					console.log('system loaded', document.current)
 			}
