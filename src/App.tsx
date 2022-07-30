@@ -25,6 +25,7 @@ function App() {
 
 			switch (message) {
 				case 'load':
+					console.log('system is loading')
 					const { documentId } = data
 
 					documents.current = data.documents as TDocument[]
@@ -33,7 +34,7 @@ function App() {
 						(d: TDocument) => d._id === documentId,
 					)
 
-					console.log('loaded', document.current)
+					console.log('system loaded', document.current)
 			}
 		}
 
