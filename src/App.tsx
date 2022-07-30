@@ -13,11 +13,8 @@ const initialData = {
 		_id: '',
 		creator: '',
 		access: [],
-		type: 'scene',
-		values: {
-			name: '',
-			note: '',
-		},
+		type: '',
+		values: {},
 	},
 	documents: [],
 	assets: [],
