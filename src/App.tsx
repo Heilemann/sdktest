@@ -23,8 +23,9 @@ function App() {
 		documents: [],
 		assets: [],
 	})
-	const { register, watch } = useForm()
+	const { register, setValue, watch } = useForm()
 	const { document } = state
+	const { type } = document
 
 	const changeHandler = () => {
 		const subscription = watch(values => {
@@ -93,12 +94,10 @@ function App() {
 	return (
 		<Context.Provider value={{ state, dispatch }}>
 			<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
-				{document?.type === 'character' && <Character register={register} />}
-
-				{document?.type === 'note' && <Note register={register} />}
-
-				{document?.type === 'scene' && (
-					<Scene register={register} message={message} />
+				{type === 'character' && <Character register={register} />}
+				{type === 'note' && <Note register={register} />}
+				{type === 'scene' && (
+					<Scene register={register} setValue={setValue} message={message} />
 				)}
 			</div>
 		</Context.Provider>

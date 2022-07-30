@@ -1,41 +1,26 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { UseFormSetValue } from 'react-hook-form'
-
-interface IAsset {
-	_id: string
-	name: string
-	type: string
-	fileurl: string
-	filesize: number
-	filetype: string
-	width: number
-	height: number
-}
+import { TAsset } from '../interfaces'
+import context from './context'
 
 interface AssetProps {
-	assets: IAsset[]
-	id: string
 	name: string
 	setValue: UseFormSetValue<any>
-	onRemove: () => void
 	messageToParent: (message: string, data?: any) => void
-	width?: string
-	height?: string
-	class?: string
+	className?: string
 }
 
 const Asset: FC<AssetProps> = ({
-	assets,
-	id,
-	width,
-	height,
 	name,
 	setValue,
-	onRemove,
 	messageToParent,
-	class: className,
+	className,
 }) => {
-	const asset = assets.find((asset: IAsset) => asset._id === id)
+	const { state, dispatch } = useContext(context)
+	const { assets, document } = state
+	const { assetId } = document.values
+
+	const asset = assets.find((asset: TAsset) => asset._id === assetId)
 
 	// should move this to a context
 	let parentOrigin = ''
@@ -52,9 +37,9 @@ const Asset: FC<AssetProps> = ({
 	}
 
 	const handleRemoveAsset = () => {
-		// setValue(name, '')
-		onRemove()
-		messageToParent('onRemoveAsset', { id })
+		setValue(name, '')
+		// onRemove()
+		messageToParent('onRemoveAsset', { assetId })
 	}
 
 	if (!asset) {
