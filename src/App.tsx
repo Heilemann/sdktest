@@ -90,6 +90,8 @@ function App() {
 					break
 
 				case 'onUpload':
+					console.log('system onUpload', data)
+
 					const { name } = data
 
 					messageToApp('onUpload', {
