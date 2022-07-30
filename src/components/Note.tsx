@@ -37,10 +37,15 @@ export default function Note(props: INoteProps) {
 
 	return (
 		<div className='flex h-full flex-col'>
-			<Input placeholder='Name...' {...register('name')} />
+			<Input
+				placeholder='Name...'
+				defaultValue={document.values.name}
+				{...register('name')}
+			/>
 			<TextArea
 				className='mb-0 flex-1'
 				placeholder='Note...'
+				defaultValue={document.values.note}
 				{...register('note')}
 			/>
 		</div>
