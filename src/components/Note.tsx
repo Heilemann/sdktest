@@ -15,6 +15,8 @@ export default function Note(props: INoteProps) {
 
 	if (!document?.values) return null
 
+	console.log('note values', document.values)
+
 	return (
 		<div className='flex h-full flex-col'>
 			<Input
