@@ -25,13 +25,13 @@ const Asset: FC<AssetProps> = ({
 
 	// should move this to a context
 	let parentOrigin = ''
-	if (process.env.NODE_ENV === 'development') {
-		const protocol = window.location.protocol
-		const host = window.location.hostname
-		parentOrigin = `${protocol}//${host}:3000`
-	} else {
-		parentOrigin = 'https://newreal.ms'
-	}
+	// if (process.env.NODE_ENV === 'development') {
+	const protocol = window.location.protocol
+	const host = window.location.hostname
+	parentOrigin = `${protocol}//${host}:3000`
+	// } else {
+	// 	parentOrigin = 'https://newreal.ms'
+	// }
 
 	const handleUpload = () => {
 		messageToParent('onUpload', name)
