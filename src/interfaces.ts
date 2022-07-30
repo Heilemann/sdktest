@@ -1,4 +1,4 @@
-export type IDocument = {
+export type TDocument = {
   _id: string // UID
   type: string // e.g. 'chararacter' or 'spell'
   creator: string // user ID
@@ -7,3 +7,11 @@ export type IDocument = {
     [key: string]: any
   }
 }
+
+export type TPostMessage =
+  | {
+    message: 'load'
+  } | {
+    message: 'save'
+    document: TDocument
+  }

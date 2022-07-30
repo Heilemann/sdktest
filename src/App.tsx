@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
+import { useForm } from 'react-hook-form'
 import './App.css'
-import { IDocument } from './interfaces'
-import logo from './logo.svg'
+import { TDocument } from './interfaces'
 
 function App() {
-	const document = useRef<IDocument>()
-	const documents = useRef<IDocument[]>()
+	const { register, watch } = useForm()
+	const document = useRef<TDocument>()
+	const documents = useRef<TDocument[]>()
 
 	const message = (message: string, data?: any) => {
 		const parent = window.parent
@@ -23,16 +24,28 @@ function App() {
 			const { message, source, data } = payload
 
 			switch (message) {
-				case 'loadData':
+				case 'load':
 					const { documentId } = data
-					documents.current = data.documents as IDocument[]
+					documents.current = data.documents as TDocument[]
 					document.current = data.documents?.(
-						(d: IDocument) => d._id === documentId,
+						(d: TDocument) => d._id === documentId,
 					)
 
 					console.log(document.current, data)
 			}
 		}
+
+		const subscription = watch(values => {
+			const payload = {
+				...document.current,
+				values: {
+					...document.current?.values,
+					...values,
+				},
+			}
+
+			message('save', payload)
+		})
 
 		window.addEventListener('message', messageListener)
 
@@ -41,12 +54,14 @@ function App() {
 
 		return () => {
 			window.removeEventListener('message', messageListener)
+			subscription.unsubscribe()
 		}
 	}, [])
 
 	return (
 		<div className='App'>
 			<header className='App-header'>
+				<input {...register('name')} />
 				<p className='App-logo'>{document.current?._id}</p>
 			</header>
 		</div>
