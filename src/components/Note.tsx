@@ -2,6 +2,7 @@ import Input from './Input'
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { TDocument } from '../interfaces'
+import TextArea from './Textarea'
 
 export interface INoteProps {
 	message: (message: string, data?: any) => void
@@ -35,11 +36,13 @@ export default function Note(props: INoteProps) {
 	useEffect(mount, [document, message, watch])
 
 	return (
-		<div>
-			Note
-			<br />
+		<div className='flex h-full flex-col'>
 			<Input placeholder='Name...' {...register('name')} />
-			<textarea placeholder='Note...' {...register('note')} />
+			<TextArea
+				className='mb-0 flex-1'
+				placeholder='Note...'
+				{...register('note')}
+			/>
 		</div>
 	)
 }

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Character from './components/Character'
-import Note from './components/Notes'
+import Note from './components/Note'
 import Scene from './components/Scene'
 import { TDocument } from './interfaces'
 
 const testDocument = {
 	_id: 'test',
-	type: 'character',
+	type: 'note',
 	access: [],
 	creator: 'test',
 	values: {
@@ -19,7 +19,7 @@ const testDocument = {
 function App() {
 	// const document = useRef<TDocument>()
 	// const documents = useRef<TDocument[]>()
-	const [document, setDocument] = useState<TDocument>()
+	const [document, setDocument] = useState<TDocument>(testDocument)
 	const [documents, setDocuments] = useState<TDocument[]>([])
 
 	const message = (message: string, data?: any) => {
@@ -68,8 +68,6 @@ function App() {
 
 	return (
 		<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
-			{document?.type}
-
 			{document?.type === 'character' && (
 				<Character
 					message={message}
