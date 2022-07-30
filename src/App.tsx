@@ -71,6 +71,8 @@ function App() {
 
 	return (
 		<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
+			{document.current?.type}
+
 			{document.current?.type === 'character' && (
 				<Character
 					message={message}
