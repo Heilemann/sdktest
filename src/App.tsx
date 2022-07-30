@@ -32,7 +32,7 @@ function App() {
 
 					console.log('documents', documents.current)
 
-					document.current = data.documents?.(
+					document.current = data.documents?.find(
 						(d: TDocument) => d._id === documentId,
 					)
 
