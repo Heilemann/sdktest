@@ -17,7 +17,7 @@ const testDocument = {
 }
 
 function App() {
-	const document = useRef<TDocument>(testDocument)
+	const document = useRef<TDocument>()
 	const documents = useRef<TDocument[]>()
 
 	const message = (message: string, data?: any) => {
