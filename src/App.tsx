@@ -62,7 +62,7 @@ function App() {
 		return () => {
 			window.removeEventListener('message', messageListener)
 		}
-	}, [document, documents])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	console.log('system document', document)
 
