@@ -1,39 +1,19 @@
+import { useContext } from 'react'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
+import context from './context'
 import Input from './Input'
-import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
-import { TDocument } from '../interfaces'
 import TextArea from './Textarea'
 
 export interface INoteProps {
-	message: (message: string, data?: any) => void
-	document: TDocument
-	documents: TDocument[]
+	register: UseFormRegister<FieldValues>
 }
 
 export default function Note(props: INoteProps) {
-	const { message, document } = props
-	const { register, watch } = useForm()
+	const { state } = useContext(context)
+	const { document } = state
+	const { register } = props
 
-	const mount = () => {
-		const subscription = watch(values => {
-			const payload = {
-				...document,
-				values: {
-					...document.values,
-					...values,
-				},
-			}
-
-			message('save', payload)
-		})
-
-		// unmount
-		return () => {
-			subscription.unsubscribe()
-		}
-	}
-
-	useEffect(mount, [document, message, watch])
+	if (!document?.values) return null
 
 	return (
 		<div className='flex h-full flex-col'>
@@ -43,7 +23,7 @@ export default function Note(props: INoteProps) {
 				{...register('name')}
 			/>
 			<TextArea
-				className='mb-0 flex-1'
+				className='mb-0 flex-1 resize-none'
 				placeholder='Note...'
 				defaultValue={document.values.note}
 				{...register('note')}

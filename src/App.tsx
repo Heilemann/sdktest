@@ -1,31 +1,54 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer } from 'react'
+import { useForm } from 'react-hook-form'
 import './App.css'
 import Character from './components/Character'
+import Context from './components/context'
 import Note from './components/Note'
+import Reducer from './components/reducer'
 import Scene from './components/Scene'
 import { TDocument } from './interfaces'
 
-const testDocument = {
-	_id: 'test',
-	type: 'note',
-	access: [],
-	creator: 'test',
-	values: {
-		name: 'Test',
-		age: '42',
-	},
-}
-
 function App() {
-	// const document = useRef<TDocument>()
-	// const documents = useRef<TDocument[]>()
-	const [document, setDocument] = useState<TDocument>(testDocument)
-	const [documents, setDocuments] = useState<TDocument[]>([])
+	const [state, dispatch] = useReducer(Reducer, {
+		document: {
+			_id: '',
+			creator: '',
+			access: [],
+			type: 'scene',
+			values: {
+				name: '',
+				note: '',
+			},
+		},
+		documents: [],
+		assets: [],
+	})
+	const { register, watch } = useForm()
+	const { document } = state
+
+	const changeHandler = () => {
+		const subscription = watch(values => {
+			if (!document || !values) return
+
+			const payload = {
+				...document,
+				values: {
+					...document.values,
+					...values,
+				},
+			}
+
+			message('save', payload)
+		})
+
+		return () => {
+			subscription.unsubscribe()
+		}
+	}
+	useEffect(changeHandler, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const message = (message: string, data?: any) => {
 		const parent = window.parent
-
-		console.log('sending message:', message, data)
 
 		parent.postMessage({
 			source: 'System',
@@ -35,7 +58,6 @@ function App() {
 	}
 
 	useEffect(() => {
-		// listen
 		const messageListener = ({ data: payload }: any) => {
 			const { message, source, data } = payload
 
@@ -44,13 +66,17 @@ function App() {
 				case 'load':
 					const { documentId } = data
 
-					// documents.current = data.documents as TDocument[]
-					setDocuments(data.documents as TDocument[])
+					const payload = {
+						...data,
+						document: data.documents?.find(
+							(d: TDocument) => d._id === documentId,
+						),
+					}
 
-					const d = data.documents?.find((d: TDocument) => d._id === documentId)
-					setDocument(d)
-
-					console.log('loaded document:', document, documentId, documents)
+					dispatch({
+						type: 'LOAD',
+						payload,
+					})
 			}
 		}
 
@@ -64,34 +90,18 @@ function App() {
 		}
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-	console.log('system document', document)
-
 	return (
-		<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
-			{document?.type === 'character' && (
-				<Character
-					message={message}
-					document={document}
-					documents={documents || []}
-				/>
-			)}
+		<Context.Provider value={{ state, dispatch }}>
+			<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
+				{document?.type === 'character' && <Character register={register} />}
 
-			{document?.type === 'note' && (
-				<Note
-					message={message}
-					document={document}
-					documents={documents || []}
-				/>
-			)}
+				{document?.type === 'note' && <Note register={register} />}
 
-			{document?.type === 'scene' && (
-				<Scene
-					message={message}
-					document={document}
-					documents={documents || []}
-				/>
-			)}
-		</div>
+				{document?.type === 'scene' && (
+					<Scene register={register} message={message} />
+				)}
+			</div>
+		</Context.Provider>
 	)
 }
 

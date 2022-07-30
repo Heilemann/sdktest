@@ -1,44 +1,41 @@
+import { useContext } from 'react'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
+import context from './context'
 import Input from './Input'
-import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
-import { TDocument } from '../interfaces'
 
 export interface ISceneProps {
+	register: UseFormRegister<FieldValues>
 	message: (message: string, data?: any) => void
-	document: TDocument
-	documents: TDocument[]
 }
 
 export default function Scene(props: ISceneProps) {
-	const { message, document } = props
-	const { register, watch } = useForm()
+	const { register, message } = props
+	const { state } = useContext(context)
+	const { document } = state
 
-	const mount = () => {
-		const subscription = watch(values => {
-			const payload = {
-				...document,
-				values: {
-					...document.values,
-					...values,
-				},
-			}
+	if (!document?.values) return null
 
-			message('save', payload)
-		})
-
-		// unmount
-		return () => {
-			subscription.unsubscribe()
-		}
+	const handleUpload = (name: string) => {
+		message('onUpload', name)
 	}
-
-	useEffect(mount, [document, message, watch])
 
 	return (
 		<div>
 			Scene
 			<br />
 			<Input placeholder='Name...' {...register('name')} />
+			<button
+				className='mr-2 mt-2 rounded-lg bg-gray-800 p-2'
+				onClick={() => handleUpload('mapId')}
+			>
+				Upload Map
+			</button>
+			<button
+				className='mr-2 mt-2 rounded-lg bg-gray-800 p-2'
+				onClick={() => handleUpload('coverId')}
+			>
+				Upload Cover
+			</button>
 		</div>
 	)
 }

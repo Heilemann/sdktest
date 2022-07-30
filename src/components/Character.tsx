@@ -1,40 +1,16 @@
+import { useContext } from 'react'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
+import context from './context'
 import Input from './Input'
-import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
-import { TDocument } from '../interfaces'
 
 export interface ICharacterProps {
-	message: (message: string, data?: any) => void
-	document: TDocument
-	documents: TDocument[]
+	register: UseFormRegister<FieldValues>
 }
 
 export default function Character(props: ICharacterProps) {
-	const { message, document } = props
-	const { register, watch } = useForm()
-
-	const mount = () => {
-		const subscription = watch(values => {
-			console.log('values', values)
-
-			const payload = {
-				...document,
-				values: {
-					...document.values,
-					...values,
-				},
-			}
-
-			message('save', payload)
-		})
-
-		// unmount
-		return () => {
-			subscription.unsubscribe()
-		}
-	}
-
-	useEffect(mount, [document, message, watch])
+	const { register } = props
+	const { state } = useContext(context)
+	const { document } = state
 
 	return (
 		<div>
