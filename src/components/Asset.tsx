@@ -16,11 +16,12 @@ const Asset: FC<AssetProps> = ({
 	messageToParent,
 	className,
 }) => {
-	const { state, dispatch } = useContext(context)
+	const { state } = useContext(context)
 	const { assets, document } = state
-	const { assetId } = document.values
-
+	const assetId = document.values[name]
 	const asset = assets.find((asset: TAsset) => asset._id === assetId)
+
+	console.log('asset', name, assetId)
 
 	// should move this to a context
 	let parentOrigin = ''
@@ -38,7 +39,6 @@ const Asset: FC<AssetProps> = ({
 
 	const handleRemoveAsset = () => {
 		setValue(name, '')
-		// onRemove()
 		messageToParent('onRemoveAsset', { assetId })
 	}
 
