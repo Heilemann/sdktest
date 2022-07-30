@@ -1,15 +1,29 @@
 import { useEffect, useRef } from 'react'
-import { useForm } from 'react-hook-form'
 import './App.css'
+import Character from './components/Character'
+import Note from './components/Notes'
+import Scene from './components/Scene'
 import { TDocument } from './interfaces'
 
+const testDocument = {
+	_id: 'test',
+	type: 'character',
+	access: [],
+	creator: 'test',
+	values: {
+		name: 'Test',
+		age: '42',
+	},
+}
+
 function App() {
-	const { register, watch } = useForm()
-	const document = useRef<TDocument>()
+	const document = useRef<TDocument>(testDocument)
 	const documents = useRef<TDocument[]>()
 
 	const message = (message: string, data?: any) => {
 		const parent = window.parent
+
+		console.log('sending message:', message, data)
 
 		parent.postMessage({
 			source: 'System',
@@ -24,37 +38,17 @@ function App() {
 			const { message, source, data } = payload
 
 			switch (message) {
+				// aux server is sending us our data
 				case 'load':
-					console.log('system is loading')
 					const { documentId } = data
 
 					documents.current = data.documents as TDocument[]
 
-					console.log('documents', documents.current)
-
 					document.current = data.documents?.find(
 						(d: TDocument) => d._id === documentId,
 					)
-
-					console.log('document', document.current)
-
-					console.log('system loaded', document.current)
 			}
 		}
-
-		const subscription = watch(values => {
-			const payload = {
-				...document.current,
-				values: {
-					...document.current?.values,
-					...values,
-				},
-			}
-
-			console.log('system saving document', payload)
-
-			message('save', payload)
-		})
 
 		window.addEventListener('message', messageListener)
 
@@ -63,16 +57,34 @@ function App() {
 
 		return () => {
 			window.removeEventListener('message', messageListener)
-			subscription.unsubscribe()
 		}
 	}, [])
 
 	return (
-		<div className='App'>
-			<header className='App-header'>
-				<input {...register('name')} />
-				<p className='App-logo'>{document.current?._id}</p>
-			</header>
+		<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
+			{document.current?.type === 'character' && (
+				<Character
+					message={message}
+					document={document.current}
+					documents={documents.current || []}
+				/>
+			)}
+
+			{document.current?.type === 'note' && (
+				<Note
+					message={message}
+					document={document.current}
+					documents={documents.current || []}
+				/>
+			)}
+
+			{document.current?.type === 'scene' && (
+				<Scene
+					message={message}
+					document={document.current}
+					documents={documents.current || []}
+				/>
+			)}
 		</div>
 	)
 }
