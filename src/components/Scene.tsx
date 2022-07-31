@@ -97,27 +97,29 @@ export default function Scene(props: ISceneProps) {
       </div>
 
       <div className="flex space-x-2">
-        <Label className="w-32 self-center" htmlFor="mapId">
-          Map
-        </Label>
-        <Asset
-          name="mapId"
-          setValue={setValue}
-          messageToParent={messageToApp}
-          style={{ maxWidth: "200px" }}
-        />
-      </div>
+        <div className="flex flex-1 flex-col space-y-2">
+          <Label className="mt-2 w-32" htmlFor="mapId">
+            Map
+          </Label>
+          <Asset
+            name="mapId"
+            setValue={setValue}
+            messageToParent={messageToApp}
+            style={{ maxWidth: "200px" }}
+          />
+        </div>
 
-      <div className="flex space-x-2">
-        <Label className="w-32 self-center" htmlFor="coverId">
-          Cover
-        </Label>
-        <Asset
-          name="coverId"
-          setValue={setValue}
-          messageToParent={messageToApp}
-          style={{ maxWidth: "200px" }}
-        />
+        <div className="flex flex-1 flex-col space-y-2">
+          <Label className="mt-2 w-32" htmlFor="coverId">
+            Cover
+          </Label>
+          <Asset
+            name="coverId"
+            setValue={setValue}
+            messageToParent={messageToApp}
+            style={{ maxWidth: "200px" }}
+          />
+        </div>
       </div>
 
       <SectionDivider className="mt-4">Grid</SectionDivider>
