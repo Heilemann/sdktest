@@ -65,7 +65,11 @@ function App() {
 
 	useEffect(() => {
 		const messageListener = ({ data: payload }: any) => {
-			const { message, source, data } = payload
+			const {
+				message,
+				// source,
+				data,
+			} = payload
 
 			switch (message) {
 				// aux server is sending us our data

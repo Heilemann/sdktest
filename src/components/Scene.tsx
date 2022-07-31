@@ -81,6 +81,7 @@ export default function Scene(props: ISceneProps) {
             type="radio"
             id="coverRadio"
             value="false"
+            defaultChecked={!values.showMap}
             {...register("showMap")}
           />
 
@@ -89,6 +90,7 @@ export default function Scene(props: ISceneProps) {
             type="radio"
             id="mapRadio"
             value="true"
+            defaultChecked={values.showMap}
             {...register("showMap")}
           />
         </div>
@@ -119,6 +121,52 @@ export default function Scene(props: ISceneProps) {
       </div>
 
       <SectionDivider className="mt-4">Grid</SectionDivider>
+
+      <div className="flex space-x-2">
+        <div className="flex-1">
+          <Label className="w-32 self-center" htmlFor="grid.size">
+            Size
+          </Label>
+          <Input type="number" {...register("grid.size")} placeholder="10..." />
+        </div>
+
+        <div className="flex-1">
+          <Label className="w-32 self-center" htmlFor="grid.x">
+            X
+          </Label>
+          <Input type="number" {...register("grid.x")} placeholder="0..." />
+        </div>
+
+        <div className="flex-1">
+          <Label className="w-32 self-center" htmlFor="grid.y">
+            Y
+          </Label>
+          <Input type="number" {...register("grid.y")} placeholder="0..." />
+        </div>
+
+        <div className="flex-1">
+          <Label className="w-32 self-center" htmlFor="grid.color">
+            Color
+          </Label>
+          <div
+            className="rounded-lg"
+            style={{ background: values.grid ? values.grid["color"] : "white" }}
+          >
+            <Input
+              type="color"
+              {...register("grid.color")}
+              className="h-9 w-full p-0 opacity-0"
+            />
+          </div>
+        </div>
+
+        <div className="flex-1">
+          <Label className="w-32 self-center" htmlFor="grid.alpha">
+            Alpha
+          </Label>
+          <Input type="number" {...register("grid.alpha")} placeholder="1..." />
+        </div>
+      </div>
     </div>
   );
 }
