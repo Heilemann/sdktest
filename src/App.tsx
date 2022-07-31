@@ -13,7 +13,7 @@ const initialData = {
 		_id: '',
 		creator: '',
 		access: [],
-		type: '',
+		type: 'scene',
 		values: {},
 	},
 	documents: [],
@@ -39,8 +39,6 @@ function App() {
 	const changeHandler = () => {
 		const subscription = watch(values => {
 			if (!document || !values) return
-
-			debugger
 
 			const payload = {
 				...document,

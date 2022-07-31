@@ -1,62 +1,123 @@
-import { useContext } from 'react'
-import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import Asset from './Asset'
-import context from './context'
-import Input from './Input'
+import { useContext } from "react";
+import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import Asset from "./Asset";
+import Button from "./Button";
+import context from "./context";
+import Input from "./Input";
+import Label from "./Label";
+import SectionDivider from "./SectionDivider";
 
 export interface ISceneProps {
-	register: UseFormRegister<FieldValues>
-	setValue: UseFormSetValue<any>
-	messageToApp: (message: string, data?: any) => void
+  register: UseFormRegister<FieldValues>;
+  setValue: UseFormSetValue<any>;
+  messageToApp: (message: string, data?: any) => void;
 }
 
 export default function Scene(props: ISceneProps) {
-	const { register, setValue, messageToApp } = props
-	const { state } = useContext(context)
-	const { document } = state
+  const { register, setValue, messageToApp } = props;
+  const { state } = useContext(context);
+  const { document } = state;
+  const { values } = document;
 
-	if (!document?.values) return null
+  if (!document?.values) return null;
 
-	const handleUpload = (name: string) => {
-		messageToApp('onUpload', name)
-	}
+  const handleSetScene = () => {
+    messageToApp("setScene", {
+      sceneId: document._id,
+    });
+  };
 
-	const setScene = () => {
-		window.top!.postMessage(
-			{
-				source: 'Frame',
-				id: '123',
-				message: 'setScene',
-				data: messageToApp,
-			},
-			'http://localhost:3000',
-		)
-	}
+  return (
+    <div className="space-y-2">
+      <Button onClick={handleSetScene}>Set Scene</Button>
 
-	return (
-		<div>
-			Scene
-			<button onClick={setScene}>Set Scene</button>
-			<br />
-			<Input placeholder='Name...' {...register('name')} />
-			<Asset
-				name='mapId'
-				setValue={setValue}
-				// onRemove={() => setValue('mapId', '')}
-				messageToParent={messageToApp}
-			/>
-			<button
-				className='mr-2 mt-2 rounded-lg bg-gray-100 p-2 dark:bg-gray-800'
-				onClick={() => handleUpload('mapId')}
-			>
-				Upload Map
-			</button>
-			<button
-				className='mr-2 mt-2 rounded-lg bg-gray-100 p-2 dark:bg-gray-800'
-				onClick={() => handleUpload('coverId')}
-			>
-				Upload Cover
-			</button>
-		</div>
-	)
+      <br />
+
+      <SectionDivider className="mt-4">Information</SectionDivider>
+
+      <div className="flex space-x-2">
+        <Label className="w-32 self-center" htmlFor="name">
+          Name
+        </Label>
+        <Input
+          placeholder="Name..."
+          defaultValue={values.name}
+          {...register("name")}
+        />
+      </div>
+
+      <div className="flex space-x-2">
+        <Label className="w-32 self-center" htmlFor="name">
+          Subtitle
+        </Label>
+        <Input
+          placeholder="Subtitle..."
+          defaultValue={values.subtitle}
+          {...register("subtitle")}
+        />
+      </div>
+
+      <div className="flex justify-start space-x-2">
+        <Label className="w-32 self-center" htmlFor="name">
+          Secret
+        </Label>
+        <Input
+          type="checkbox"
+          defaultChecked={values.nameIsSecret}
+          {...register("nameIsSecret")}
+        />
+      </div>
+
+      <SectionDivider className="mt-4">Media</SectionDivider>
+
+      <div className="flex space-x-2">
+        <Label className="w-32 self-center" htmlFor="mapId">
+          Show
+        </Label>
+        <div>
+          <label htmlFor="coverRadio">Show Cover</label>
+          <input
+            type="radio"
+            id="coverRadio"
+            value="false"
+            {...register("showMap")}
+          />
+
+          <label htmlFor="mapRadio">Show Map</label>
+          <input
+            type="radio"
+            id="mapRadio"
+            value="true"
+            {...register("showMap")}
+          />
+        </div>
+      </div>
+
+      <div className="flex space-x-2">
+        <Label className="w-32 self-center" htmlFor="mapId">
+          Map
+        </Label>
+        <Asset
+          name="mapId"
+          setValue={setValue}
+          messageToParent={messageToApp}
+          style={{ maxWidth: "200px" }}
+        />
+      </div>
+
+      <div className="flex space-x-2">
+        <Label className="w-32 self-center" htmlFor="coverId">
+          Cover
+        </Label>
+        <Asset
+          name="coverId"
+          setValue={setValue}
+          messageToParent={messageToApp}
+          style={{ maxWidth: "200px" }}
+        />
+      </div>
+
+      <SectionDivider className="mt-4">Grid</SectionDivider>
+    </div>
+  );
 }
