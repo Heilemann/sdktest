@@ -31,9 +31,9 @@ const inlineScriptsAndCSS = () => {
 				}),
 			)
 			// inline js and css
-			.pipe(replace('.js"></script>', '.js" inline></script>'))
-			.pipe(replace('rel="stylesheet">', 'rel="stylesheet" inline>'))
-			.pipe(inlinesource())
+			// .pipe(replace('.js"></script>', '.js" inline></script>'))
+			// .pipe(replace('rel="stylesheet">', 'rel="stylesheet" inline>'))
+			// .pipe(inlinesource())
 			.pipe(dest('./dist'))
 	)
 }
