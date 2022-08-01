@@ -13,7 +13,7 @@ const initialData = {
 		_id: '',
 		creator: '',
 		access: [],
-		type: 'character',
+		type: 'scene',
 		values: {},
 	},
 	documents: [],
