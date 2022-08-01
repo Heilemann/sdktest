@@ -37,6 +37,7 @@ export default function Character(props: ICharacterProps) {
 						<Input
 							className='flex-1'
 							placeholder='Name...'
+							defaultValue={values.name}
 							{...register('name')}
 						/>
 					</div>
@@ -48,6 +49,7 @@ export default function Character(props: ICharacterProps) {
 						<Input
 							className='flex-1'
 							placeholder='Occupation...'
+							defaultValue={values.occupation}
 							{...register('occupation')}
 						/>
 					</div>
@@ -60,6 +62,7 @@ export default function Character(props: ICharacterProps) {
 							<Input
 								className='flex-1'
 								placeholder='Gender...'
+								defaultValue={values.gender}
 								{...register('gender')}
 							/>
 						</div>
@@ -71,6 +74,7 @@ export default function Character(props: ICharacterProps) {
 							<Input
 								className='flex-1'
 								placeholder='Age...'
+								defaultValue={values.age}
 								{...register('age')}
 							/>
 						</div>
