@@ -29,7 +29,7 @@ export default function Character(props: ICharacterProps) {
 					}}
 				/>
 
-				<div className='flex-1 flex-col space-y-2 self-center'>
+				<div className='flex-1 flex-col space-y-2'>
 					<div className='flex space-x-2'>
 						<Label className='flex-0 w-32 self-center' htmlFor='name'>
 							Name
@@ -80,51 +80,47 @@ export default function Character(props: ICharacterProps) {
 
 			<SectionDivider>Abilities</SectionDivider>
 			<div className='flex space-x-2'>
-				<div className='space-y-1'>
-					<Characteristic
-						label='STR'
-						value={values.strength}
-						{...register('strength')}
-					/>
-					<Characteristic
-						label='APP'
-						value={values.appearance}
-						{...register('appearance')}
-					/>
-					<Characteristic
-						label='CON'
-						value={values.constitution}
-						{...register('constitution')}
-					/>
-					<Characteristic
-						label='INT'
-						value={values.intelligence}
-						{...register('intelligence')}
-					/>
-				</div>
+				{/* <div className='space-y-1'> */}
+				<Characteristic
+					label='STR'
+					value={values.strength}
+					{...register('strength')}
+				/>
+				<Characteristic
+					label='APP'
+					value={values.appearance}
+					{...register('appearance')}
+				/>
+				<Characteristic
+					label='CON'
+					value={values.constitution}
+					{...register('constitution')}
+				/>
+				<Characteristic
+					label='INT'
+					value={values.intelligence}
+					{...register('intelligence')}
+				/>
+				{/* </div>
 
-				<div className='space-y-1'>
-					<Characteristic
-						label='SIZ'
-						value={values.size}
-						{...register('size')}
-					/>
-					<Characteristic
-						label='POW'
-						value={values.power}
-						{...register('power')}
-					/>
-					<Characteristic
-						label='DEX'
-						value={values.dexterity}
-						{...register('dexterity')}
-					/>
-					<Characteristic
-						label='EDU'
-						value={values.education}
-						{...register('education')}
-					/>
-				</div>
+				<div className='space-y-1'> */}
+				<Characteristic label='SIZ' value={values.size} {...register('size')} />
+				<Characteristic
+					label='POW'
+					value={values.power}
+					{...register('power')}
+				/>
+				<Characteristic
+					label='DEX'
+					value={values.dexterity}
+					{...register('dexterity')}
+				/>
+				<Characteristic
+					label='EDU'
+					value={values.education}
+					{...register('education')}
+				/>
+				{/* </div> */}
 			</div>
 			<SectionDivider>Skills</SectionDivider>
 		</div>
