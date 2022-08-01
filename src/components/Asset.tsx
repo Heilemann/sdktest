@@ -1,5 +1,6 @@
 import { FC, useContext } from "react";
 import { UseFormSetValue } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
 import { TAsset } from "../interfaces";
 import Button from "./Button";
 import context from "./context";
@@ -47,7 +48,7 @@ const Asset: FC<AssetProps> = (props) => {
   // TODO: Other file types
   // TODO: alt text
   return (
-    <div className={className} style={style}>
+    <div className={twMerge("space-y-2", className)} style={style}>
       {asset.filetype.includes("image") && (
         <img
           alt="wonderful"
