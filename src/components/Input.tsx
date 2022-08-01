@@ -13,6 +13,7 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
 				'w-full rounded-lg bg-gray-100 p-2 dark:bg-gray-800',
 				props.className,
 			)}
+			spellCheck={props.spellCheck ? props.spellCheck : false}
 			{...rest}
 		/>
 	)
