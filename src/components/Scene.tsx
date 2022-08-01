@@ -33,9 +33,9 @@ export default function Scene(props: ISceneProps) {
 
   return (
     <div className="space-y-2">
-      <Button onClick={handleSetScene}>Set Scene</Button>
-
-      <br />
+      <Button onClick={handleSetScene} className="w-full">
+        Set Scene
+      </Button>
 
       <SectionDivider className="mt-4">Information</SectionDivider>
 
