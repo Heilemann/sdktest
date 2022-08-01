@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import context from './context'
 import Input from './Input'
+import Label from './Label'
 import TextArea from './Textarea'
 
 export interface INoteProps {
@@ -11,6 +12,7 @@ export interface INoteProps {
 export default function Note(props: INoteProps) {
 	const { state } = useContext(context)
 	const { document } = state
+	const { values } = document
 	const { register } = props
 
 	if (!document?.values) return null
@@ -18,14 +20,16 @@ export default function Note(props: INoteProps) {
 	console.log('note values', document.values)
 
 	return (
-		<div className='flex h-full flex-col'>
+		<div className='mx-auto flex h-full flex-col'>
 			<Input
 				placeholder='Name...'
-				defaultValue={document.values.name}
+				defaultValue={values.name}
 				{...register('name')}
 			/>
+
+			<Label className='mb-1 mt-1' htmlFor='name'></Label>
 			<TextArea
-				className='mb-0 flex-1 resize-none'
+				className='m-0 flex-1 resize-none'
 				placeholder='Note...'
 				defaultValue={document.values.note}
 				{...register('note')}
