@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
 import Asset from "./Asset";
 import Button from "./Button";
 import context from "./context";
@@ -27,6 +28,8 @@ export default function Scene(props: ISceneProps) {
       sceneId: document._id,
     });
   };
+
+  const hasMapAndCover = values?.mapId && values?.coverId;
 
   return (
     <div className="space-y-2">
@@ -71,30 +74,50 @@ export default function Scene(props: ISceneProps) {
 
       <SectionDivider className="mt-4">Media</SectionDivider>
 
-      <div className="flex space-x-2">
-        <Label className="w-32 self-center" htmlFor="mapId">
-          Show
-        </Label>
-        <div>
-          <label htmlFor="coverRadio">Show Cover</label>
-          <input
-            type="radio"
-            id="coverRadio"
-            value="false"
-            defaultChecked={!values.showMap}
-            {...register("showMap")}
-          />
+      {hasMapAndCover && (
+        <div className="flex space-x-2">
+          <Label className="w-32 self-center" htmlFor="mapId">
+            Show
+          </Label>
+          <div className="p flex w-full rounded-lg dark:bg-gray-800">
+            <label
+              htmlFor="coverRadio"
+              className={twMerge(
+                "flex-1 rounded-lg p-2 text-center",
+                !values.showMap && "bg-gray-700"
+              )}
+            >
+              Cover
+            </label>
+            <input
+              type="radio"
+              id="coverRadio"
+              value="false"
+              className="hidden"
+              defaultChecked={!values.showMap}
+              {...register("showMap")}
+            />
 
-          <label htmlFor="mapRadio">Show Map</label>
-          <input
-            type="radio"
-            id="mapRadio"
-            value="true"
-            defaultChecked={values.showMap}
-            {...register("showMap")}
-          />
+            <label
+              htmlFor="mapRadio"
+              className={twMerge(
+                "flex-1 rounded-lg p-2 text-center",
+                values.showMap && "bg-gray-700"
+              )}
+            >
+              Map
+            </label>
+            <input
+              type="radio"
+              id="mapRadio"
+              value="true"
+              className="hidden"
+              defaultChecked={values.showMap || values.showMap === undefined}
+              {...register("showMap")}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex space-x-2">
         <div className="flex flex-1 flex-col space-y-2">

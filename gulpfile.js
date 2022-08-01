@@ -22,6 +22,7 @@ const inlineScriptsAndCSS = () => {
 	return (
 		src('./build/*.html')
 			// move <script> to end of file, as defer won't work with inline scripts
+			// TODO: This is broken, it duplicates code, but it sort of works for now
 			.pipe(
 				replace(regex, function replace(match, offset, string) {
 					const newString = string
@@ -31,9 +32,9 @@ const inlineScriptsAndCSS = () => {
 				}),
 			)
 			// inline js and css
-			// .pipe(replace('.js"></script>', '.js" inline></script>'))
-			// .pipe(replace('rel="stylesheet">', 'rel="stylesheet" inline>'))
-			// .pipe(inlinesource())
+			.pipe(replace('.js"></script>', '.js" inline></script>'))
+			.pipe(replace('rel="stylesheet">', 'rel="stylesheet" inline>'))
+			.pipe(inlinesource())
 			.pipe(dest('./dist'))
 	)
 }
