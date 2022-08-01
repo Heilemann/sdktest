@@ -31,7 +31,7 @@ export default function Note(props: INoteProps) {
 			<TextArea
 				className='m-0 flex-1 resize-none'
 				placeholder='Note...'
-				defaultValue={document.values.note}
+				defaultValue={values.note}
 				{...register('note')}
 			/>
 		</div>
