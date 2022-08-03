@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import './App.css'
 import Character from './components/Character'
 import Context from './components/context'
+import DevToolbar from './components/DevToolbar'
 import Note from './components/Note'
 import Reducer from './components/reducer'
 import Scene from './components/Scene'
@@ -116,16 +117,19 @@ function App() {
 
 	return (
 		<Context.Provider value={{ state, dispatch }}>
-			<div className='h-full bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
-				{type === 'character' && <Character register={register} />}
-				{type === 'note' && <Note register={register} />}
-				{type === 'scene' && (
-					<Scene
-						register={register}
-						setValue={setValue}
-						messageToApp={messageToApp}
-					/>
-				)}
+			<div className='flex h-full flex-col bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
+				{process.env.NODE_ENV === 'development' && <DevToolbar />}
+				<div className='flex-1'>
+					{type === 'character' && <Character register={register} />}
+					{type === 'note' && <Note register={register} />}
+					{type === 'scene' && (
+						<Scene
+							register={register}
+							setValue={setValue}
+							messageToApp={messageToApp}
+						/>
+					)}
+				</div>
 			</div>
 		</Context.Provider>
 	)

@@ -26,7 +26,6 @@ export default function Note(props: INoteProps) {
 				defaultValue={values.name}
 				{...register('name')}
 			/>
-
 			<Label className='mb-1 mt-1' htmlFor='name'></Label>
 			<TextArea
 				className='m-0 flex-1 resize-none'

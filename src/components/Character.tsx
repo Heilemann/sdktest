@@ -1,10 +1,13 @@
 import { useContext } from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
-import Characteristic from './Characteristic'
+import BasicInfo from './BasicInfo'
+import Characteristics from './Characteristics'
+import Combat from './Combat'
 import context from './context'
 import Input from './Input'
 import Label from './Label'
 import SectionDivider from './SectionDivider'
+import SkillsList from './Skills'
 // import logo from "../assets/coclogo.png";
 
 export interface ICharacterProps {
@@ -30,103 +33,18 @@ export default function Character(props: ICharacterProps) {
 				/>
 
 				<div className='flex-1 flex-col space-y-2'>
-					<div className='flex space-x-2'>
-						<Label className='flex-0 w-32 self-center' htmlFor='name'>
-							Name
-						</Label>
-						<Input
-							className='flex-1'
-							placeholder='Name...'
-							defaultValue={values.name}
-							{...register('name')}
-						/>
-					</div>
-
-					<div className='flex space-x-2'>
-						<Label className='flex-0 w-32 self-center' htmlFor='occupation'>
-							Occupation
-						</Label>
-						<Input
-							className='flex-1'
-							placeholder='Occupation...'
-							defaultValue={values.occupation}
-							{...register('occupation')}
-						/>
-					</div>
-
-					<div className='flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0'>
-						<div className='flex space-x-2'>
-							<Label className='flex-0 w-32 self-center' htmlFor='gender'>
-								Gender
-							</Label>
-							<Input
-								className='flex-1'
-								placeholder='Gender...'
-								defaultValue={values.gender}
-								{...register('gender')}
-							/>
-						</div>
-
-						<div className='flex space-x-2'>
-							<Label className='flex-0 w-32 self-center md:w-10' htmlFor='age'>
-								Age
-							</Label>
-							<Input
-								className='flex-1'
-								placeholder='Age...'
-								defaultValue={values.age}
-								{...register('age')}
-							/>
-						</div>
-					</div>
+					<BasicInfo register={register} />
 				</div>
 			</div>
 
 			<SectionDivider>Abilities</SectionDivider>
-			<div className='flex space-x-2'>
-				{/* <div className='space-y-1'> */}
-				<Characteristic
-					label='STR'
-					value={values.strength}
-					{...register('strength')}
-				/>
-				<Characteristic
-					label='APP'
-					value={values.appearance}
-					{...register('appearance')}
-				/>
-				<Characteristic
-					label='CON'
-					value={values.constitution}
-					{...register('constitution')}
-				/>
-				<Characteristic
-					label='INT'
-					value={values.intelligence}
-					{...register('intelligence')}
-				/>
-				{/* </div>
+			<Characteristics register={register} />
 
-				<div className='space-y-1'> */}
-				<Characteristic label='SIZ' value={values.size} {...register('size')} />
-				<Characteristic
-					label='POW'
-					value={values.power}
-					{...register('power')}
-				/>
-				<Characteristic
-					label='DEX'
-					value={values.dexterity}
-					{...register('dexterity')}
-				/>
-				<Characteristic
-					label='EDU'
-					value={values.education}
-					{...register('education')}
-				/>
-				{/* </div> */}
-			</div>
 			<SectionDivider>Skills</SectionDivider>
+			<SkillsList register={register} />
+
+			<SectionDivider>Combat</SectionDivider>
+			<Combat register={register} />
 		</div>
 	)
 }
