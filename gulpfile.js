@@ -47,9 +47,4 @@ const renameAssetsPaths = () => {
 // 	watch('build/*.[html, js, css]', inlineScripts)
 // }
 
-exports.default = series(
-	// inlineImages,
-	cleanUp,
-	inlineScriptsAndCSS,
-	renameAssetsPaths,
-)
+exports.default = series(cleanUp, inlineScriptsAndCSS, renameAssetsPaths)
