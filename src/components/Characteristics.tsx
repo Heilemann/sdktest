@@ -17,42 +17,42 @@ export default function Characteristics(props: ICharacteristicsProps) {
 		<div className='-mx-1 grid grid-cols-5 sm:-mx-2 md:grid-cols-10'>
 			<Characteristic
 				label='STR'
-				value={values.characteristics.strength}
+				value={values.characteristics?.strength}
 				{...register('characteristics.strength')}
 			/>
 			<Characteristic
 				label='DEX'
-				value={values.characteristics.dexterity}
+				value={values.characteristics?.dexterity}
 				{...register('characteristics.dexterity')}
 			/>
 			<Characteristic
 				label='INT'
-				value={values.characteristics.intelligence}
+				value={values.characteristics?.intelligence}
 				{...register('characteristics.intelligence')}
 			/>
 			<Characteristic
 				label='CON'
-				value={values.characteristics.constitution}
+				value={values.characteristics?.constitution}
 				{...register('characteristics.constitution')}
 			/>
 			<Characteristic
 				label='APP'
-				value={values.characteristics.appearance}
+				value={values.characteristics?.appearance}
 				{...register('characteristics.appearance')}
 			/>
 			<Characteristic
 				label='POW'
-				value={values.characteristics.power}
+				value={values.characteristics?.power}
 				{...register('characteristics.power')}
 			/>
 			<Characteristic
 				label='SIZ'
-				value={values.characteristics.size}
+				value={values.characteristics?.size}
 				{...register('characteristics.size')}
 			/>
 			<Characteristic
 				label='EDU'
-				value={values.characteristics.education}
+				value={values.characteristics?.education}
 				{...register('characteristics.education')}
 			/>
 			<Characteristic label='Luck' value={values.luck} {...register('luck')} />{' '}
