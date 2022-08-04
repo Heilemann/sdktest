@@ -45,7 +45,7 @@ function App() {
 	return (
 		<Context.Provider value={{ state, dispatch }}>
 			{isDevelopment && <DevToolbar />}
-			{/* <Container /> */}
+			<Container />
 		</Context.Provider>
 	)
 }
