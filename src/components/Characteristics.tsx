@@ -14,7 +14,7 @@ export default function Characteristics(props: ICharacteristicsProps) {
 	const { values } = document
 
 	return (
-		<div className='flex space-x-2'>
+		<div className='-mx-1 grid grid-cols-5 sm:-mx-2 md:grid-cols-10'>
 			<Characteristic
 				label='STR'
 				value={values.strength}
@@ -49,7 +49,7 @@ export default function Characteristics(props: ICharacteristicsProps) {
 			/>
 			<Characteristic label='Luck' value={values.luck} {...register('luck')} />{' '}
 			<Characteristic
-				label='Magic Points'
+				label='Magic'
 				value={values.magicpoints}
 				{...register('magicpoints')}
 			/>

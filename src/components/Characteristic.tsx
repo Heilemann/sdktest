@@ -11,6 +11,7 @@ export default function Characteristic(props: ICharacteristicProps) {
 
 	return (
 		<VInput
+			className='mx-1 sm:mx-2'
 			label={label}
 			defaultValue={value}
 			placeholder='&mdash;'

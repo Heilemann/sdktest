@@ -1,14 +1,9 @@
-import { useContext } from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 import BasicInfo from './BasicInfo'
 import Characteristics from './Characteristics'
 import Combat from './Combat'
-import context from './context'
-import Input from './Input'
-import Label from './Label'
 import SectionDivider from './SectionDivider'
 import SkillsList from './Skills'
-// import logo from "../assets/coclogo.png";
 
 export interface ICharacterProps {
 	register: UseFormRegister<FieldValues>
@@ -16,9 +11,6 @@ export interface ICharacterProps {
 
 export default function Character(props: ICharacterProps) {
 	const { register } = props
-	const { state } = useContext(context)
-	const { document } = state
-	const { values } = document
 
 	return (
 		<div className='space-y-2'>
@@ -37,7 +29,7 @@ export default function Character(props: ICharacterProps) {
 				</div>
 			</div>
 
-			<SectionDivider>Abilities</SectionDivider>
+			<SectionDivider>Characteristics</SectionDivider>
 			<Characteristics register={register} />
 
 			<SectionDivider>Skills</SectionDivider>

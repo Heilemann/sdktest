@@ -1,7 +1,9 @@
 import { useContext } from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { twMerge } from 'tailwind-merge'
 import context from './context'
 import Input from './Input'
+import Label from './Label'
 
 export interface ISkillsListProps {
 	register: UseFormRegister<FieldValues>
@@ -207,30 +209,29 @@ export default function SkillsList(props: ISkillsListProps) {
 	]
 
 	return (
-		<div className='columns-3xs'>
+		<div className='-mx-4 grid grid-cols-none sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 			{skills.map(skill => {
 				return (
-					<div className='flex space-x-2 py-0.5'>
-						{skill.tickable !== false && (
-							<input
-								type='checkbox'
-								className='self-center'
-								checked={values[skill.name] > 0}
-							/>
-						)}
-						<span className='flex-1 self-center'>
+					<div className='mx-4 flex space-x-2 border-b border-gray-800 py-0.5'>
+						<input
+							type='checkbox'
+							className={twMerge(
+								'self-center',
+								skill.tickable === false && 'opacity-0',
+							)}
+							checked={values[skill.name] > 0}
+						/>
+						<Label className='flex-1 self-center' htmlFor='{skill.name}'>
 							{skill.name}
 							{/* {skill.addable && <span> (addable)</span>} */}
-						</span>
-						<div className='rounded-lg bg-gray-100 pr-2'>
-							<Input
-								className='w-8 py-1 pr-1 text-right'
-								defaultValue=''
-								placeholder={skill.starting.toString()}
-								{...register(skill.name)}
-							/>
-							%
-						</div>
+						</Label>
+						<Input
+							className='w-8 bg-transparent py-2 pr-1 text-right dark:bg-transparent'
+							defaultValue=''
+							placeholder={skill.starting.toString()}
+							{...register(skill.name)}
+						/>
+						<span className='self-center'>%</span>
 					</div>
 				)
 			})}

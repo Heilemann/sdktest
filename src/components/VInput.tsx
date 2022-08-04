@@ -11,11 +11,20 @@ export default function VInput(props: IVInputProps) {
 	const { className, label, ...rest } = props
 
 	return (
-		<div className={twMerge('flex flex-1 flex-col space-x-2', className)}>
-			<Label className='self-center' htmlFor='occupation'>
+		<div
+			className={twMerge(
+				'my-1 flex flex-1 flex-col border-b border-gray-800',
+				className,
+			)}
+		>
+			<Label className='text-center' htmlFor='occupation'>
 				{label}
 			</Label>
-			<Input className='flex-1' placeholder='Occupation...' {...rest} />
+			<Input
+				className='flex-1  bg-transparent text-center dark:bg-transparent'
+				placeholder='Occupation...'
+				{...rest}
+			/>
 		</div>
 	)
 }

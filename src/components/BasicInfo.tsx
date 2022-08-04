@@ -14,8 +14,9 @@ export default function BasicInfo(props: IBasicInfoProps) {
 	const { values } = document
 
 	return (
-		<div className='space-y-2'>
+		<div className='grid grid-cols-2 lg:grid-cols-3'>
 			<HInput
+				className='mx-2'
 				label='Name'
 				placeholder='Name...'
 				defaultValue={values.name}
@@ -23,43 +24,44 @@ export default function BasicInfo(props: IBasicInfoProps) {
 			/>
 
 			<HInput
+				className='mx-2'
 				label='Occupation'
 				placeholder='Occupation...'
 				defaultValue={values.occupation}
 				{...register('occupation')}
 			/>
 
-			<div className='flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0'>
-				<HInput
-					label='Residence'
-					placeholder='Residence...'
-					defaultValue={values.residence}
-					{...register('residence')}
-				/>
+			<HInput
+				className='mx-2'
+				label='Residence'
+				placeholder='Residence...'
+				defaultValue={values.residence}
+				{...register('residence')}
+			/>
 
-				<HInput
-					label='Birthplace'
-					placeholder='Birthplace...'
-					defaultValue={values.birthplace}
-					{...register('birthplace')}
-				/>
-			</div>
+			<HInput
+				className='mx-2'
+				label='Birthplace'
+				placeholder='Birthplace...'
+				defaultValue={values.birthplace}
+				{...register('birthplace')}
+			/>
 
-			<div className='flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0'>
-				<HInput
-					label='Gender'
-					placeholder='Gender...'
-					defaultValue={values.gender}
-					{...register('gender')}
-				/>
+			<HInput
+				className='mx-2'
+				label='Gender'
+				placeholder='Gender...'
+				defaultValue={values.gender}
+				{...register('gender')}
+			/>
 
-				<HInput
-					label='Age'
-					placeholder='Age...'
-					defaultValue={values.age}
-					{...register('age')}
-				/>
-			</div>
+			<HInput
+				className='mx-2'
+				label='Age'
+				placeholder='Age...'
+				defaultValue={values.age}
+				{...register('age')}
+			/>
 		</div>
 	)
 }
