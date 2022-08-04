@@ -221,7 +221,7 @@ export default function SkillsList(props: ISkillsListProps) {
 								'h-4 w-4 cursor-pointer appearance-none self-center rounded-md bg-gray-800 hover:bg-gray-700',
 								skill.tickable === false && 'opacity-0',
 							)}
-							defaultChecked={values[skill.name] > 0}
+							defaultChecked={values.skills?.[skill.name] > 0}
 							{...register(`skills.${skill.name}.ticked`)}
 						/>
 
@@ -233,7 +233,7 @@ export default function SkillsList(props: ISkillsListProps) {
 						<Input
 							// type='number'
 							className='my-1 w-12 appearance-none bg-transparent py-1 pr-0 text-right dark:bg-transparent'
-							defaultValue=''
+							// defaultValue={values.skills[skill.name].value}
 							disabled={state.editMode ? false : true}
 							id={skill.name}
 							placeholder={skill.starting.toString()}
