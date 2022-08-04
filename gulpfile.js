@@ -2,12 +2,6 @@ const { src, series, dest } = require('gulp')
 const replace = require('gulp-replace')
 const inlinesource = require('gulp-inline-source')
 
-// const inlineImages = () => {
-// 	return src('build/static/css/*.css')
-// 		.pipe(cssBase64())
-// 		.pipe(dest('build/static/css/'))
-// }
-
 const cleanUp = () => {
 	return src('./build/*.html')
 		.pipe(replace('<link rel="manifest" href="/manifest.json"/>', ''))

@@ -13,7 +13,7 @@ export default function DevToolbar(props: IDevToolbarProps) {
 	const [collections, setCollections] = useState<any[]>([])
 	const selectRef = useRef(null)
 
-	const { register, setValue, watch } = useForm()
+	const { register, watch } = useForm()
 
 	useEffect(() => {
 		const subscription = watch(values => {
