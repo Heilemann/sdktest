@@ -9,6 +9,8 @@ export default function Characteristics(props: ICharacteristicsProps) {
 	const { register, document } = state
 	const { values } = document
 
+	console.log('Characteristics', values)
+
 	if (!register) return null
 
 	return (
