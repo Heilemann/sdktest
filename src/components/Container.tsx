@@ -104,7 +104,7 @@ export default function Container(props: IContainerProps) {
 			type: 'LOAD',
 			payload: {
 				register,
-				messageToApp,
+				// messageToApp,
 			},
 		})
 	}, [register]) // eslint-disable-line react-hooks/exhaustive-deps
