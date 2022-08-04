@@ -1,13 +1,12 @@
-const { src, watch, series, dest } = require('gulp')
+const { src, series, dest } = require('gulp')
 const replace = require('gulp-replace')
-var cssBase64 = require('gulp-css-base64')
 const inlinesource = require('gulp-inline-source')
 
-const inlineImages = () => {
-	return src('build/static/css/*.css')
-		.pipe(cssBase64())
-		.pipe(dest('build/static/css/'))
-}
+// const inlineImages = () => {
+// 	return src('build/static/css/*.css')
+// 		.pipe(cssBase64())
+// 		.pipe(dest('build/static/css/'))
+// }
 
 const cleanUp = () => {
 	return src('./build/*.html')
@@ -51,7 +50,7 @@ const renameAssetsPaths = () => {
 // }
 
 exports.default = series(
-	inlineImages,
+	// inlineImages,
 	cleanUp,
 	inlineScriptsAndCSS,
 	renameAssetsPaths,
