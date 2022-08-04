@@ -1,7 +1,10 @@
 import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { TDocument } from '../interfaces'
+import Character from './Character'
 import context from './context'
+import Note from './Note'
+import Scene from './Scene'
 
 export interface IContainerProps {}
 
@@ -67,6 +70,8 @@ export default function Container(props: IContainerProps) {
 						document,
 					}
 
+					console.log('container received message', message, 'data', data)
+
 					dispatch({
 						type: 'LOAD',
 						payload,
@@ -109,11 +114,11 @@ export default function Container(props: IContainerProps) {
 	return (
 		<div className='flex h-full flex-col bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
 			<div className='flex-1'>
-				{/* {type === 'character' && <Character />}
+				{type === 'character' && <Character />}
 				{type === 'note' && <Note />}
 				{type === 'scene' && (
 					<Scene setValue={setValue} messageToApp={messageToApp} />
-				)} */}
+				)}
 			</div>
 		</div>
 	)
