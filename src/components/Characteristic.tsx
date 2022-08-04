@@ -1,5 +1,7 @@
-import { forwardRef } from 'react'
+import { forwardRef, useContext } from 'react'
 import VInput from './VInput'
+import context from './context'
+import Button from './Button'
 
 export interface ICharacteristicProps {
 	label: string
@@ -9,16 +11,36 @@ export interface ICharacteristicProps {
 const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 	(props: ICharacteristicProps, ref) => {
 		const { label, value, ...rest } = props
+		const { state } = useContext(context)
 
-		return (
-			<VInput
-				className='mx-1 sm:mx-2'
-				label={label}
-				defaultValue={value}
-				placeholder='&mdash;'
-				{...rest}
-			/>
-		)
+		const handleRoll = () => {
+			if (!value) return
+			if (!state.messageToApp) return
+
+			state.messageToApp('sendMessage', 'test')
+		}
+
+		if (state.editMode === 'edit') {
+			return (
+				<VInput
+					ref={ref}
+					className='mx-1 sm:mx-2'
+					label={label}
+					placeholder='&mdash;'
+					defaultValue={value}
+					{...rest}
+				/>
+			)
+		} else {
+			return (
+				<Button onClick={handleRoll} className='m-1'>
+					<div>
+						<div>{label}</div>
+						<div>{value ? value : '—'}</div>
+					</div>
+				</Button>
+			)
+		}
 	},
 )
 

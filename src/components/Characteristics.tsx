@@ -11,39 +11,49 @@ export default function Characteristics(props: ICharacteristicsProps) {
 
 	if (!register) return null
 
+	console.log('Characteristics', values)
+
 	return (
 		<div className='-mx-1 grid grid-cols-5 sm:-mx-2 md:grid-cols-10'>
 			<Characteristic
 				label='STR'
-				value={values.strength}
-				{...register('strength')}
+				value={values.characteristics.strength}
+				{...register('characteristics.strength')}
 			/>
 			<Characteristic
 				label='DEX'
-				value={values.dexterity}
-				{...register('dexterity')}
+				value={values.characteristics.dexterity}
+				{...register('characteristics.dexterity')}
 			/>
 			<Characteristic
 				label='INT'
-				value={values.intelligence}
-				{...register('intelligence')}
+				value={values.characteristics.intelligence}
+				{...register('characteristics.intelligence')}
 			/>
 			<Characteristic
 				label='CON'
-				value={values.constitution}
-				{...register('constitution')}
+				value={values.characteristics.constitution}
+				{...register('characteristics.constitution')}
 			/>
 			<Characteristic
 				label='APP'
-				value={values.appearance}
-				{...register('appearance')}
+				value={values.characteristics.appearance}
+				{...register('characteristics.appearance')}
 			/>
-			<Characteristic label='POW' value={values.power} {...register('power')} />
-			<Characteristic label='SIZ' value={values.size} {...register('size')} />
+			<Characteristic
+				label='POW'
+				value={values.characteristics.power}
+				{...register('characteristics.power')}
+			/>
+			<Characteristic
+				label='SIZ'
+				value={values.characteristics.size}
+				{...register('characteristics.size')}
+			/>
 			<Characteristic
 				label='EDU'
-				value={values.education}
-				{...register('education')}
+				value={values.characteristics.education}
+				{...register('characteristics.education')}
 			/>
 			<Characteristic label='Luck' value={values.luck} {...register('luck')} />{' '}
 			<Characteristic

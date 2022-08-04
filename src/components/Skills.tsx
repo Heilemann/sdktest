@@ -222,7 +222,7 @@ export default function SkillsList(props: ISkillsListProps) {
 								skill.tickable === false && 'opacity-0',
 							)}
 							defaultChecked={values[skill.name] > 0}
-							{...register(`skill.${skill.name}.ticked`)}
+							{...register(`skills.${skill.name}.ticked`)}
 						/>
 
 						<Label className='flex-1 self-center' htmlFor={skill.name}>
@@ -237,7 +237,7 @@ export default function SkillsList(props: ISkillsListProps) {
 							disabled={state.editMode ? false : true}
 							id={skill.name}
 							placeholder={skill.starting.toString()}
-							{...register(`skill.${skill.name}.value`)}
+							{...register(`skills.${skill.name}.value`)}
 						/>
 						<span className='self-center'>%</span>
 					</div>

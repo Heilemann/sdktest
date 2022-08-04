@@ -27,6 +27,7 @@ export type TState = {
   documents: TDocument[]
   assets: TAsset[],
   register?: UseFormRegister<FieldValues>
+  messageToApp?: (message: string, data?: any) => void
 }
 
 export type TReducerAction =
@@ -51,4 +52,8 @@ export type TPostMessage =
   } | {
     message: 'save'
     document: TDocument
+  } | {
+    message: 'sendMessage'
+    data: string
   }
+

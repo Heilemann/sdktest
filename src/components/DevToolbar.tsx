@@ -16,7 +16,6 @@ export default function DevToolbar(props: IDevToolbarProps) {
 
 	useEffect(() => {
 		const subscription = watch(values => {
-			console.log('changes in dev toolbar settings', values)
 			if (!values) return
 
 			dispatch({
@@ -59,7 +58,13 @@ export default function DevToolbar(props: IDevToolbarProps) {
 
 		fakeData['document'] = fakeData.documents[0]
 
-		console.log('load fake data', fakeData)
+		const type = fakeData['document'].type
+		const savedData = JSON.parse(localStorage.getItem(type) || '{}')
+
+		fakeData.document = {
+			...fakeData.document,
+			...savedData,
+		}
 
 		dispatch({
 			type: 'LOAD',
@@ -72,10 +77,16 @@ export default function DevToolbar(props: IDevToolbarProps) {
 
 	const handleChange = (e: any) => {
 		const { value } = e.target
+		const type = value
 
-		const document = state.documents.find(
-			doc => doc.type === value,
-		) as TDocument
+		let document = state.documents.find(doc => doc.type === value) as TDocument
+
+		const savedData = JSON.parse(localStorage.getItem(type) || '{}')
+
+		document.values = {
+			...document.values,
+			...savedData,
+		}
 
 		console.log('handleChange', value, document)
 

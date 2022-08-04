@@ -13,6 +13,7 @@ export default function Container(props: IContainerProps) {
 	const { register, setValue, watch } = useForm()
 	const { document } = state
 	const { type } = document
+	const isDevelopment = process.env.NODE_ENV === 'development'
 
 	const messageToApp = (message: string, data?: any) => {
 		const parent = window.parent
@@ -24,11 +25,9 @@ export default function Container(props: IContainerProps) {
 		})
 	}
 
-	const changeHandler = () => {
+	const handleFormChanges = () => {
 		const subscription = watch(values => {
 			if (!document || !values) return
-
-			console.log('values', values)
 
 			const payload = {
 				...document,
@@ -39,13 +38,16 @@ export default function Container(props: IContainerProps) {
 			}
 
 			messageToApp('save', payload)
+
+			if (isDevelopment)
+				localStorage.setItem(document.type, JSON.stringify(payload))
 		})
 
 		return () => {
 			subscription.unsubscribe()
 		}
 	}
-	useEffect(changeHandler, [document, watch])
+	useEffect(handleFormChanges, [document, watch]) // eslint-disable-line
 
 	useEffect(() => {
 		const messageListener = ({ data: payload }: any) => {
@@ -59,17 +61,14 @@ export default function Container(props: IContainerProps) {
 				// aux server is sending us our data
 				case 'load':
 					const { documentId } = data
+					const document = data.documents?.find(
+						(d: TDocument) => d._id === documentId,
+					)
 
 					const payload = {
-						editMode: data.editMode,
-						documents: data.documents,
-						assets: data.assets,
-						document: data.documents?.find(
-							(d: TDocument) => d._id === documentId,
-						),
+						...data,
+						document,
 					}
-
-					console.log('load', payload)
 
 					dispatch({
 						type: 'LOAD',
@@ -79,8 +78,6 @@ export default function Container(props: IContainerProps) {
 					break
 
 				case 'onUpload':
-					console.log('system onUpload', data)
-
 					const { name } = data
 
 					messageToApp('onUpload', {
@@ -93,7 +90,6 @@ export default function Container(props: IContainerProps) {
 
 		window.addEventListener('message', messageListener)
 
-		// tell aux server we're ready to load data
 		messageToApp('system is ready')
 
 		return () => {
@@ -102,15 +98,16 @@ export default function Container(props: IContainerProps) {
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
-		console.log('register changed, updating state')
-
 		dispatch({
 			type: 'LOAD',
 			payload: {
 				register,
+				messageToApp,
 			},
 		})
 	}, [register]) // eslint-disable-line react-hooks/exhaustive-deps
+
+	if (!state.messageToApp || !state.register) return null
 
 	return (
 		<div className='flex h-full flex-col bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>

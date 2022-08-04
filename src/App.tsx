@@ -21,10 +21,11 @@ const initialData = {
 
 function App() {
 	const [state, dispatch] = useReducer(Reducer, initialData)
+	const isDevelopment = process.env.NODE_ENV === 'development'
 
 	return (
 		<Context.Provider value={{ state, dispatch }}>
-			{process.env.NODE_ENV === 'development' && <DevToolbar />}
+			{isDevelopment && <DevToolbar />}
 			<Container />
 		</Context.Provider>
 	)
