@@ -54,6 +54,6 @@ export type TPostMessage =
     document: TDocument
   } | {
     message: 'sendMessage'
-    data: string
+    data: { message: string }
   }
 
