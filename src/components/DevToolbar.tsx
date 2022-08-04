@@ -12,7 +12,6 @@ export default function DevToolbar(props: IDevToolbarProps) {
 	const { state, dispatch } = useContext(context)
 	const [collections, setCollections] = useState<any[]>([])
 	const selectRef = useRef(null)
-
 	const { register, watch } = useForm()
 
 	useEffect(() => {
@@ -37,10 +36,10 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		setCollections(systemConfig.collections)
 
 		const fakeData = {
-			editMode: 'view',
 			document: {} as TDocument,
 			documents: [],
 			assets: [],
+			editMode: 'edit',
 		} as TState
 
 		// for each collection create a fake document we can use to switch UI
