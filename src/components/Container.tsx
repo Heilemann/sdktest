@@ -18,8 +18,6 @@ export default function Container(props: IContainerProps) {
 	const messageToApp = (message: string, data?: any) => {
 		const parent = window.parent
 
-		console.log('parent', parent)
-
 		parent.postMessage({
 			source: 'System',
 			message,
@@ -104,7 +102,7 @@ export default function Container(props: IContainerProps) {
 			type: 'LOAD',
 			payload: {
 				register,
-				// messageToApp,
+				messageToApp,
 			},
 		})
 	}, [register]) // eslint-disable-line react-hooks/exhaustive-deps

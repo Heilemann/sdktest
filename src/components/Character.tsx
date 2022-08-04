@@ -27,7 +27,7 @@ export default function Character(props: ICharacterProps) {
 			</div>
 
 			<SectionDivider>Characteristics</SectionDivider>
-			{/* <Characteristics /> */}
+			<Characteristics />
 
 			<SectionDivider>Skills</SectionDivider>
 			<SkillsList />
