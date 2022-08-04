@@ -1,7 +1,9 @@
 import { useContext, useEffect, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { TDocument, TState } from '../interfaces'
 import systemConfig from '../system.json'
 import context from './context'
+import Tabs from './Tabs'
 
 export interface IDevToolbarProps {}
 
@@ -10,11 +12,32 @@ export default function DevToolbar(props: IDevToolbarProps) {
 	const [collections, setCollections] = useState<any[]>([])
 	const selectRef = useRef(null)
 
+	const { register, setValue, watch } = useForm()
+
+	useEffect(() => {
+		const subscription = watch(values => {
+			console.log('changes in dev toolbar settings', values)
+			if (!values) return
+
+			dispatch({
+				type: 'LOAD',
+				payload: {
+					...state,
+					...values,
+				},
+			})
+		})
+
+		return () => {
+			subscription.unsubscribe()
+		}
+	})
+
 	useEffect(() => {
 		setCollections(systemConfig.collections)
-		console.log('system config', systemConfig.collections)
 
 		const fakeData = {
+			editMode: 'view',
 			document: {} as TDocument,
 			documents: [],
 			assets: [],
@@ -36,11 +59,16 @@ export default function DevToolbar(props: IDevToolbarProps) {
 
 		fakeData['document'] = fakeData.documents[0]
 
+		console.log('load fake data', fakeData)
+
 		dispatch({
 			type: 'LOAD',
-			payload: fakeData,
+			payload: {
+				...state,
+				...fakeData,
+			},
 		})
-	}, [dispatch])
+	}, []) // eslint-disable-line
 
 	const handleChange = (e: any) => {
 		const { value } = e.target
@@ -48,6 +76,8 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		const document = state.documents.find(
 			doc => doc.type === value,
 		) as TDocument
+
+		console.log('handleChange', value, document)
 
 		dispatch({
 			type: 'LOAD',
@@ -61,9 +91,22 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		localStorage.setItem('document', JSON.stringify(document))
 	}
 
+	const tabs = {
+		name: 'editMode',
+		options: [
+			{
+				label: 'Edit',
+				value: 'edit',
+			},
+			{
+				label: 'View',
+				value: 'view',
+			},
+		],
+	}
+
 	return (
-		<div className='sticky top-0 -m-4 mb-4 bg-black py-4 px-4 text-white'>
-			Development Settings
+		<div className='sticky top-0 flex bg-black py-4 px-4 text-white'>
 			<select
 				ref={selectRef}
 				className='mx-4 text-black'
@@ -80,6 +123,7 @@ export default function DevToolbar(props: IDevToolbarProps) {
 					</option>
 				))}
 			</select>
+			<Tabs tabs={tabs} register={register} activeTab={state.editMode} />
 		</div>
 	)
 }

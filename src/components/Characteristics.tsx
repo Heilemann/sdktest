@@ -1,17 +1,15 @@
 import { useContext } from 'react'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
 import Characteristic from './Characteristic'
 import context from './context'
 
-export interface ICharacteristicsProps {
-	register: UseFormRegister<FieldValues>
-}
+export interface ICharacteristicsProps {}
 
 export default function Characteristics(props: ICharacteristicsProps) {
-	const { register } = props
 	const { state } = useContext(context)
-	const { document } = state
+	const { register, document } = state
 	const { values } = document
+
+	if (!register) return null
 
 	return (
 		<div className='-mx-1 grid grid-cols-5 sm:-mx-2 md:grid-cols-10'>

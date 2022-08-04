@@ -1,17 +1,14 @@
 import { useContext } from 'react'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import context from './context'
 import Input from './Input'
 import Label from './Label'
 
-export interface ISkillsListProps {
-	register: UseFormRegister<FieldValues>
-}
+export interface ISkillsListProps {}
 
 export default function SkillsList(props: ISkillsListProps) {
-	const { register } = props
 	const { state } = useContext(context)
+	const { register } = state
 	const { document } = state
 	const { values } = document
 
@@ -208,28 +205,39 @@ export default function SkillsList(props: ISkillsListProps) {
 		},
 	]
 
+	if (!register) return null
+
 	return (
 		<div className='-mx-4 grid grid-cols-none sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 			{skills.map(skill => {
 				return (
-					<div className='mx-4 flex space-x-2 border-b border-gray-800 py-0.5'>
+					<div
+						key={skill.name}
+						className='mx-4 flex space-x-2 border-b border-gray-800 py-0.5'
+					>
 						<input
 							type='checkbox'
 							className={twMerge(
-								'self-center',
+								'h-4 w-4 cursor-pointer appearance-none self-center rounded-md bg-gray-800 hover:bg-gray-700',
 								skill.tickable === false && 'opacity-0',
 							)}
-							checked={values[skill.name] > 0}
+							defaultChecked={values[skill.name] > 0}
+							{...register(`skill.${skill.name}.ticked`)}
 						/>
-						<Label className='flex-1 self-center' htmlFor='{skill.name}'>
+
+						<Label className='flex-1 self-center' htmlFor={skill.name}>
 							{skill.name}
 							{/* {skill.addable && <span> (addable)</span>} */}
 						</Label>
+
 						<Input
-							className='w-8 bg-transparent py-2 pr-1 text-right dark:bg-transparent'
+							// type='number'
+							className='my-1 w-12 appearance-none bg-transparent py-1 pr-0 text-right dark:bg-transparent'
 							defaultValue=''
+							disabled={state.editMode ? false : true}
+							id={skill.name}
 							placeholder={skill.starting.toString()}
-							{...register(skill.name)}
+							{...register(`skill.${skill.name}.value`)}
 						/>
 						<span className='self-center'>%</span>
 					</div>

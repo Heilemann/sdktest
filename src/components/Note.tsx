@@ -1,23 +1,18 @@
 import { useContext } from 'react'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
 import context from './context'
 import Input from './Input'
 import Label from './Label'
 import TextArea from './Textarea'
 
-export interface INoteProps {
-	register: UseFormRegister<FieldValues>
-}
+export interface INoteProps {}
 
 export default function Note(props: INoteProps) {
 	const { state } = useContext(context)
-	const { document } = state
+	const { register, document } = state
 	const { values } = document
-	const { register } = props
 
+	if (!register) return null
 	if (!document?.values) return null
-
-	console.log('note values', document.values)
 
 	return (
 		<div className='mx-auto flex h-full flex-col'>

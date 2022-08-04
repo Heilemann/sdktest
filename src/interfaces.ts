@@ -1,4 +1,4 @@
-import { FieldValues } from "react-hook-form"
+import { FieldValues, UseFormRegister } from "react-hook-form"
 
 export type TDocument = {
   _id: string // UID
@@ -22,15 +22,17 @@ export type TAsset = {
 }
 
 export type TState = {
+  editMode: 'view' | 'edit'
   document: TDocument
   documents: TDocument[]
   assets: TAsset[],
+  register?: UseFormRegister<FieldValues>
 }
 
 export type TReducerAction =
   | {
     type: 'LOAD'
-    payload: TState
+    payload: Partial<TState>
   } | {
     type: 'UPDATE_DOCUMENT_VALUES',
     payload: {

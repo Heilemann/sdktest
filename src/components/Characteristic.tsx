@@ -1,4 +1,4 @@
-import Input from './Input'
+import { forwardRef } from 'react'
 import VInput from './VInput'
 
 export interface ICharacteristicProps {
@@ -6,16 +6,20 @@ export interface ICharacteristicProps {
 	value: string
 }
 
-export default function Characteristic(props: ICharacteristicProps) {
-	const { label, value, ...rest } = props
+const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
+	(props: ICharacteristicProps, ref) => {
+		const { label, value, ...rest } = props
 
-	return (
-		<VInput
-			className='mx-1 sm:mx-2'
-			label={label}
-			defaultValue={value}
-			placeholder='&mdash;'
-			{...rest}
-		/>
-	)
-}
+		return (
+			<VInput
+				className='mx-1 sm:mx-2'
+				label={label}
+				defaultValue={value}
+				placeholder='&mdash;'
+				{...rest}
+			/>
+		)
+	},
+)
+
+export default Characteristic
