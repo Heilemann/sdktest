@@ -11,8 +11,6 @@ export default function Characteristics(props: ICharacteristicsProps) {
 
 	if (!register) return null
 
-	console.log('Characteristics', values)
-
 	return (
 		<div className='-mx-1 grid grid-cols-5 sm:-mx-2 md:grid-cols-10'>
 			<Characteristic

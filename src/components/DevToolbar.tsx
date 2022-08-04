@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { TDocument, TState } from '../interfaces'
 import systemConfig from '../system.json'
+import Button from './Button'
 import context from './context'
 import Tabs from './Tabs'
 
@@ -116,6 +117,10 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		],
 	}
 
+	const handleClearStorage = () => {
+		localStorage.clear()
+	}
+
 	return (
 		<div className='sticky top-0 flex bg-black py-4 px-4 text-white'>
 			<select
@@ -134,6 +139,9 @@ export default function DevToolbar(props: IDevToolbarProps) {
 					</option>
 				))}
 			</select>
+
+			<Button onClick={handleClearStorage}>Clear Storage</Button>
+
 			<Tabs tabs={tabs} register={register} activeTab={state.editMode} />
 		</div>
 	)

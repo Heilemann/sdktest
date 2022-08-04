@@ -16,7 +16,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 			<HInput
 				className='mx-2'
 				label='Name'
-				placeholder='Name...'
+				placeholder='&mdash;'
 				defaultValue={values.name}
 				{...register('name')}
 			/>
@@ -24,7 +24,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 			<HInput
 				className='mx-2'
 				label='Occupation'
-				placeholder='Occupation...'
+				placeholder='&mdash;'
 				defaultValue={values.occupation}
 				{...register('occupation')}
 			/>
@@ -32,7 +32,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 			<HInput
 				className='mx-2'
 				label='Residence'
-				placeholder='Residence...'
+				placeholder='&mdash;'
 				defaultValue={values.residence}
 				{...register('residence')}
 			/>
@@ -40,7 +40,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 			<HInput
 				className='mx-2'
 				label='Birthplace'
-				placeholder='Birthplace...'
+				placeholder='&mdash;'
 				defaultValue={values.birthplace}
 				{...register('birthplace')}
 			/>
@@ -48,7 +48,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 			<HInput
 				className='mx-2'
 				label='Gender'
-				placeholder='Gender...'
+				placeholder='&mdash;'
 				defaultValue={values.gender}
 				{...register('gender')}
 			/>
@@ -56,7 +56,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 			<HInput
 				className='mx-2'
 				label='Age'
-				placeholder='Age...'
+				placeholder='&mdash;'
 				defaultValue={values.age}
 				{...register('age')}
 			/>

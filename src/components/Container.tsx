@@ -18,6 +18,8 @@ export default function Container(props: IContainerProps) {
 	const messageToApp = (message: string, data?: any) => {
 		const parent = window.parent
 
+		console.log('parent', parent)
+
 		parent.postMessage({
 			source: 'System',
 			message,

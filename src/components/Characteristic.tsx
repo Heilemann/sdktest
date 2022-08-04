@@ -17,7 +17,7 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 			if (!value) return
 			if (!state.messageToApp) return
 
-			state.messageToApp('sendMessage', 'test')
+			state.messageToApp('sendMessage', { message: 'test' })
 		}
 
 		if (state.editMode === 'edit') {
@@ -34,9 +34,9 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 		} else {
 			return (
 				<Button onClick={handleRoll} className='m-1'>
-					<div>
+					<div className='flex'>
 						<div>{label}</div>
-						<div>{value ? value : '—'}</div>
+						<div className='flex-1 text-right'>{value ? value : '—'}</div>
 					</div>
 				</Button>
 			)
