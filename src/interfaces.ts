@@ -1,4 +1,4 @@
-import { FieldValues, UseFormRegister } from "react-hook-form"
+import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form"
 
 export type TDocument = {
   _id: string // UID
@@ -27,6 +27,7 @@ export type TState = {
   documents: TDocument[]
   assets: TAsset[],
   register?: UseFormRegister<FieldValues>
+  setValue?: UseFormSetValue<FieldValues>
   messageToApp?: (message: string, data?: any) => void
 }
 

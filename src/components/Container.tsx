@@ -104,12 +104,13 @@ export default function Container(props: IContainerProps) {
 			type: 'LOAD',
 			payload: {
 				register,
+				setValue,
 				messageToApp,
 			},
 		})
 	}, [register]) // eslint-disable-line react-hooks/exhaustive-deps
 
-	if (!state.messageToApp || !state.register) return null
+	if (!state.messageToApp || !state.register || !state.setValue) return null
 
 	return (
 		<div className='flex h-full flex-col bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
