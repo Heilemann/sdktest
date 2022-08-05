@@ -139,9 +139,16 @@ export default function DevToolbar(props: IDevToolbarProps) {
 				))}
 			</select>
 
-			<Button onClick={handleClearStorage}>Clear Storage</Button>
+			<div className='flex flex-1 justify-end space-x-2'>
+				<Tabs tabs={tabs} register={register} activeTab={state.editMode} />
 
-			<Tabs tabs={tabs} register={register} activeTab={state.editMode} />
+				<Button
+					onClick={handleClearStorage}
+					className='rounded-full bg-gray-900 dark:bg-gray-900'
+				>
+					Clear Storage
+				</Button>
+			</div>
 		</div>
 	)
 }

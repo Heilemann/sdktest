@@ -23,7 +23,7 @@ export default function Tabs(props: ITabsProps) {
 	return (
 		<div className='flex rounded-full bg-gray-900'>
 			{tabs.options.map(tab => (
-				<div key={tab.value}>
+				<div key={tab.value} className='flex self-center'>
 					<input
 						type='radio'
 						id={tab.value}

@@ -1,8 +1,5 @@
 import { useEffect, useReducer } from 'react'
 import './App.css'
-import Container from './components/Container'
-import Context from './components/context'
-import DevToolbar from './components/DevToolbar'
 import Reducer from './components/reducer'
 import { TState } from './interfaces'
 
@@ -42,12 +39,14 @@ function App() {
 		}
 	}, []) // eslint-disable-line
 
-	return (
-		<Context.Provider value={{ state, dispatch }}>
-			{isDevelopment && <DevToolbar />}
-			<Container />
-		</Context.Provider>
-	)
+	return <div>hello</div>
+
+	// return (
+	// 	<Context.Provider value={{ state, dispatch }}>
+	// 		{isDevelopment && <DevToolbar />}
+	// 		<Container />
+	// 	</Context.Provider>
+	// )
 }
 
 export default App
