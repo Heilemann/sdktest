@@ -1,19 +1,35 @@
-import { useContext, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { TDocument } from '../interfaces'
+import { useContext, useEffect, useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { TDocument, TValues } from '../interfaces'
 import Character from './Character'
 import context from './context'
 import Note from './Note'
 import Scene from './Scene'
+import skillList from './skillList'
 
 export interface IContainerProps {}
 
 export default function Container(props: IContainerProps) {
+	const isDevelopment = process.env.NODE_ENV === 'development'
 	const { state, dispatch } = useContext(context)
-	const { register, setValue, watch } = useForm()
 	const { document } = state
 	const { type } = document
-	const isDevelopment = process.env.NODE_ENV === 'development'
+	const form = useForm<TValues>()
+	const [ready, setReady] = useState(false)
+
+	const readyData = () => {
+		let savedDocument = JSON.parse(localStorage.getItem('character') || '{}')
+
+		skillList.forEach(skill => {
+			if (!savedDocument.values.skills[skill.name].value)
+				savedDocument.values.skills[skill.name].value = skill.starting
+		})
+
+		form.reset(savedDocument.values)
+
+		setReady(true)
+	}
+	useEffect(readyData, []) // eslint-disable-line
 
 	const messageToApp = (message: string, data?: any) => {
 		const parent = window.parent
@@ -26,8 +42,14 @@ export default function Container(props: IContainerProps) {
 	}
 
 	const handleFormChanges = () => {
-		const subscription = watch(values => {
+		const subscription = form.watch(values => {
+			console.log('the watcher', values)
 			if (!document || !values) return
+
+			skillList.forEach(skill => {
+				if (values.skills[skill.name].value === '')
+					form.setValue(`skills.${skill.name}.value`, skill.starting)
+			})
 
 			const payload = {
 				...document,
@@ -47,7 +69,7 @@ export default function Container(props: IContainerProps) {
 			subscription.unsubscribe()
 		}
 	}
-	useEffect(handleFormChanges, [document, watch]) // eslint-disable-line
+	useEffect(handleFormChanges, [document, form]) // eslint-disable-line
 
 	useEffect(() => {
 		const messageListener = ({ data: payload }: any) => {
@@ -60,6 +82,8 @@ export default function Container(props: IContainerProps) {
 			switch (message) {
 				// aux server is sending us our data
 				case 'load':
+					console.log('container received message', message, 'data', data)
+
 					const { documentId } = data
 					const document = data.documents?.find(
 						(d: TDocument) => d._id === documentId,
@@ -69,8 +93,6 @@ export default function Container(props: IContainerProps) {
 						...data,
 						document,
 					}
-
-					console.log('container received message', message, 'data', data)
 
 					dispatch({
 						type: 'LOAD',
@@ -103,24 +125,23 @@ export default function Container(props: IContainerProps) {
 		dispatch({
 			type: 'LOAD',
 			payload: {
-				register,
-				setValue,
 				messageToApp,
 			},
 		})
-	}, [register]) // eslint-disable-line react-hooks/exhaustive-deps
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-	if (!state.messageToApp || !state.register || !state.setValue) return null
+	if (!state.messageToApp) return null
+	if (!ready) return <div>Loading...</div>
 
 	return (
-		<div className='flex h-full flex-col bg-white p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
-			<div className='flex-1'>
-				{type === 'character' && <Character />}
-				{type === 'note' && <Note />}
-				{type === 'scene' && (
-					<Scene setValue={setValue} messageToApp={messageToApp} />
-				)}
+		<FormProvider {...form}>
+			<div className='flex min-h-full flex-col bg-gray-100 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
+				<div className='flex-1'>
+					{type === 'character' && <Character />}
+					{type === 'note' && <Note />}
+					{type === 'scene' && <Scene messageToApp={messageToApp} />}
+				</div>
 			</div>
-		</div>
+		</FormProvider>
 	)
 }

@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@heroicons/react": "^1.0.6",
 		"@testing-library/jest-dom": "^5.16.4",
 		"@testing-library/react": "^13.3.0",
 		"@testing-library/user-event": "^13.5.0",
@@ -22,6 +23,7 @@
 	"scripts": {
 		"start": "PORT=3004 react-scripts start",
 		"build": "react-scripts build",
+		"buildAndCommit": "npm run build; gulp; git add .; git commit -a -m 'commit'; git push",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"gulp": "gulp",

@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useFormContext } from 'react-hook-form'
 import context from './context'
 import VInput from './VInput'
 
@@ -6,10 +7,11 @@ export interface ICombatProps {}
 
 export default function Combat(props: ICombatProps) {
 	const { state } = useContext(context)
-	const { register, document } = state
+	const { document } = state
 	const { values } = document
+	const { register } = useFormContext()
 
-	if (!register) return null
+	// if (!register) return null
 
 	return (
 		<div className='flex space-x-2'>

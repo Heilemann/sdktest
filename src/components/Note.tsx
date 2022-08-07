@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useFormContext } from 'react-hook-form'
 import context from './context'
 import Input from './Input'
 import Label from './Label'
@@ -8,10 +9,11 @@ export interface INoteProps {}
 
 export default function Note(props: INoteProps) {
 	const { state } = useContext(context)
-	const { register, document } = state
+	const { document } = state
 	const { values } = document
+	const { register } = useFormContext()
 
-	if (!register) return null
+	// if (!register) return null
 	if (!document?.values) return null
 
 	return (

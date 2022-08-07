@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useFormContext } from 'react-hook-form'
 import Asset from './Asset'
 import context from './context'
 import HInput from './HInput'
@@ -8,10 +9,11 @@ export interface IBasicInfoProps {}
 
 export default function BasicInfo(props: IBasicInfoProps) {
 	const { state } = useContext(context)
-	const { register, setValue, messageToApp, document } = state
+	const { messageToApp, document } = state
 	const { values } = document
+	const { register, setValue } = useFormContext()
 
-	if (!register || !setValue || !messageToApp) return null
+	if (!messageToApp) return null
 
 	return (
 		<div className='flex'>
@@ -20,48 +22,42 @@ export default function BasicInfo(props: IBasicInfoProps) {
 					className='mx-2'
 					label='Name'
 					placeholder='&mdash;'
-					defaultValue={values.name}
-					{...register('name')}
+					{...register('info.name')}
 				/>
 
 				<HInput
 					className='mx-2'
 					label='Occupation'
 					placeholder='&mdash;'
-					defaultValue={values.occupation}
-					{...register('occupation')}
+					{...register('info.occupation')}
 				/>
 
 				<HInput
 					className='mx-2'
 					label='Residence'
 					placeholder='&mdash;'
-					defaultValue={values.residence}
-					{...register('residence')}
+					{...register('info.residence')}
 				/>
 
 				<HInput
 					className='mx-2'
 					label='Birthplace'
 					placeholder='&mdash;'
-					defaultValue={values.birthplace}
-					{...register('birthplace')}
+					{...register('info.birthplace')}
 				/>
 
 				<HInput
 					className='mx-2'
-					label='Gender'
+					label='Pronouns'
 					placeholder='&mdash;'
-					defaultValue={values.gender}
-					{...register('gender')}
+					{...register('info.pronouns')}
 				/>
 
 				<HInput
 					className='mx-2'
 					label='Age'
 					placeholder='&mdash;'
-					defaultValue={values.age}
-					{...register('age')}
+					{...register('info.age')}
 				/>
 			</div>
 

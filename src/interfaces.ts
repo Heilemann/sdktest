@@ -1,13 +1,32 @@
-import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form"
+import { FieldValues } from "react-hook-form"
 
 export type TDocument = {
   _id: string // UID
   type: string // e.g. 'chararacter' or 'spell'
   creator: string // user ID
   access: string[] // list of userIds 
-  values: {
-    [key: string]: any
-  }
+  values: TValues
+}
+
+export type TValues = {
+  // info: {
+  //   name: string
+  //   occupation: string
+  //   residence: string
+  //   birthplace: string
+  //   pronouns: string
+  //   age: string
+  // }
+  [key: string]: any
+  weapons?: TWeapon[]
+}
+
+export type TWeapon = {
+  name: string
+  damage: number
+  range: number
+  weight: number
+  cost: number
 }
 
 export type TAsset = {
@@ -26,8 +45,6 @@ export type TState = {
   document: TDocument
   documents: TDocument[]
   assets: TAsset[],
-  register?: UseFormRegister<FieldValues>
-  setValue?: UseFormSetValue<FieldValues>
   messageToApp?: (message: string, data?: any) => void
 }
 

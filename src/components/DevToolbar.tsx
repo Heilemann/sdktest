@@ -97,9 +97,6 @@ export default function DevToolbar(props: IDevToolbarProps) {
 				document,
 			},
 		})
-
-		// save to localstorage
-		localStorage.setItem('document', JSON.stringify(document))
 	}
 
 	const tabs = {
@@ -146,7 +143,7 @@ export default function DevToolbar(props: IDevToolbarProps) {
 					onClick={handleClearStorage}
 					className='rounded-full bg-gray-900 dark:bg-gray-900'
 				>
-					Clear Storage
+					Clear <span className='hidden sm:inline'>Storage</span>
 				</Button>
 			</div>
 		</div>

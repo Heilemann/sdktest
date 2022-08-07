@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useFormContext } from 'react-hook-form'
 import Characteristic from './Characteristic'
 import context from './context'
 
@@ -6,8 +7,9 @@ export interface ICharacteristicsProps {}
 
 export default function Characteristics(props: ICharacteristicsProps) {
 	const { state } = useContext(context)
-	const { register, document } = state
+	const { document } = state
 	const { values } = document
+	const { register } = useFormContext()
 
 	if (!register) return null
 

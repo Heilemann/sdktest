@@ -6,14 +6,24 @@ import DevToolbar from './components/DevToolbar'
 import Reducer from './components/reducer'
 import { TState } from './interfaces'
 
-const initialData = {
+let initialData = {
 	editMode: 'view',
 	document: {
 		_id: '',
 		creator: '',
 		access: [],
 		type: '',
-		values: {},
+		values: {
+			info: {
+				name: '',
+				occupation: '',
+				residence: '',
+				birthplace: '',
+				pronouns: '',
+				age: '',
+			},
+			weapons: [],
+		},
 	},
 	documents: [],
 	assets: [],
@@ -24,28 +34,27 @@ function App() {
 	const isDevelopment = process.env.NODE_ENV === 'development'
 
 	useEffect(() => {
+		const logMessages = ({ data: payload }: any) => {
+			const { message, source, data } = payload
+
+			if (source !== 'System') return
+
+			console.log('system sent message', message, data)
+		}
+
 		if (isDevelopment) {
-			// listen to messages from the parent window
-			const messageListener = ({ data: payload }: any) => {
-				const { message, source, data } = payload
-
-				if (source !== 'System') return
-
-				console.log('system sent message', message, 'data', data)
-			}
-
-			window.addEventListener('message', messageListener)
+			window.addEventListener('message', logMessages)
 
 			return () => {
-				window.removeEventListener('message', messageListener)
+				window.removeEventListener('message', logMessages)
 			}
 		}
 	}, []) // eslint-disable-line
 
 	return (
 		<Context.Provider value={{ state, dispatch }}>
-			{/* {isDevelopment && <DevToolbar />} */}
-			<DevToolbar />
+			{isDevelopment && <DevToolbar />}
+			{/* <DevToolbar /> */}
 			<Container />
 		</Context.Provider>
 	)

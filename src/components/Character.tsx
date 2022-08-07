@@ -4,6 +4,7 @@ import Copyright from './Copyright'
 import Combat from './Combat'
 import SectionDivider from './SectionDivider'
 import SkillsList from './Skills'
+import Weapons from './Weapons'
 
 export interface ICharacterProps {}
 
@@ -34,6 +35,9 @@ export default function Character(props: ICharacterProps) {
 
 			<SectionDivider>Combat</SectionDivider>
 			<Combat />
+
+			<SectionDivider>Weapons</SectionDivider>
+			<Weapons />
 
 			<Copyright />
 		</div>

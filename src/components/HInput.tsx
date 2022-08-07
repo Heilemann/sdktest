@@ -14,7 +14,7 @@ const HInput = forwardRef<HTMLInputElement, IHInputProps>(
 		return (
 			<div
 				className={twMerge(
-					'flex flex-1 space-x-2 border-b border-gray-800',
+					'flex flex-1 space-x-2 border-b border-gray-200 dark:border-gray-800',
 					className,
 				)}
 			>

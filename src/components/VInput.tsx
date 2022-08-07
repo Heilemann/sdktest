@@ -14,7 +14,7 @@ const VInput = React.forwardRef<HTMLInputElement, IVInputProps>(
 		return (
 			<div
 				className={twMerge(
-					'my-1 flex flex-1 flex-col border-b border-gray-800',
+					'my-1 flex flex-1 flex-col border-b border-gray-200 dark:border-gray-800',
 					className,
 				)}
 			>

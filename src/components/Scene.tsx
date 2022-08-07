@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { UseFormSetValue } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import Asset from './Asset'
 import Button from './Button'
@@ -9,17 +9,17 @@ import Label from './Label'
 import SectionDivider from './SectionDivider'
 
 export interface ISceneProps {
-	setValue: UseFormSetValue<any>
 	messageToApp: (message: string, data?: any) => void
 }
 
 export default function Scene(props: ISceneProps) {
-	const { setValue, messageToApp } = props
+	const { messageToApp } = props
 	const { state } = useContext(context)
-	const { register, document } = state
+	const { document } = state
 	const { values } = document
+	const { register, setValue } = useFormContext()
 
-	if (!register) return null
+	// if (!register) return null
 	if (!document?.values) return null
 
 	const handleSetScene = () => {
