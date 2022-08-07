@@ -17,19 +17,20 @@ export default function Note(props: INoteProps) {
 	if (!document?.values) return null
 
 	return (
-		<div className='mx-auto flex h-full w-full flex-1 flex-col bg-red-500'>
+		<>
 			<Input
+				className='flex-0'
 				placeholder='Name...'
 				defaultValue={values.name}
 				{...register('name')}
 			/>
-			<Label className='mb-1 mt-1' htmlFor='name'></Label>
+			{/* <Label className='mb-1 mt-1' htmlFor='name'></Label> */}
 			<TextArea
-				className='m-0 flex-1 resize-none'
+				className='m-0 mt-2 flex-1 resize-none'
 				placeholder='Note...'
 				defaultValue={values.note}
 				{...register('note')}
 			/>
-		</div>
+		</>
 	)
 }

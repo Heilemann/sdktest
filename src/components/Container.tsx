@@ -146,7 +146,7 @@ export default function Container(props: IContainerProps) {
 
 	return (
 		<FormProvider {...form}>
-			<div className='flex min-h-full w-full flex-col bg-gray-100 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
+			<div className='bottom-0 box-border flex h-full w-full flex-col bg-gray-100 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
 				{/* <div className='flex-1 bg-green-500'> */}
 				{type === 'character' && <Character />}
 				{type === 'note' && <Note />}
