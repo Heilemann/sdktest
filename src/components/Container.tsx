@@ -18,7 +18,9 @@ export default function Container(props: IContainerProps) {
 	const [ready, setReady] = useState(false)
 
 	const readyData = () => {
-		let savedDocument = JSON.parse(localStorage.getItem('character') || '{}')
+		let savedDocument = JSON.parse(
+			localStorage.getItem('character') || '{values:{skills:{}}}',
+		)
 
 		skillList.forEach(skill => {
 			if (!savedDocument.values.skills[skill.name].value)
