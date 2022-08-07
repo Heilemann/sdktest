@@ -17,7 +17,7 @@ export default function Note(props: INoteProps) {
 	if (!document?.values) return null
 
 	return (
-		<div className='mx-auto flex h-screen flex-col bg-red-500'>
+		<div className='mx-auto flex h-full w-full flex-1 flex-col bg-red-500'>
 			<Input
 				placeholder='Name...'
 				defaultValue={values.name}
