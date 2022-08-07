@@ -37,7 +37,7 @@ export default function Character(props: ICharacterProps) {
 			<Combat />
 
 			<SectionDivider>Weapons</SectionDivider>
-			<Weapons />
+			{/* <Weapons /> */}
 
 			<Copyright />
 		</div>
