@@ -34,7 +34,7 @@ export default function Container(props: IContainerProps) {
 		})
 
 		const skills = merge(defaultSkills, savedDocument.values.skills)
-		const values = merge(savedDocument.values, skills)
+		const values = merge(savedDocument.values, { skills })
 
 		form.reset(values)
 
