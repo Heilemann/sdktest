@@ -1,6 +1,7 @@
+import merge from 'lodash/merge'
 import { useContext, useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { TDocument, TValues } from '../interfaces'
+import { TDocument, TSkills, TValues } from '../interfaces'
 import Character from './Character'
 import context from './context'
 import Note from './Note'
@@ -19,15 +20,23 @@ export default function Container(props: IContainerProps) {
 
 	const readyData = () => {
 		let savedDocument = JSON.parse(
-			localStorage.getItem('character') || '{values:{skills:{}}}',
+			localStorage.getItem('character') || '{"values":{"skills":{}}}',
 		)
 
+		let defaultSkills = {} as TSkills
+
 		skillList.forEach(skill => {
-			if (!savedDocument.values.skills[skill.name].value)
-				savedDocument.values.skills[skill.name].value = skill.starting
+			defaultSkills[skill.name] = {
+				name: skill.name,
+				value: skill.starting,
+				starting: skill.starting,
+			}
 		})
 
-		form.reset(savedDocument.values)
+		const skills = merge(defaultSkills, savedDocument.values.skills)
+		const values = merge(savedDocument.values, skills)
+
+		form.reset(values)
 
 		setReady(true)
 	}

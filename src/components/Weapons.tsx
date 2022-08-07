@@ -99,6 +99,7 @@ export default function Weapons(props: IWeaponsProps) {
 							<tr key={index}>
 								<td className='border-b border-gray-300 dark:border-gray-800'>
 									<Input
+										className='bg-transparent dark:bg-transparent'
 										placeholder='Weapon...'
 										{...register(`weapons.${index}.name`)}
 									/>
@@ -116,42 +117,49 @@ export default function Weapons(props: IWeaponsProps) {
 								</td>
 								<td className='border-b border-gray-300 dark:border-gray-800'>
 									<Input
+										className='bg- dark:bg-transparentt'
 										placeholder={regularSkill ? regularSkill : '—'}
 										{...register(`weapons.${index}.regular`)}
 									/>
 								</td>
 								<td className='border-b border-gray-300 dark:border-gray-800'>
 									<Input
+										className='bg- dark:bg-transparentt'
 										placeholder={regularSkill ? hardSkill : '—'}
 										{...register(`weapons.${index}.hard`)}
 									/>
 								</td>
 								<td className='border-b border-gray-300 dark:border-gray-800'>
 									<Input
+										className='bg- dark:bg-transparentt'
 										placeholder={regularSkill ? extremeSkill : '—'}
 										{...register(`weapons.${index}.expwer`)}
 									/>
 								</td>
 								<td className='border-b border-gray-300 dark:border-gray-800'>
 									<Input
+										className='bg- dark:bg-transparentt'
 										placeholder='Damage...'
 										{...register(`weapons.${index}.damage`)}
 									/>
 								</td>
 								<td className='border-b border-gray-300 dark:border-gray-800'>
 									<Input
+										className='bg- dark:bg-transparentt'
 										placeholder='Range...'
 										{...register(`weapons.${index}.range`)}
 									/>
 								</td>
 								<td className='border-b border-gray-300 dark:border-gray-800'>
 									<Input
+										className='bg- dark:bg-transparentt'
 										placeholder='Weight...'
 										{...register(`weapons.${index}.weight`)}
 									/>
 								</td>
 								<td className='border-b border-gray-300 dark:border-gray-800'>
 									<Input
+										className='bg- dark:bg-transparentt'
 										placeholder='Cost...'
 										{...register(`weapons.${index}.cost`)}
 									/>

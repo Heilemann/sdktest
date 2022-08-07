@@ -21,6 +21,18 @@ export type TValues = {
   weapons?: TWeapon[]
 }
 
+export type TSkills = {
+  [key: string]: TSkill
+}
+
+export type TSkill = {
+  name: string
+  starting: number
+  value: number
+  addable?: boolean
+  tickable?: boolean
+}
+
 export type TWeapon = {
   name: string
   damage: number
