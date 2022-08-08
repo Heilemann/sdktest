@@ -56,7 +56,7 @@ export default function Weapons(props: IWeaponsProps) {
 						<th>Range</th>
 						<th>Weight</th>
 						<th>Cost</th>
-						<th>
+						<th className='w-4'>
 							<Button onClick={handleAppend} className='px-2'>
 								<PlusIcon className='h-4 w-4' />
 							</Button>
@@ -110,8 +110,11 @@ export default function Weapons(props: IWeaponsProps) {
 										{...register(`weapons.${index}.cost`)}
 									/>
 								</td>
-								<td className='w-4'>
-									<Button onClick={() => handleRemove(index)} className='px-2'>
+								<td className='w-4 bg-red-200'>
+									<Button
+										onClick={() => handleRemove(index)}
+										className='self-end px-2'
+									>
 										<XIcon className='h-4 w-4' />
 									</Button>
 								</td>

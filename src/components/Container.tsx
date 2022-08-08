@@ -37,7 +37,6 @@ export default function Container(props: IContainerProps) {
 		const values = merge(savedDocument.values, { skills })
 
 		form.reset(values)
-		console.log('readyData resetting:', values)
 
 		setReady(true)
 	}
@@ -145,7 +144,7 @@ export default function Container(props: IContainerProps) {
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	if (!state.messageToApp) return null
-	if (!ready) return <div>Loading...</div>
+	if (!ready) return null
 
 	return (
 		<FormProvider {...form}>

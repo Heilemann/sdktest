@@ -13,7 +13,7 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 	const { index, weapon } = props
 	const { register, control } = useFormContext()
 	const { state } = useContext(context)
-	const { document, editMode } = state
+	const { document, editMode, messageToApp } = state
 	const { values } = document
 	const { skills } = values
 
@@ -43,7 +43,12 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 		? '0'
 		: Math.floor(parseInt(regularSkill) / 5).toString()
 
-	const handleSkillClick = (skill: string) => {}
+	const handleSkillClick = (skill: string) => {
+		messageToApp &&
+			messageToApp('sendMessage', {
+				message: `/roll d100 < ${skill}`,
+			})
+	}
 
 	return (
 		<>
