@@ -18,8 +18,7 @@ export default function Container(props: IContainerProps) {
 	const form = useForm<TValues>()
 	const [ready, setReady] = useState(false)
 
-	const readyData = () => {
-		console.log('ready data')
+	const readyValues = () => {
 		let savedDocument = JSON.parse(
 			localStorage.getItem('character') || '{"values":{"skills":{}}}',
 		)
@@ -36,6 +35,14 @@ export default function Container(props: IContainerProps) {
 
 		const skills = merge(defaultSkills, savedDocument.values.skills)
 		const values = merge(savedDocument.values, { skills })
+
+		return values
+	}
+
+	const readyData = () => {
+		console.log('ready data')
+
+		const values = readyValues()
 
 		form.reset(values)
 		console.log('readyData resetting:', values)
@@ -98,9 +105,15 @@ export default function Container(props: IContainerProps) {
 					console.log('container received message', message, 'data', data)
 
 					const { documentId } = data
-					const document = data.documents?.find(
+					let document = data.documents?.find(
 						(d: TDocument) => d._id === documentId,
 					)
+
+					const values = readyValues()
+					document.values = {
+						...document.values,
+						...values,
+					}
 
 					const payload = {
 						...data,
@@ -111,8 +124,6 @@ export default function Container(props: IContainerProps) {
 						type: 'LOAD',
 						payload,
 					})
-
-					readyData()
 
 					break
 
