@@ -54,7 +54,6 @@ export default function Container(props: IContainerProps) {
 
 	const handleFormChanges = () => {
 		const subscription = form.watch(values => {
-			console.log('the watcher', values)
 			if (!document || !values) return
 
 			skillList.forEach(skill => {
@@ -84,8 +83,7 @@ export default function Container(props: IContainerProps) {
 
 	useEffect(() => {
 		const messageListener = ({ data: payload }: any) => {
-			const { message, source, 
-				data } = payload
+			const { message, source, data } = payload
 
 			console.log('system heard message', message, data, source)
 
