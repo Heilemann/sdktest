@@ -14,12 +14,12 @@ const HInput = forwardRef<HTMLInputElement, IHInputProps>(
 		return (
 			<div
 				className={twMerge(
-					'flex flex-1 space-x-2 border-b border-gray-200 dark:border-gray-800',
+					'flex flex-1 space-x-4 border-b border-gray-200 dark:border-gray-800',
 					className,
 				)}
 			>
 				<Label
-					className='flex-0 w-24 self-center dark:text-gray-500 md:w-32'
+					className='flex-shrink flex-grow self-center dark:text-gray-500'
 					htmlFor={rest.name}
 				>
 					{label}
@@ -27,7 +27,7 @@ const HInput = forwardRef<HTMLInputElement, IHInputProps>(
 
 				<Input
 					ref={ref}
-					className='flex-1 bg-transparent text-right dark:bg-transparent'
+					className='flex-grow bg-transparent text-right dark:bg-transparent'
 					id={rest.name}
 					{...rest}
 				/>

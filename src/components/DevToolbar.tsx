@@ -118,10 +118,10 @@ export default function DevToolbar(props: IDevToolbarProps) {
 	}
 
 	return (
-		<div className='sticky top-0 flex bg-black py-4 px-4 text-white'>
+		<div className='sticky top-0 flex bg-black py-4 px-4 text-sm text-white'>
 			<select
 				ref={selectRef}
-				className='mx-4 text-black'
+				className='mr-4 text-black'
 				defaultValue={state.document.type}
 				onChange={handleChange}
 			>

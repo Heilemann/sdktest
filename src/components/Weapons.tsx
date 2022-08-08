@@ -1,9 +1,17 @@
-import { useContext } from 'react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
+import { PlusIcon, XIcon } from '@heroicons/react/solid'
+import { useContext, useEffect, useRef } from 'react'
+import {
+	FieldValues,
+	useFieldArray,
+	useFormContext,
+	useWatch,
+} from 'react-hook-form'
 import Button from './Button'
 import context from './context'
 import Input from './Input'
-import { PlusIcon, XIcon } from '@heroicons/react/solid'
+import WeaponSkills from './WeaponSkills'
+
+// type weaponSkill = 'brawl' | 'handgun' | 'rifle' | 'custom'
 
 export interface IWeaponsProps {}
 
@@ -12,7 +20,7 @@ export default function Weapons(props: IWeaponsProps) {
 	const { document, editMode } = state
 	const { values } = document
 	const { register, control } = useFormContext()
-	const { fields, prepend, remove } = useFieldArray({
+	const { fields, prepend, remove } = useFieldArray<FieldValues, any, any>({
 		control,
 		name: 'weapons',
 	})
@@ -35,35 +43,20 @@ export default function Weapons(props: IWeaponsProps) {
 		<div>
 			<table className='w-full border-collapse'>
 				<thead>
-					<tr>
-						<th className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Name
+					<tr className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
+						<th>Name</th>
+						{editMode === 'edit' && <th> Skill</th>}
+						<th className='w-12 text-center'>Re</th>
+						<th className='w-12 text-center'>Ha</th>
+						<th className='w-12 text-center'>Ex</th>
+						<th>
+							<span className='hidden md:inline'>Damage</span>
+							<span className='inline md:hidden'>Dmg</span>
 						</th>
-						<th className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Skill
-						</th>
-						<th className='w-16 border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Re
-						</th>
-						<th className='w-16 border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Ha
-						</th>
-						<th className='w-16 border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Ex
-						</th>
-						<th className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Damage
-						</th>
-						<th className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Range
-						</th>
-						<th className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Weight
-						</th>
-						<th className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
-							Cost
-						</th>
-						<th className='border-b border-gray-300 text-left  dark:border-gray-800'>
+						<th>Range</th>
+						<th>Weight</th>
+						<th>Cost</th>
+						<th>
 							<Button onClick={handleAppend} className='px-2'>
 								<PlusIcon className='h-4 w-4' />
 							</Button>
@@ -72,99 +65,52 @@ export default function Weapons(props: IWeaponsProps) {
 				</thead>
 				<tbody>
 					{fields.map((weapon, index) => {
-						const skill = {
-							brawl: values.skills['Fighting (Brawl)'],
-							handgun: values.skills['Firearms (Handgun)'],
-							rifle: values.skills['Firearms (Rifle/Shotgun)'],
-							custom: '0',
-						}
-
-						console.log(skill)
-
-						// @ts-ignore
-						// eslint-disable-next-line react/no-array-index-key
-						const skillName = weapon.skill as
-							| 'brawl'
-							| 'handgun'
-							| 'rifle'
-							| 'custom'
-
-						const regularSkill = skill[skillName].value.toString()
-						const hardSkill = Math.floor(parseInt(regularSkill) / 2).toString()
-						const extremeSkill = Math.floor(
-							parseInt(regularSkill) / 5,
-						).toString()
-
 						return (
-							<tr key={index}>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
+							<tr
+								key={index}
+								className='border-b border-gray-300 dark:border-gray-800'
+							>
+								<td>
+									{editMode === 'edit' ? (
+										<Input
+											className='bg-transparent dark:bg-transparent'
+											placeholder='Weapon...'
+											{...register(`weapons.${index}.name`)}
+										/>
+									) : (
+										<span>{weapon.name}</span>
+									)}
+								</td>
+								<WeaponSkills index={index} weapon={weapon} />
+								<td>
 									<Input
 										className='bg-transparent dark:bg-transparent'
-										placeholder='Weapon...'
-										{...register(`weapons.${index}.name`)}
-									/>
-								</td>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
-									<select
-										{...register(`weapons.${index}.skill`)}
-										className='text-black'
-									>
-										<option value='brawl'>Brawl</option>
-										<option value='handgun'>Handgun</option>
-										<option value='rifle'>Rifle/Shotgun</option>
-										<option value='custom'>Custom</option>
-									</select>{' '}
-								</td>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
-									<Input
-										className='bg- dark:bg-transparentt'
-										placeholder={regularSkill ? regularSkill : '—'}
-										{...register(`weapons.${index}.regular`)}
-									/>
-								</td>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
-									<Input
-										className='bg- dark:bg-transparentt'
-										placeholder={regularSkill ? hardSkill : '—'}
-										{...register(`weapons.${index}.hard`)}
-									/>
-								</td>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
-									<Input
-										className='bg- dark:bg-transparentt'
-										placeholder={regularSkill ? extremeSkill : '—'}
-										{...register(`weapons.${index}.expwer`)}
-									/>
-								</td>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
-									<Input
-										className='bg- dark:bg-transparentt'
-										placeholder='Damage...'
+										placeholder='—'
 										{...register(`weapons.${index}.damage`)}
 									/>
 								</td>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
+								<td>
 									<Input
-										className='bg- dark:bg-transparentt'
-										placeholder='Range...'
+										className='bg-transparent dark:bg-transparent'
+										placeholder='—'
 										{...register(`weapons.${index}.range`)}
 									/>
 								</td>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
+								<td>
 									<Input
-										className='bg- dark:bg-transparentt'
-										placeholder='Weight...'
+										className='bg-transparent dark:bg-transparent'
+										placeholder='—'
 										{...register(`weapons.${index}.weight`)}
 									/>
 								</td>
-								<td className='border-b border-gray-300 dark:border-gray-800'>
+								<td>
 									<Input
-										className='bg- dark:bg-transparentt'
-										placeholder='Cost...'
+										className='bg-transparent dark:bg-transparent'
+										placeholder='—'
 										{...register(`weapons.${index}.cost`)}
 									/>
 								</td>
-								<td className='w-4 border-b border-gray-300 dark:border-gray-800'>
+								<td className='w-4'>
 									<Button onClick={() => handleRemove(index)} className='px-2'>
 										<XIcon className='h-4 w-4' />
 									</Button>
