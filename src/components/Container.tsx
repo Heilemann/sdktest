@@ -37,6 +37,7 @@ export default function Container(props: IContainerProps) {
 		const values = merge(savedDocument.values, { skills })
 
 		form.reset(values)
+		console.log('readyData resetting:', values)
 
 		setReady(true)
 	}
