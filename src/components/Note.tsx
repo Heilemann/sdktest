@@ -8,27 +8,35 @@ export interface INoteProps {}
 
 export default function Note(props: INoteProps) {
 	const { state } = useContext(context)
-	const { document } = state
+	const { document, editMode } = state
 	const { values } = document
 	const { register } = useFormContext()
 
-	// if (!register) return null
 	if (!document?.values) return null
 
-	return (
-		<>
-			<Input
-				className='flex-0'
-				placeholder='Name...'
-				defaultValue={values.name}
-				{...register('name')}
-			/>
-			<TextArea
-				className='m-0 mt-2 flex-1 resize-none'
-				placeholder='Note...'
-				defaultValue={values.note}
-				{...register('note')}
-			/>
-		</>
-	)
+	if (editMode === 'view') {
+		return (
+			<div>
+				<div className='mb-4 font-bold'>{values.name}</div>
+				<div>{values.note}</div>
+			</div>
+		)
+	} else {
+		return (
+			<>
+				<Input
+					className='flex-0 font-bold'
+					placeholder='Name...'
+					defaultValue={values.name}
+					{...register('name')}
+				/>
+				<TextArea
+					className='m-0 mt-2 flex-1 resize-none'
+					placeholder='Note...'
+					defaultValue={values.note}
+					{...register('note')}
+				/>
+			</>
+		)
+	}
 }
