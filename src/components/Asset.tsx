@@ -50,7 +50,7 @@ const Asset: FC<AssetProps> = props => {
 			{asset.filetype.includes('image') && (
 				<img
 					alt='wonderful'
-					src={parentOrigin + '/' + asset.fileurl}
+					src={parentOrigin + asset.fileurl}
 					className='rounded-lg'
 					style={{
 						objectFit: 'cover',
@@ -63,7 +63,7 @@ const Asset: FC<AssetProps> = props => {
 					loop={true}
 					muted={true}
 					playsInline={true}
-					src={parentOrigin + '/' + asset.fileurl}
+					src={parentOrigin + asset.fileurl}
 					style={{
 						objectFit: 'cover',
 					}}
