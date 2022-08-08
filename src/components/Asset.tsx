@@ -18,7 +18,7 @@ const Asset: FC<AssetProps> = props => {
 	const { state } = useContext(context)
 	const { assets, document } = state
 	const assetId = document.values[name]
-	const asset = assets.find((asset: TAsset) => asset._id === assetId)
+	const asset = assetId && assets.find((asset: TAsset) => asset._id === assetId)
 
 	// should move this to a context
 	let parentOrigin = ''
@@ -39,7 +39,7 @@ const Asset: FC<AssetProps> = props => {
 		messageToApp('remove asset', { assetId })
 	}
 
-	if (!asset || !assetId) {
+	if (!asset) {
 		return <Button onClick={handleUpload}>Upload</Button>
 	}
 
