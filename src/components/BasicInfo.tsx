@@ -9,8 +9,7 @@ export interface IBasicInfoProps {}
 
 export default function BasicInfo(props: IBasicInfoProps) {
 	const { state } = useContext(context)
-	const { messageToApp, document } = state
-	const { values } = document
+	const { messageToApp } = state
 	const { register, setValue } = useFormContext()
 
 	if (!messageToApp) return null
