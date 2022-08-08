@@ -43,7 +43,7 @@ const Asset: FC<AssetProps> = props => {
 		return <Button onClick={handleUpload}>Upload</Button>
 	}
 
-	console.log('asset', asset)
+	console.log('loading asset', asset)
 
 	// TODO: Other file types
 	// TODO: alt text
