@@ -23,7 +23,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 						className='mx-2'
 						label='Name'
 						placeholder='&mdash;'
-						{...register('info.name')}
+						{...register('name')}
 					/>
 
 					<HInput
