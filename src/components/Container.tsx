@@ -84,13 +84,10 @@ export default function Container(props: IContainerProps) {
 
 	useEffect(() => {
 		const messageListener = ({ data: payload }: any) => {
-			const {
-				message,
-				// source,
-				data,
-			} = payload
+			const { message, source, 
+				data } = payload
 
-			console.log('system heard message', message, data)
+			console.log('system heard message', message, data, source)
 
 			switch (message) {
 				// aux server is sending us our data
