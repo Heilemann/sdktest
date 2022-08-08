@@ -19,6 +19,7 @@ export default function Container(props: IContainerProps) {
 	const [ready, setReady] = useState(false)
 
 	const readyData = () => {
+		console.log('ready data')
 		let savedDocument = JSON.parse(
 			localStorage.getItem('character') || '{"values":{"skills":{}}}',
 		)
@@ -111,6 +112,8 @@ export default function Container(props: IContainerProps) {
 						payload,
 					})
 
+					readyData()
+
 					break
 
 				case 'onUpload':
@@ -148,11 +151,9 @@ export default function Container(props: IContainerProps) {
 	return (
 		<FormProvider {...form}>
 			<div className='bottom-0 box-border flex min-h-full w-full flex-col bg-gray-100 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
-				{/* <div className='flex-1 bg-green-500'> */}
 				{type === 'character' && <Character />}
 				{type === 'note' && <Note />}
 				{type === 'scene' && <Scene messageToApp={messageToApp} />}
-				{/* </div> */}
 			</div>
 		</FormProvider>
 	)
