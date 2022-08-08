@@ -90,6 +90,8 @@ export default function Container(props: IContainerProps) {
 				data,
 			} = payload
 
+			console.log('system heard message', message, data)
+
 			switch (message) {
 				// aux server is sending us our data
 				case 'load':
