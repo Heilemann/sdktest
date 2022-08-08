@@ -117,7 +117,7 @@ export default function Container(props: IContainerProps) {
 				case 'onUpload':
 					const { name } = data
 
-					messageToApp('onUpload', {
+					messageToApp('upload', {
 						name,
 					})
 

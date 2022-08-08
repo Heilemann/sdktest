@@ -23,7 +23,7 @@ export default function Scene(props: ISceneProps) {
 	if (!document?.values) return null
 
 	const handleSetScene = () => {
-		messageToApp('setScene', {
+		messageToApp('set scene', {
 			sceneId: document._id,
 		})
 	}

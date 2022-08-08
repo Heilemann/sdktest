@@ -17,7 +17,7 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 			if (!value) return
 			if (!state.messageToApp) return
 
-			state.messageToApp('sendMessage', { message: `/roll d100 < ${value}` })
+			state.messageToApp('send message', { message: `/roll d100 < ${value}` })
 		}
 
 		if (state.editMode === 'edit') {

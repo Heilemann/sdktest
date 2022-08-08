@@ -11,7 +11,7 @@
 			"singularName": "Character",
 			"pluralName": "Characters",
 			"description": "A player character.",
-			"hasEditMode": true,
+			"hasEditMode": "true",
 			"windowSize": "large",
 			"thumbnailField": ["portrait", "token"],
 			"allowCreate": "true"
@@ -21,7 +21,7 @@
 			"singularName": "Note",
 			"pluralName": "Notes",
 			"description": "For simple note taking.",
-			"hasEditMode": true,
+			"hasEditMode": "true",
 			"windowSize": "medium",
 			"allowCreate": "true"
 		},
@@ -30,7 +30,7 @@
 			"singularName": "Scene",
 			"pluralName": "Scenes",
 			"description": "Provide context, cover art and maps.",
-			"hasEditMode": false,
+			"hasEditMode": "false",
 			"windowSize": "small",
 			"allowCreate": "false"
 		}
