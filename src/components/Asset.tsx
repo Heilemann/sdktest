@@ -59,7 +59,7 @@ const Asset: FC<AssetProps> = props => {
 			)}
 			{asset.filetype.includes('video') && (
 				<video
-					// autoPlay={true}
+					autoPlay={true}
 					loop={true}
 					muted={true}
 					playsInline={true}
