@@ -116,6 +116,13 @@ export default function Container(props: IContainerProps) {
 
 					break
 
+				case 'onDocumentModeChange':
+					dispatch({
+						type: 'LOAD',
+						payload: data,
+					})
+					break
+
 				case 'onUpload':
 					const { name } = data
 
