@@ -126,7 +126,7 @@ export default function Scene(props: ISceneProps) {
 					<Asset
 						name='mapId'
 						setValue={setValue}
-						messageToParent={messageToApp}
+						messageToApp={messageToApp}
 						style={{ maxWidth: '200px' }}
 					/>
 				</div>
@@ -138,7 +138,7 @@ export default function Scene(props: ISceneProps) {
 					<Asset
 						name='coverId'
 						setValue={setValue}
-						messageToParent={messageToApp}
+						messageToApp={messageToApp}
 						style={{ maxWidth: '200px' }}
 					/>
 				</div>

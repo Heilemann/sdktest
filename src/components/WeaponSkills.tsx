@@ -45,7 +45,7 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 
 	const handleSkillClick = (skill: string) => {
 		messageToApp &&
-			messageToApp('sendMessage', {
+			messageToApp('send message', {
 				message: `/roll d100 < ${skill}`,
 			})
 	}

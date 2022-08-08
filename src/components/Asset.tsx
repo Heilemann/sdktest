@@ -8,13 +8,13 @@ import context from './context'
 interface AssetProps {
 	name: string
 	setValue: UseFormSetValue<any>
-	messageToParent: (message: string, data?: any) => void
+	messageToApp: (message: string, data?: any) => void
 	className?: string
 	style?: React.CSSProperties
 }
 
 const Asset: FC<AssetProps> = props => {
-	const { name, setValue, messageToParent, className, style } = props
+	const { name, setValue, messageToApp, className, style } = props
 	const { state } = useContext(context)
 	const { assets, document } = state
 	const assetId = document.values[name]
@@ -31,12 +31,12 @@ const Asset: FC<AssetProps> = props => {
 	// }
 
 	const handleUpload = () => {
-		messageToParent('onUpload', name)
+		messageToApp('upload asset', name)
 	}
 
 	const handleRemoveAsset = () => {
 		setValue(name, '')
-		messageToParent('onRemoveAsset', { assetId })
+		messageToApp('remove asset', { assetId })
 	}
 
 	if (!asset) {

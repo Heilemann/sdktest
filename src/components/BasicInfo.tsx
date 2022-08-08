@@ -70,7 +70,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 					<Asset
 						name='portrait'
 						setValue={setValue}
-						messageToParent={messageToApp}
+						messageToApp={messageToApp}
 						style={{ maxWidth: '200px' }}
 					/>
 				</div>
@@ -81,7 +81,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 					<Asset
 						name='token'
 						setValue={setValue}
-						messageToParent={messageToApp}
+						messageToApp={messageToApp}
 						style={{ maxWidth: '200px' }}
 					/>
 				</div>
