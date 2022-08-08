@@ -17,7 +17,7 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 	const { values } = document
 	const { skills } = values
 
-	// the skill the weapon set to use
+	// force re-render when skill changes
 	const weaponSkill = useWatch({
 		control,
 		name: `weapons.${index}.skill`,
@@ -30,7 +30,9 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 		rifle: skills['Firearms (Rifle/Shotgun)'].value,
 	}
 
-	const isCustom = weaponSkill === 'custom'
+	const isCustom = weaponSkill === 'custom' || !weaponSkill
+
+	console.log('weaponSkill', weaponSkill)
 
 	// @ts-ignore
 	const regularSkill = isCustom ? 0 : skillValues[weaponSkill].toString()
@@ -61,7 +63,7 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 			<td>
 				{editMode === 'edit' ? (
 					<Input
-						className='bg-transparent dark:bg-transparent'
+						className='bg-transparent text-center dark:bg-transparent'
 						placeholder={regularSkill ? regularSkill : '—'}
 						{...register(`weapons.${index}.regular`)}
 					/>
@@ -77,7 +79,7 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 			<td>
 				{editMode === 'edit' ? (
 					<Input
-						className='bg-transparent dark:bg-transparent'
+						className='bg-transparent text-center dark:bg-transparent'
 						placeholder={hardSkill ? hardSkill : '—'}
 						{...register(`weapons.${index}.hard`)}
 					/>
@@ -93,7 +95,7 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 			<td>
 				{editMode === 'edit' ? (
 					<Input
-						className='bg-transparent dark:bg-transparent'
+						className='bg-transparent text-center dark:bg-transparent'
 						placeholder={extremeSkill ? extremeSkill : '—'}
 						{...register(`weapons.${index}.extreme`)}
 					/>
