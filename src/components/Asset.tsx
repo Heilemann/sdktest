@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { UseFormSetValue } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import { TAsset } from '../interfaces'
@@ -16,12 +16,12 @@ const Asset: FC<AssetProps> = props => {
 	const { name, setValue, className, style } = props
 	const { state } = useContext(context)
 	const { assets, document, messageToApp } = state
-	const [assetId, setAssetId] = React.useState<string>(document.values[name])
+	const [assetId, setAssetId] = useState<string>(document.values[name])
 	const asset = assetId && assets.find((asset: TAsset) => asset._id === assetId)
 
 	useEffect(() => {
 		setAssetId(document.values[name])
-	}, [JSON.stringify(document.values[name]), setAssetId]) // eslint-disable-line react-hooks/exhaustive-deps
+	}, [JSON.stringify(assets), setAssetId]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	// should move this to a context
 	let parentOrigin = ''
