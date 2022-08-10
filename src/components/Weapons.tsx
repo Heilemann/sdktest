@@ -23,9 +23,9 @@ export default function Weapons(props: IWeaponsProps) {
 		prepend({
 			name: '',
 			skill: 'custom',
-			regular: '0',
-			hard: '0',
-			extreme: '0',
+			regular: '',
+			hard: '',
+			extreme: '',
 			damage: '',
 			range: '',
 			weight: '',
