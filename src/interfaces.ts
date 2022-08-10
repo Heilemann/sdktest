@@ -19,6 +19,7 @@ export type TValues = {
   // }
   [key: string]: any
   weapons?: TWeapon[]
+  skills?: TSkills
 }
 
 export type TSkills = {
@@ -27,8 +28,8 @@ export type TSkills = {
 
 export type TSkill = {
   name: string
-  starting: number
-  value: number
+  starting: string
+  value: string
   addable?: boolean
   tickable?: boolean
 }

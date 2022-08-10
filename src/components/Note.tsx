@@ -27,13 +27,11 @@ export default function Note(props: INoteProps) {
 				<Input
 					className='flex-0 font-bold'
 					placeholder='Name...'
-					defaultValue={values.name}
 					{...register('name')}
 				/>
 				<TextArea
 					className='m-0 mt-2 flex-1 resize-none'
 					placeholder='Note...'
-					defaultValue={values.note}
 					{...register('note')}
 				/>
 			</>

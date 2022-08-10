@@ -1,11 +1,6 @@
 import { PlusIcon, XIcon } from '@heroicons/react/solid'
-import { useContext, useEffect, useRef } from 'react'
-import {
-	FieldValues,
-	useFieldArray,
-	useFormContext,
-	useWatch,
-} from 'react-hook-form'
+import { useContext } from 'react'
+import { FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
 import Button from './Button'
 import context from './context'
 import Input from './Input'
@@ -17,8 +12,7 @@ export interface IWeaponsProps {}
 
 export default function Weapons(props: IWeaponsProps) {
 	const { state } = useContext(context)
-	const { document, editMode } = state
-	const { values } = document
+	const { editMode } = state
 	const { register, control } = useFormContext()
 	const { fields, prepend, remove } = useFieldArray<FieldValues, any, any>({
 		control,
@@ -28,10 +22,13 @@ export default function Weapons(props: IWeaponsProps) {
 	const handleAppend = () => {
 		prepend({
 			name: '',
+			skill: 'custom',
+			regular: '0',
+			hard: '0',
+			extreme: '0',
 			damage: '',
 			range: '',
 			weight: '',
-			cost: '',
 		})
 	}
 
@@ -45,7 +42,7 @@ export default function Weapons(props: IWeaponsProps) {
 				<thead>
 					<tr className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
 						<th>Name</th>
-						{editMode === 'edit' && <th> Skill</th>}
+						{editMode === 'edit' && <th>Skill</th>}
 						<th className='w-12 text-center'>Re</th>
 						<th className='w-12 text-center'>Ha</th>
 						<th className='w-12 text-center'>Ex</th>
@@ -55,7 +52,6 @@ export default function Weapons(props: IWeaponsProps) {
 						</th>
 						<th>Range</th>
 						<th>Weight</th>
-						<th>Cost</th>
 						<th className='w-4'>
 							<Button onClick={handleAppend} className='px-2'>
 								<PlusIcon className='h-4 w-4' />
@@ -101,13 +97,6 @@ export default function Weapons(props: IWeaponsProps) {
 										className='bg-transparent dark:bg-transparent'
 										placeholder='—'
 										{...register(`weapons.${index}.weight`)}
-									/>
-								</td>
-								<td>
-									<Input
-										className='bg-transparent dark:bg-transparent'
-										placeholder='—'
-										{...register(`weapons.${index}.cost`)}
 									/>
 								</td>
 								<td className='w-4 bg-red-200'>

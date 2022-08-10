@@ -1,27 +1,26 @@
 import BasicInfo from './BasicInfo'
 import Characteristics from './Characteristics'
-import Copyright from './Copyright'
 import Combat from './Combat'
+import Copyright from './Copyright'
 import SectionDivider from './SectionDivider'
-import SkillsList from './Skills'
+import Skills from './Skills'
 import Weapons from './Weapons'
-import Logo from './Logo'
 
 export interface ICharacterProps {}
 
 export default function Character(props: ICharacterProps) {
+	console.log('Character rendered')
+
 	return (
 		<div className='space-y-4'>
-			{/* <Logo /> */}
-
 			<SectionDivider>Basic Information</SectionDivider>
 			<BasicInfo />
 
 			<SectionDivider>Characteristics</SectionDivider>
 			<Characteristics />
 
-			{/* <SectionDivider>Skills</SectionDivider>
-			<SkillsList /> */}
+			<SectionDivider>Skills</SectionDivider>
+			<Skills />
 
 			<SectionDivider>Combat</SectionDivider>
 			<Combat />

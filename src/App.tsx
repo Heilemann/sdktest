@@ -7,47 +7,73 @@ import Reducer from './components/reducer'
 import { TState } from './interfaces'
 
 let initialData = {
+	documentId: '123',
 	editMode: 'view',
-	document: {
-		_id: '',
-		creator: '',
-		access: [],
-		type: '',
-		values: {
-			info: {
-				name: '',
-				occupation: '',
-				residence: '',
-				birthplace: '',
-				pronouns: '',
-				age: '',
-			},
-			weapons: [],
+	documents: [
+		{
+			_id: '123',
+			creator: 'abc',
+			access: [],
+			type: 'character',
+			values: {},
 		},
-	},
-	documents: [],
+	],
 	assets: [],
-} as TState
+}
 
 function App() {
-	const [state, dispatch] = useReducer(Reducer, initialData)
+	// @ts-ignore
+	const [state, dispatch] = useReducer(Reducer, {} as TState)
 	const isDevelopment = process.env.NODE_ENV === 'development'
 
 	useEffect(() => {
-		const logMessages = ({ data: payload }: any) => {
+		const simulatedMessages = ({ data: payload }: any) => {
 			const { message, source, data } = payload
 
 			if (source !== 'System') return
 
-			console.log('system sent message', message, data)
+			console.log('system sent message:', message, data)
+
+			switch (message) {
+				case 'system is ready':
+					let loadedState = JSON.parse(localStorage.getItem('state') || '{}')
+
+					if (Object.keys(loadedState).length) {
+						initialData = {
+							...initialData,
+							...loadedState,
+						}
+					}
+
+					console.log('load state from localStorage', loadedState)
+
+					window.parent.postMessage({
+						source: 'Aux',
+						message: 'load',
+						data: initialData,
+					})
+
+					break
+
+				case 'save':
+					console.log('save state to localStorage', data)
+					const newState = {
+						...state,
+						documents: [payload.data],
+					}
+
+					localStorage.setItem('state', JSON.stringify(newState))
+
+					console.log(`save state to localStorage:`, newState)
+			}
 		}
 
 		if (isDevelopment) {
-			window.addEventListener('message', logMessages)
+			window.addEventListener('message', simulatedMessages)
+		}
 
-			return () => {
-				window.removeEventListener('message', logMessages)
-			}
+		return () => {
+			window.removeEventListener('message', simulatedMessages)
 		}
 	}, []) // eslint-disable-line
 

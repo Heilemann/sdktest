@@ -25,9 +25,9 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 
 	// get default skill values
 	const skillValues = {
-		brawl: skills['Fighting (Brawl)'].value,
-		handgun: skills['Firearms (Handgun)'].value,
-		rifle: skills['Firearms (Rifle/Shotgun)'].value,
+		brawl: skills ? skills['Fighting (Brawl)']?.value : null,
+		handgun: skills ? skills['Firearms (Handgun)']?.value : null,
+		rifle: skills ? skills['Firearms (Rifle/Shotgun)']?.value : null,
 	}
 
 	const isCustom = weaponSkill === 'custom' || !weaponSkill

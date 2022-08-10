@@ -1,51 +1,24 @@
-import merge from 'lodash/merge'
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { TDocument, TSkills, TValues } from '../interfaces'
+import { TDocument, TValues } from '../interfaces'
 import Character from './Character'
 import context from './context'
 import Note from './Note'
 import Scene from './Scene'
-import skillList from './skillList'
 
 export interface IContainerProps {}
 
 export default function Container(props: IContainerProps) {
-	const isDevelopment = process.env.NODE_ENV === 'development'
+	// const isDevelopment = process.env.NODE_ENV === 'development'
 	const { state, dispatch } = useContext(context)
 	const { document } = state
-	const { type } = document
-	const form = useForm<TValues>()
-	const [ready, setReady] = useState(false)
-
-	const readyData = () => {
-		let savedDocument = JSON.parse(
-			localStorage.getItem('character') || '{"values":{"skills":{}}}',
-		)
-
-		let defaultSkills = {} as TSkills
-
-		skillList.forEach(skill => {
-			defaultSkills[skill.name] = {
-				name: skill.name,
-				value: skill.starting,
-				starting: skill.starting,
-			}
-		})
-
-		const skills = merge(defaultSkills, savedDocument.values.skills)
-		const values = merge(savedDocument.values, { skills })
-
-		form.reset(values)
-
-		setReady(true)
-	}
-	useEffect(readyData, []) // eslint-disable-line
+	const type = document?.type || null
+	const form = useForm<TValues>({
+		shouldUnregister: true,
+	})
 
 	const messageToApp = (message: string, data?: any) => {
-		const parent = window.parent
-
-		parent.postMessage({
+		window.parent.postMessage({
 			source: 'System',
 			message,
 			data,
@@ -54,12 +27,9 @@ export default function Container(props: IContainerProps) {
 
 	const handleFormChanges = () => {
 		const subscription = form.watch(values => {
-			if (!document || !values) return
+			console.log('watch:', values)
 
-			skillList.forEach(skill => {
-				if (values.skills[skill.name].value === '')
-					form.setValue(`skills.${skill.name}.value`, skill.starting)
-			})
+			if (!document || !values) return
 
 			const payload = {
 				...document,
@@ -70,25 +40,23 @@ export default function Container(props: IContainerProps) {
 			}
 
 			messageToApp('save', payload)
-
-			if (isDevelopment)
-				localStorage.setItem(document.type, JSON.stringify(payload))
 		})
 
 		return () => {
 			subscription.unsubscribe()
 		}
 	}
-	useEffect(handleFormChanges, [document, form]) // eslint-disable-line
+	useEffect(handleFormChanges, [state]) // eslint-disable-line
 
-	useEffect(() => {
-		const messageListener = ({ data: payload }: any) => {
+	const messageListener = useCallback(
+		({ data: payload }: any) => {
 			const { message, source, data } = payload
 
-			console.log('system heard message', message, data, source)
+			if (source !== 'Aux' && source !== 'App') return
+
+			console.log('system heard message:', message, data, source)
 
 			switch (message) {
-				// aux server is sending us our data
 				case 'load':
 					console.log('container received message', message, 'data', data)
 
@@ -119,15 +87,23 @@ export default function Container(props: IContainerProps) {
 					break
 
 				case 'onUpload':
-					const { name } = data
-
 					messageToApp('upload', {
-						name,
+						name: data.name,
 					})
 
 					break
 			}
-		}
+		},
+		[dispatch, form],
+	)
+
+	useEffect(() => {
+		dispatch({
+			type: 'LOAD',
+			payload: {
+				messageToApp,
+			},
+		})
 
 		window.addEventListener('message', messageListener)
 
@@ -138,17 +114,9 @@ export default function Container(props: IContainerProps) {
 		}
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-	useEffect(() => {
-		dispatch({
-			type: 'LOAD',
-			payload: {
-				messageToApp,
-			},
-		})
-	}, []) // eslint-disable-line react-hooks/exhaustive-deps
+	// if (!state.messageToApp) return null
 
-	if (!state.messageToApp) return null
-	if (!ready) return null
+	if (!type) return null
 
 	return (
 		<FormProvider {...form}>

@@ -30,50 +30,49 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		return () => {
 			subscription.unsubscribe()
 		}
-	})
+	}, [])
 
-	useEffect(() => {
-		setCollections(systemConfig.collections)
+	// useEffect(() => {
+	// 	setCollections(systemConfig.collections)
 
-		const fakeData = {
-			document: {} as TDocument,
-			documents: [],
-			assets: [],
-			editMode: 'edit',
-		} as TState
+	// 	const fakeData = {
+	// 		document: {} as TDocument,
+	// 		documents: [],
+	// 		assets: [],
+	// 		editMode: 'edit',
+	// 	} as TState
 
-		// for each collection create a fake document we can use to switch UI
-		systemConfig.collections.forEach(collection => {
-			const document = {
-				_id: collection.type,
-				type: collection.type,
-				creator: 'abc',
-				access: [],
-				values: {
-					name: 'No name',
-				},
-			}
-			fakeData.documents.push(document)
-		})
+	// 	// for each collection create a fake document we can use to switch UI
+	// 	systemConfig.collections.forEach(collection => {
+	// 		const document = {
+	// 			_id: collection.type,
+	// 			type: collection.type,
+	// 			creator: 'abc',
+	// 			access: [],
+	// 			values: {
+	// 				name: 'No name',
+	// 			},
+	// 		}
+	// 		fakeData.documents.push(document)
+	// 	})
 
-		fakeData['document'] = fakeData.documents[0]
+	// 	fakeData['document'] = fakeData.documents[0]
 
-		const type = fakeData['document'].type
-		const savedData = JSON.parse(localStorage.getItem(type) || '{}')
+	// 	const savedData = JSON.parse(localStorage.getItem('state') || '{}')
 
-		fakeData.document = {
-			...fakeData.document,
-			...savedData,
-		}
+	// 	fakeData.document = {
+	// 		...fakeData.document,
+	// 		...savedData,
+	// 	}
 
-		dispatch({
-			type: 'LOAD',
-			payload: {
-				...state,
-				...fakeData,
-			},
-		})
-	}, []) // eslint-disable-line
+	// 	dispatch({
+	// 		type: 'LOAD',
+	// 		payload: {
+	// 			...state,
+	// 			...fakeData,
+	// 		},
+	// 	})
+	// }, []) // eslint-disable-line
 
 	const handleChange = (e: any) => {
 		const { value } = e.target
@@ -122,7 +121,7 @@ export default function DevToolbar(props: IDevToolbarProps) {
 			<select
 				ref={selectRef}
 				className='mr-4 text-black'
-				defaultValue={state.document.type}
+				// defaultValue={state.document.type}
 				onChange={handleChange}
 			>
 				{collections.map((collection: any) => (
