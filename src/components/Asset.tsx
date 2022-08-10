@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { FC, useContext, useEffect } from 'react'
 import { UseFormSetValue } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import { TAsset } from '../interfaces'
@@ -16,10 +16,12 @@ const Asset: FC<AssetProps> = props => {
 	const { name, setValue, className, style } = props
 	const { state } = useContext(context)
 	const { assets, document, messageToApp } = state
-	const assetId = document.values[name]
+	const [assetId, setAssetId] = React.useState<string>(document.values[name])
 	const asset = assetId && assets.find((asset: TAsset) => asset._id === assetId)
 
-	if (assetId) console.log('-----> asset:', assetId, asset)
+	useEffect(() => {
+		setAssetId(document.values[name])
+	}, [JSON.stringify(document.values[name]), setAssetId]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	// should move this to a context
 	let parentOrigin = ''
@@ -32,12 +34,12 @@ const Asset: FC<AssetProps> = props => {
 	// }
 
 	const handleUpload = () => {
-		messageToApp('upload asset', name)
+		messageToApp && messageToApp('upload asset', name)
 	}
 
 	const handleRemoveAsset = () => {
 		setValue(name, '')
-		messageToApp('remove asset', { assetId })
+		messageToApp && messageToApp('remove asset', { assetId })
 	}
 
 	if (!asset) {
