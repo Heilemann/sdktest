@@ -115,6 +115,14 @@ export default function Container(props: IContainerProps) {
 	)
 
 	useEffect(() => {
+		window.addEventListener('message', messageListener)
+
+		return () => {
+			window.removeEventListener('message', messageListener)
+		}
+	}, [messageListener])
+
+	const addMessageToAppToState = () => {
 		dispatch({
 			type: 'LOAD',
 			payload: {
@@ -122,14 +130,9 @@ export default function Container(props: IContainerProps) {
 			},
 		})
 
-		window.addEventListener('message', messageListener)
-
 		messageToApp('system is ready')
-
-		return () => {
-			window.removeEventListener('message', messageListener)
-		}
-	}, []) // eslint-disable-line react-hooks/exhaustive-deps
+	}
+	useEffect(addMessageToAppToState, [addMessageToAppToState])
 
 	// if (!state.messageToApp) return null
 
