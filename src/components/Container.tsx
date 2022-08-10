@@ -27,7 +27,7 @@ export default function Container(props: IContainerProps) {
 
 	const handleFormChanges = () => {
 		const subscription = form.watch(values => {
-			console.log('watch:', values)
+			// console.log('watch:', values)
 
 			if (!document || !values) return
 
@@ -56,14 +56,14 @@ export default function Container(props: IContainerProps) {
 
 			if (wrongSource) return
 
-			console.log(
-				'container received message:',
-				message,
-				', data:',
-				messagePayload.data,
-				', source:',
-				source,
-			)
+			// console.log(
+			// 	'container received message:',
+			// 	message,
+			// 	', data:',
+			// 	messagePayload.data,
+			// 	', source:',
+			// 	source,
+			// )
 
 			switch (message) {
 				case 'load':
@@ -81,7 +81,7 @@ export default function Container(props: IContainerProps) {
 						document,
 					}
 
-					console.log('system load', payload)
+					// console.log('system load', payload)
 
 					dispatch({
 						type: 'LOAD',
@@ -93,7 +93,7 @@ export default function Container(props: IContainerProps) {
 					break
 
 				case 'update data':
-					console.log('system update data:', data)
+					// console.log('system update data:', data)
 
 					const newDocument = data.documents?.find(
 						(d: TDocument) => d._id === state.documentId,
@@ -151,11 +151,12 @@ export default function Container(props: IContainerProps) {
 
 	if (!type) return null
 
-	console.log(
-		'>>>>>>>>>>',
-		document?.values?.portrait,
-		state.assets[document?.values?.portrait],
-	)
+	// console.log(
+	// 	'>>>>>>>>>>',
+	// 	document?.values?.portrait,
+	// 	state.assets[document?.values?.portrait],
+	// 	state.assets,
+	// )
 
 	return (
 		<FormProvider {...form}>
