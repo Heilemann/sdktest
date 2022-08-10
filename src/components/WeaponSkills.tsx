@@ -49,7 +49,7 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 	const regular = useWatch({
 		control,
 		name: `weapons.${index}.regular`,
-		defaultValue: '0',
+		defaultValue: '',
 	}) as string
 
 	// get default skill values
