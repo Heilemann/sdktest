@@ -81,15 +81,26 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 			})
 	}
 
+	const weaponSkillLabel = {
+		brawl: 'Brawl',
+		handgun: 'Handgun',
+		rifle: 'Rifle/Shotgun',
+		custom: 'Custom',
+	}
+
 	return (
 		<>
-			<td className={editMode === 'view' ? 'hidden' : ''}>
-				<select className='text-black' {...register(`weapons.${index}.skill`)}>
+			<td>
+				<select
+					className={twMerge('text-black', editMode === 'view' ? 'hidden' : '')}
+					{...register(`weapons.${index}.skill`)}
+				>
 					<option value='brawl'>Brawl</option>
 					<option value='handgun'>Handgun</option>
 					<option value='rifle'>Rifle/Shotgun</option>
 					<option value='custom'>Custom</option>
 				</select>
+				{editMode === 'view' && weaponSkillLabel[weaponSkill]}
 			</td>
 			<td>
 				<Input
