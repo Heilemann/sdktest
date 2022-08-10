@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import context from './context'
@@ -16,6 +16,11 @@ export default function SkillsList(props: ISkillsListProps) {
 	const { skills } = values
 	const { register } = useFormContext()
 
+	const skillValues = useWatch({
+		name: 'skills',
+		defaultValue: skills || {},
+	})
+
 	const handleRoll = (skillName: string, skillValue: string) => {
 		if (!messageToApp) return
 
@@ -24,17 +29,21 @@ export default function SkillsList(props: ISkillsListProps) {
 		})
 	}
 
-	console.log('skills', skills)
-
 	return (
 		<div className='-mx-4 grid grid-cols-none sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 			{skillList.map(skill => {
 				let value = skill.starting
-				if (skills && skills[skill.name] && skills[skill.name].value) {
-					value = skills[skill.name].value
+
+				if (
+					skillValues &&
+					skillValues[skill.name] &&
+					skillValues[skill.name].value
+				) {
+					value = skillValues[skill.name].value
 				}
 
-				console.log('skill:', skill, value)
+				if (skill.name === 'Accounting')
+					console.log('skill:', skillValues, skill, value)
 
 				return (
 					<div
@@ -55,19 +64,18 @@ export default function SkillsList(props: ISkillsListProps) {
 							{/* {skill.addable && <span> (addable)</span>} */}
 						</Label>
 
-						{editMode === 'edit' && (
-							<>
-								<Input
-									// type='number'
-									className='my-1 w-12 appearance-none bg-transparent py-1 pr-0 text-right dark:bg-transparent'
-									disabled={state.editMode ? false : true}
-									id={skill.name}
-									placeholder={skill.starting.toString()}
-									{...register(`skills.${skill.name}.value`)}
-								/>
-								<span className='self-center'>%</span>
-							</>
-						)}
+						<Input
+							// type='number'
+							className={twMerge(
+								'my-1 w-12 appearance-none bg-transparent py-1 pr-0 text-right dark:bg-transparent',
+								// editMode === 'view' && 'hidden',
+							)}
+							disabled={state.editMode ? false : true}
+							id={skill.name}
+							placeholder={skill.starting.toString()}
+							{...register(`skills.${skill.name}.value`)}
+						/>
+						<span className='self-center'>%</span>
 						{editMode === 'view' && (
 							<Button
 								className='w-14 px-2'

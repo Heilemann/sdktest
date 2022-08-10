@@ -8,7 +8,7 @@ import { TState } from './interfaces'
 
 let initialData = {
 	documentId: '123',
-	editMode: 'view',
+	editMode: 'edit',
 	documents: [
 		{
 			_id: '123',
@@ -32,7 +32,7 @@ function App() {
 
 			if (source !== 'System') return
 
-			console.log('system sent message:', message, data)
+			console.log('app heard message from system:', message, ', data:', data)
 
 			switch (message) {
 				case 'system is ready':
