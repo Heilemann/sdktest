@@ -32,8 +32,6 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 
 	const isCustom = weaponSkill === 'custom' || !weaponSkill
 
-	console.log('weaponSkill', weaponSkill)
-
 	// @ts-ignore
 	const regularSkill = isCustom ? 0 : skillValues[weaponSkill].toString()
 	const hardSkill = isCustom

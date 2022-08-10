@@ -20,6 +20,7 @@ const Asset: FC<AssetProps> = props => {
 	const asset = assetId && assets.find((asset: TAsset) => asset._id === assetId)
 
 	useEffect(() => {
+		console.log('------> newly setting assetId:', name, assetId)
 		setAssetId(document.values[name])
 	}, [JSON.stringify(assets), setAssetId]) // eslint-disable-line react-hooks/exhaustive-deps
 

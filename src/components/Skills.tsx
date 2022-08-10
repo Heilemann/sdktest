@@ -40,9 +40,6 @@ export default function SkillsList(props: ISkillsListProps) {
 					value = skillValues[skill.name].value
 				}
 
-				if (skill.name === 'Accounting')
-					console.log('skill:', skillValues, skill, value)
-
 				return (
 					<div
 						key={skill.name}
