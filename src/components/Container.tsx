@@ -53,9 +53,16 @@ export default function Container(props: IContainerProps) {
 			const { message, source, data } = payload
 			const wrongSource = source !== 'Aux' && source !== 'App'
 
-			if (wrongSource) return
+			console.log(
+				'container received message',
+				message,
+				'data',
+				data,
+				'source',
+				source,
+			)
 
-			console.log('container received message', message, 'data', data)
+			if (wrongSource) return
 
 			switch (message) {
 				case 'load':
