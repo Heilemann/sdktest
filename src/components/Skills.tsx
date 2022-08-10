@@ -12,13 +12,11 @@ export interface ISkillsListProps {}
 export default function SkillsList(props: ISkillsListProps) {
 	const { state } = useContext(context)
 	const { document, editMode, messageToApp } = state
-	const { values } = document
-	const { skills } = values
 	const { register } = useFormContext()
 
 	const skillValues = useWatch({
 		name: 'skills',
-		defaultValue: skills || {},
+		defaultValue: document.values.skills || {},
 	})
 
 	const handleRoll = (skillName: string, skillValue: string) => {

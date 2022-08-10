@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { TDocument, TValues } from '../interfaces'
+import { TDocument, TSystemReceivableMessages, TValues } from '../interfaces'
 import Character from './Character'
 import context from './context'
 import Note from './Note'
@@ -49,8 +49,9 @@ export default function Container(props: IContainerProps) {
 	useEffect(handleFormChanges, [state]) // eslint-disable-line
 
 	const messageListener = useCallback(
-		({ data: payload }: any) => {
-			const { message, source, data } = payload
+		(e: MessageEvent) => {
+			const messagePayload = e.data as TSystemReceivableMessages
+			const { message, source, data } = { ...messagePayload }
 			const wrongSource = source !== 'Aux' && source !== 'App'
 
 			if (wrongSource) return
@@ -59,7 +60,7 @@ export default function Container(props: IContainerProps) {
 				'container received message:',
 				message,
 				', data:',
-				data,
+				messagePayload.data,
 				', source:',
 				source,
 			)
@@ -70,6 +71,10 @@ export default function Container(props: IContainerProps) {
 					const document = data.documents?.find(
 						(d: TDocument) => d._id === documentId,
 					)
+
+					if (!document) {
+						throw new Error(`document with id ${documentId} not found by aux`)
+					}
 
 					const payload = {
 						...data,
@@ -87,8 +92,9 @@ export default function Container(props: IContainerProps) {
 
 					break
 
-				case 'onDocumentsChange':
-					console.log('system onDocumentsChange', data)
+				case 'update data':
+					console.log('system update data:', data)
+
 					dispatch({
 						type: 'LOAD',
 						payload: data,
@@ -96,19 +102,19 @@ export default function Container(props: IContainerProps) {
 
 					break
 
-				case 'onDocumentModeChange':
+				case 'update document mode':
 					dispatch({
 						type: 'LOAD',
 						payload: data,
 					})
 					break
 
-				case 'onUpload':
-					messageToApp('upload', {
-						name: data.name,
-					})
+				// case 'onUpload':
+				// 	messageToApp('upload', {
+				// 		name: data.name,
+				// 	})
 
-					break
+				// 	break
 			}
 		},
 		[dispatch, form],

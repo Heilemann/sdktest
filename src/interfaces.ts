@@ -87,3 +87,62 @@ export type TPostMessage =
     message: 'sendMessage'
     data: { message: string }
   }
+
+export type TEditMode = 'view' | 'edit'
+
+export type TAppReceivableMessages = {
+  message: 'save'
+  source: 'System'
+  data: TDocument
+} | {
+  message: 'focus'
+  source: 'System'
+} | {
+  message: 'send message'
+  source: 'System'
+  data: { message: string }
+} | {
+  message: 'upload asset'
+  source: 'System'
+  data: { assetId: string }
+} | {
+  message: 'remove asset'
+  source: 'System'
+  data: { assetId: string }
+} | {
+  message: 'set scene'
+  source: 'System'
+  data: { sceneId: string }
+}
+
+export type TSystemReceivableMessages = {
+  message: 'load'
+  source: 'Aux'
+  data: {
+    documentId: string
+    documents: TDocument[]
+    assets: TAsset[]
+    editMode: TEditMode
+  }
+} | {
+  message: 'update data'
+  source: 'App'
+  data: {
+    documentId: string
+    documents: TDocument[]
+    assets: TAsset[]
+    editMode: TEditMode
+  }
+} | {
+  message: 'update document mode'
+  source: 'App'
+  data: {
+    editMode: TEditMode
+  }
+} | {
+  message: 'upload asset success'
+  source: 'App'
+  data: {
+    name: string
+  }
+}
