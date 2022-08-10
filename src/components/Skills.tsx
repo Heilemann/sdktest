@@ -31,7 +31,6 @@ export default function SkillsList(props: ISkillsListProps) {
 				if (skills && skills[skill.name] && skills[skill.name].value) {
 					value = skills[skill.name].value
 				}
-				console.log('skill:', skill, value)
 				return (
 					<div
 						key={skill.name}

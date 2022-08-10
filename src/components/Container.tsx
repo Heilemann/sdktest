@@ -54,8 +54,6 @@ export default function Container(props: IContainerProps) {
 
 			if (source !== 'Aux' && source !== 'App') return
 
-			console.log('system heard message:', message, data, source)
-
 			switch (message) {
 				case 'load':
 					console.log('container received message', message, 'data', data)

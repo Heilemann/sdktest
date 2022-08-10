@@ -68,9 +68,7 @@ function App() {
 			}
 		}
 
-		if (isDevelopment) {
-			window.addEventListener('message', simulatedMessages)
-		}
+		if (isDevelopment) window.addEventListener('message', simulatedMessages)
 
 		return () => {
 			window.removeEventListener('message', simulatedMessages)
