@@ -24,6 +24,8 @@ export default function SkillsList(props: ISkillsListProps) {
 		})
 	}
 
+	console.log('skills', skills)
+
 	return (
 		<div className='-mx-4 grid grid-cols-none sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
 			{skillList.map(skill => {
@@ -31,6 +33,9 @@ export default function SkillsList(props: ISkillsListProps) {
 				if (skills && skills[skill.name] && skills[skill.name].value) {
 					value = skills[skill.name].value
 				}
+
+				console.log('skill:', skill, value)
+
 				return (
 					<div
 						key={skill.name}

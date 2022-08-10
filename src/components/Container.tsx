@@ -51,13 +51,14 @@ export default function Container(props: IContainerProps) {
 	const messageListener = useCallback(
 		({ data: payload }: any) => {
 			const { message, source, data } = payload
+			const wrongSource = source !== 'Aux' && source !== 'App'
 
-			if (source !== 'Aux' && source !== 'App') return
+			if (wrongSource) return
+
+			console.log('container received message', message, 'data', data)
 
 			switch (message) {
 				case 'load':
-					console.log('container received message', message, 'data', data)
-
 					const { documentId } = data
 					const document = data.documents?.find(
 						(d: TDocument) => d._id === documentId,
@@ -68,12 +69,23 @@ export default function Container(props: IContainerProps) {
 						document,
 					}
 
+					console.log('system load', payload)
+
 					dispatch({
 						type: 'LOAD',
 						payload,
 					})
 
 					form.reset(document.values)
+
+					break
+
+				case 'onDocumentsChange':
+					console.log('system onDocumentsChange', data)
+					dispatch({
+						type: 'LOAD',
+						payload: data,
+					})
 
 					break
 
@@ -92,7 +104,7 @@ export default function Container(props: IContainerProps) {
 					break
 			}
 		},
-		[dispatch, form],
+		[dispatch, document, form],
 	)
 
 	useEffect(() => {
@@ -105,7 +117,7 @@ export default function Container(props: IContainerProps) {
 
 		window.addEventListener('message', messageListener)
 
-		messageToApp('system is ready')
+		// messageToApp('system is ready')
 
 		return () => {
 			window.removeEventListener('message', messageListener)

@@ -26,7 +26,7 @@ function App() {
 	const [state, dispatch] = useReducer(Reducer, {} as TState)
 	const isDevelopment = process.env.NODE_ENV === 'development'
 
-	useEffect(() => {
+	const simulateParentFrameOnDev = () => {
 		const simulatedMessages = ({ data: payload }: any) => {
 			const { message, source, data } = payload
 
@@ -73,7 +73,8 @@ function App() {
 		return () => {
 			window.removeEventListener('message', simulatedMessages)
 		}
-	}, []) // eslint-disable-line
+	}
+	useEffect(simulateParentFrameOnDev, []) // eslint-disable-line
 
 	return (
 		<Context.Provider value={{ state, dispatch }}>
