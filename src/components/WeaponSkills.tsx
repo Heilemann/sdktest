@@ -30,19 +30,19 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 	let brawlSkill = useWatch({
 		control,
 		name: `skills.${'Fighting (Brawl)'}.value`,
-		defaultValue: '0',
+		defaultValue: '',
 	}) as string
 
 	let handgunSkill = useWatch({
 		control,
 		name: `skills.${'Firearms (Handgun)'}.value`,
-		defaultValue: '0',
+		defaultValue: '',
 	}) as string
 
 	let rifleSkill = useWatch({
 		control,
 		name: `skills.${'Firearms (Rifle/Shotgun)'}.value`,
-		defaultValue: '0',
+		defaultValue: '',
 	}) as string
 
 	// weapon skill values
@@ -51,18 +51,6 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 		name: `weapons.${index}.regular`,
 		defaultValue: '0',
 	}) as string
-
-	// const hard = useWatch({
-	// 	control,
-	// 	name: `weapons.${index}.hard`,
-	// 	defaultValue: '0',
-	// }) as string
-
-	// const extreme = useWatch({
-	// 	control,
-	// 	name: `weapons.${index}.extreme`,
-	// 	defaultValue: '0',
-	// }) as string
 
 	// get default skill values
 	const skillValues = {
@@ -77,8 +65,6 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 			: list.find(s => s.name === 'Firearms (Rifle/Shotgun)')!.starting,
 		custom: '0',
 	} as { [key in TWeaponSkill]: string }
-
-	console.log('regular', regular)
 
 	const regularSkill = regular.length
 		? regular
