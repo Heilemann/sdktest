@@ -124,7 +124,7 @@ export default function Container(props: IContainerProps) {
 
 		window.addEventListener('message', messageListener)
 
-		// messageToApp('system is ready')
+		messageToApp('system is ready')
 
 		return () => {
 			window.removeEventListener('message', messageListener)
