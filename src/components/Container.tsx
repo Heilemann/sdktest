@@ -95,9 +95,16 @@ export default function Container(props: IContainerProps) {
 				case 'update data':
 					console.log('system update data:', data)
 
+					const newDocument = data.documents?.find(
+						(d: TDocument) => d._id === state.documentId,
+					)
+
 					dispatch({
 						type: 'LOAD',
-						payload: data,
+						payload: {
+							...data,
+							document: newDocument,
+						},
 					})
 
 					break
@@ -117,7 +124,7 @@ export default function Container(props: IContainerProps) {
 				// 	break
 			}
 		},
-		[dispatch, form],
+		[dispatch, form, state.documentId],
 	)
 
 	useEffect(() => {
