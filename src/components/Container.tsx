@@ -27,8 +27,6 @@ export default function Container(props: IContainerProps) {
 
 	const handleFormChanges = () => {
 		const subscription = form.watch(values => {
-			// console.log('watch:', values)
-
 			if (!document || !values) return
 
 			const payload = {
@@ -56,15 +54,6 @@ export default function Container(props: IContainerProps) {
 
 			if (wrongSource) return
 
-			// console.log(
-			// 	'container received message:',
-			// 	message,
-			// 	', data:',
-			// 	messagePayload.data,
-			// 	', source:',
-			// 	source,
-			// )
-
 			switch (message) {
 				case 'load':
 					const { documentId } = data
@@ -81,8 +70,6 @@ export default function Container(props: IContainerProps) {
 						document,
 					}
 
-					// console.log('system load', payload)
-
 					dispatch({
 						type: 'LOAD',
 						payload,
@@ -93,8 +80,6 @@ export default function Container(props: IContainerProps) {
 					break
 
 				case 'update data':
-					// console.log('system update data:', data)
-
 					const newDocument = data.documents?.find(
 						(d: TDocument) => d._id === state.documentId,
 					)
@@ -115,13 +100,6 @@ export default function Container(props: IContainerProps) {
 						payload: data,
 					})
 					break
-
-				// case 'onUpload':
-				// 	messageToApp('upload', {
-				// 		name: data.name,
-				// 	})
-
-				// 	break
 			}
 		},
 		[dispatch, form, state.documentId],
@@ -147,16 +125,7 @@ export default function Container(props: IContainerProps) {
 	}, [dispatch])
 	useEffect(addMessageToAppToState, [addMessageToAppToState])
 
-	// if (!state.messageToApp) return null
-
 	if (!type) return null
-
-	// console.log(
-	// 	'>>>>>>>>>>',
-	// 	document?.values?.portrait,
-	// 	state.assets[document?.values?.portrait],
-	// 	state.assets,
-	// )
 
 	return (
 		<FormProvider {...form}>

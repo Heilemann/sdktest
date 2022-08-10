@@ -3,113 +3,146 @@ import { useFormContext, useWatch } from 'react-hook-form'
 import Input from './Input'
 import context from './context'
 import Button from './Button'
+import skillList from './skillList'
+import { twMerge } from 'tailwind-merge'
 
 export interface IWeaponSkillsProps {
 	index: number
-	weapon: any
 }
 
+type TWeaponSkill = 'brawl' | 'handgun' | 'rifle' | 'custom'
+
 export default function WeaponSkills(props: IWeaponSkillsProps) {
-	const { index, weapon } = props
+	const { index } = props
 	const { register, control } = useFormContext()
 	const { state } = useContext(context)
-	const { document, editMode, messageToApp } = state
-	const { values } = document
-	const { skills } = values
+	const { editMode, messageToApp } = state
+	const list = skillList
 
 	// force re-render when skill changes
-	const weaponSkill = useWatch({
+	const weaponSkill: TWeaponSkill = useWatch({
 		control,
 		name: `weapons.${index}.skill`,
+		defaultValue: 'custom',
 	})
+
+	// skill values
+	let brawlSkill = useWatch({
+		control,
+		name: `skills.${'Fighting (Brawl)'}.value`,
+		defaultValue: '0',
+	}) as string
+
+	let handgunSkill = useWatch({
+		control,
+		name: `skills.${'Firearms (Handgun)'}.value`,
+		defaultValue: '0',
+	}) as string
+
+	let rifleSkill = useWatch({
+		control,
+		name: `skills.${'Firearms (Rifle/Shotgun)'}.value`,
+		defaultValue: '0',
+	}) as string
+
+	// weapon skill values
+	const regular = useWatch({
+		control,
+		name: `weapons.${index}.regular`,
+		defaultValue: '0',
+	}) as string
+
+	// const hard = useWatch({
+	// 	control,
+	// 	name: `weapons.${index}.hard`,
+	// 	defaultValue: '0',
+	// }) as string
+
+	// const extreme = useWatch({
+	// 	control,
+	// 	name: `weapons.${index}.extreme`,
+	// 	defaultValue: '0',
+	// }) as string
 
 	// get default skill values
 	const skillValues = {
-		brawl: skills ? skills['Fighting (Brawl)']?.value : null,
-		handgun: skills ? skills['Firearms (Handgun)']?.value : null,
-		rifle: skills ? skills['Firearms (Rifle/Shotgun)']?.value : null,
-	}
+		brawl: brawlSkill.length
+			? brawlSkill
+			: list.find(s => s.name === 'Fighting (Brawl)')!.starting,
+		handgun: handgunSkill.length
+			? handgunSkill
+			: list.find(s => s.name === 'Firearms (Handgun)')!.starting,
+		rifle: rifleSkill.length
+			? rifleSkill
+			: list.find(s => s.name === 'Firearms (Rifle/Shotgun)')!.starting,
+		custom: '0',
+	} as { [key in TWeaponSkill]: string }
 
-	const isCustom = weaponSkill === 'custom' || !weaponSkill
+	console.log('regular', regular)
 
-	// @ts-ignore
-	const regularSkill = isCustom ? 0 : skillValues[weaponSkill].toString()
-	const hardSkill = isCustom
-		? '0'
-		: Math.floor(parseInt(regularSkill) / 2).toString()
-	const extremeSkill = isCustom
-		? '0'
-		: Math.floor(parseInt(regularSkill) / 5).toString()
+	const regularSkill = regular.length
+		? regular
+		: skillValues[weaponSkill].toString()
+	const hardSkill = Math.floor(parseInt(regularSkill) / 2).toString()
+	const extremeSkill = Math.floor(parseInt(regularSkill) / 5).toString()
 
 	const handleSkillClick = (skill: string) => {
 		messageToApp &&
 			messageToApp('send message', {
-				message: `/roll d100 < ${skill}`,
+				message: `/roll d10 < ${skill}`,
 			})
 	}
 
 	return (
 		<>
-			{editMode === 'edit' && (
-				<td>
-					<select
-						className='text-black'
-						{...register(`weapons.${index}.skill`)}
-					>
-						<option value='brawl'>Brawl</option>
-						<option value='handgun'>Handgun</option>
-						<option value='rifle'>Rifle/Shotgun</option>
-						<option value='custom'>Custom</option>
-					</select>
-				</td>
-			)}
-			<td>
-				{editMode === 'edit' ? (
-					<Input
-						className='bg-transparent text-center dark:bg-transparent'
-						placeholder={regularSkill ? regularSkill : '—'}
-						{...register(`weapons.${index}.regular`)}
-					/>
-				) : (
-					<Button
-						className='w-12 px-1 py-1 text-center'
-						onClick={() => handleSkillClick(regularSkill)}
-					>
-						{regularSkill ? regularSkill : '—'}%
-					</Button>
-				)}
+			<td className={editMode === 'view' ? 'hidden' : ''}>
+				<select className='text-black' {...register(`weapons.${index}.skill`)}>
+					<option value='brawl'>Brawl</option>
+					<option value='handgun'>Handgun</option>
+					<option value='rifle'>Rifle/Shotgun</option>
+					<option value='custom'>Custom</option>
+				</select>
 			</td>
 			<td>
-				{editMode === 'edit' ? (
-					<Input
-						className='bg-transparent text-center dark:bg-transparent'
-						placeholder={hardSkill ? hardSkill : '—'}
-						{...register(`weapons.${index}.hard`)}
-					/>
-				) : (
-					<Button
-						className='w-12 px-1 py-1 text-center'
-						onClick={() => handleSkillClick(hardSkill)}
-					>
-						{hardSkill ? hardSkill : '—'}%
-					</Button>
-				)}
+				<Input
+					className={twMerge(
+						'bg-transparent text-center dark:bg-transparent',
+						editMode === 'view' && 'hidden',
+					)}
+					placeholder={regularSkill ? regularSkill : '—'}
+					{...register(`weapons.${index}.regular`)}
+				/>
+
+				{/* {editMode === 'view' && ( */}
+				<Button
+					className='w-12 px-1 py-1 text-center'
+					onClick={() =>
+						handleSkillClick(regular.length ? regular : regularSkill)
+					}
+				>
+					{regularSkill ? regularSkill : '—'}%
+				</Button>
+				{/* )} */}
 			</td>
 			<td>
-				{editMode === 'edit' ? (
-					<Input
-						className='bg-transparent text-center dark:bg-transparent'
-						placeholder={extremeSkill ? extremeSkill : '—'}
-						{...register(`weapons.${index}.extreme`)}
-					/>
-				) : (
-					<Button
-						className='w-12 px-1 py-1 text-center'
-						onClick={() => handleSkillClick(extremeSkill)}
-					>
-						{extremeSkill ? extremeSkill : '—'}%
-					</Button>
-				)}
+				{/* {editMode === 'view' && ( */}
+				<Button
+					className='w-12 px-1 py-1 text-center'
+					onClick={() => handleSkillClick(hardSkill)}
+				>
+					{hardSkill ? hardSkill : '—'}%
+				</Button>
+				{/* )} */}
+			</td>
+			<td>
+				{/* {editMode === 'view' && ( */}
+				<Button
+					className='w-12 px-1 py-1 text-center'
+					onClick={() => handleSkillClick(extremeSkill)}
+				>
+					{extremeSkill ? extremeSkill : '—'}%
+				</Button>
+				{/* )} */}
 			</td>
 		</>
 	)

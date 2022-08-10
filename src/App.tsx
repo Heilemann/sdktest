@@ -45,8 +45,6 @@ function App() {
 						}
 					}
 
-					console.log('load state from localStorage', loadedState)
-
 					window.parent.postMessage({
 						source: 'Aux',
 						message: 'load',
@@ -56,15 +54,12 @@ function App() {
 					break
 
 				case 'save':
-					console.log('save state to localStorage', data)
 					const newState = {
 						...state,
 						documents: [payload.data],
 					}
 
 					localStorage.setItem('state', JSON.stringify(newState))
-
-					console.log(`save state to localStorage:`, newState)
 			}
 		}
 

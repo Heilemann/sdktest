@@ -114,6 +114,7 @@ export default function DevToolbar(props: IDevToolbarProps) {
 
 	const handleClearStorage = () => {
 		localStorage.clear()
+		window.location.reload()
 	}
 
 	return (
