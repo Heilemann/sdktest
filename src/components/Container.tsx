@@ -111,7 +111,7 @@ export default function Container(props: IContainerProps) {
 					break
 			}
 		},
-		[dispatch, document, form],
+		[dispatch, form],
 	)
 
 	useEffect(() => {
@@ -132,6 +132,8 @@ export default function Container(props: IContainerProps) {
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	// if (!state.messageToApp) return null
+
+	console.log('render container', state)
 
 	if (!type) return null
 
