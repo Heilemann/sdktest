@@ -144,6 +144,12 @@ export default function Container(props: IContainerProps) {
 
 	if (!type) return null
 
+	console.log(
+		'>>>>>>>>>>',
+		document?.values?.portrait,
+		state.assets[document?.values?.portrait],
+	)
+
 	return (
 		<FormProvider {...form}>
 			<div className='bottom-0 box-border flex min-h-full w-full flex-col bg-gray-100 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>

@@ -22,7 +22,7 @@ const Asset: FC<AssetProps> = props => {
 	useEffect(() => {
 		console.log('------> newly setting assetId:', name, assetId)
 		setAssetId(document.values[name])
-	}, [JSON.stringify(assets), setAssetId]) // eslint-disable-line react-hooks/exhaustive-deps
+	}, [JSON.stringify(document), JSON.stringify(assets), setAssetId]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	// should move this to a context
 	let parentOrigin = ''
