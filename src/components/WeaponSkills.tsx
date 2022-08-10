@@ -72,6 +72,8 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 	const hardSkill = Math.floor(parseInt(regularSkill) / 2).toString()
 	const extremeSkill = Math.floor(parseInt(regularSkill) / 5).toString()
 
+	console.log(skillValues, regular, regularSkill, hardSkill, extremeSkill)
+
 	const handleSkillClick = (skill: string) => {
 		messageToApp &&
 			messageToApp('send message', {
