@@ -8,17 +8,18 @@ import context from './context'
 interface AssetProps {
 	name: string
 	setValue: UseFormSetValue<any>
-	messageToApp: (message: string, data?: any) => void
 	className?: string
 	style?: React.CSSProperties
 }
 
 const Asset: FC<AssetProps> = props => {
-	const { name, setValue, messageToApp, className, style } = props
+	const { name, setValue, className, style } = props
 	const { state } = useContext(context)
-	const { assets, document } = state
+	const { assets, document, messageToApp } = state
 	const assetId = document.values[name]
 	const asset = assetId && assets.find((asset: TAsset) => asset._id === assetId)
+
+	if (assetId) console.log('-----> asset:', assetId, asset)
 
 	// should move this to a context
 	let parentOrigin = ''
