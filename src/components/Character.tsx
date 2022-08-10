@@ -9,8 +9,6 @@ import Weapons from './Weapons'
 export interface ICharacterProps {}
 
 export default function Character(props: ICharacterProps) {
-	console.log('Character rendered')
-
 	return (
 		<div className='space-y-4'>
 			<SectionDivider>Basic Information</SectionDivider>

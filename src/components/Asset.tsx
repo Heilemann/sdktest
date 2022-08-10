@@ -20,7 +20,6 @@ const Asset: FC<AssetProps> = props => {
 	const asset = assetId && assets.find((asset: TAsset) => asset._id === assetId)
 
 	useEffect(() => {
-		console.log('------> newly setting assetId:', name, assetId)
 		setAssetId(document.values[name])
 	}, [JSON.stringify(document), JSON.stringify(assets), setAssetId]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -46,8 +45,6 @@ const Asset: FC<AssetProps> = props => {
 	if (!asset) {
 		return <Button onClick={handleUpload}>Upload</Button>
 	}
-
-	console.log('loading asset', asset)
 
 	// TODO: Other file types
 	// TODO: alt text
