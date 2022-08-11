@@ -34,15 +34,6 @@ export type TSkill = {
   tickable?: boolean
 }
 
-export type TWeapon = {
-  name: string
-  skills: 'custom' | 'brawl' | 'handgun' | 'rifle'
-  regular: string
-  damage: number
-  range: number
-  weight: number
-}
-
 export type TAsset = {
   _id: string
   name: string
@@ -150,6 +141,22 @@ export type TSystemReceivableMessages = {
 }
 
 
-type TWeaponSkills = 'Firearms (Bow)' | 'Fighting (Brawl)' | 'Firearms (Handgun)' | 'Firearms (Rifle/Shotgun)' | 'Fighting (Whip)' | 'Fighting (Garrote)' | 'Fighting (Axe)' | 'Fighting (Flail)' | 'Throw' | 'Fighting (Spear)' | 'Fighting (Chainsaw)' | 'Fighting (Sword)' | 'Firearms (SMG)' | 'Firearms (MG)' | 'Firearms (HG)' | 'Firearms (Heavy)' | 'Electrical Repair' | 'Demolitions' | 'Artillery' | 'Firearms (Flamethrower)'
+export type TWeaponSkills = 'Firearms (Bow)' | 'Fighting (Brawl)' | 'Firearms (Handgun)' | 'Firearms (Rifle/Shotgun)' | 'Fighting (Whip)' | 'Fighting (Garrote)' | 'Fighting (Axe)' | 'Fighting (Flail)' | 'Throw' | 'Fighting (Spear)' | 'Fighting (Chainsaw)' | 'Fighting (Sword)' | 'Firearms (SMG)' | 'Firearms (MG)' | 'Firearms (HG)' | 'Firearms (Heavy)' | 'Electrical Repair' | 'Demolitions' | 'Artillery' | 'Firearms (Flamethrower)' | 'Other'
 
+export type TWeapon = {
+  name: string
+  skill: TWeaponSkills
+  damage: string
+  range: string
+  usesPerRound: string
+  weight: string
+  ammoCapacity: string
+  malfunction: string
+  commonEra: string
+}
+
+export type TWeaponOnCharacter = TWeapon & {
+  documentId: string
+  regular: string
+}
 

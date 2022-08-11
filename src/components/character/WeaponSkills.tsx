@@ -5,6 +5,7 @@ import context from '../context'
 import Button from '../Button'
 import skillList from './skillList'
 import { twMerge } from 'tailwind-merge'
+import weaponSkillList from '../weaponSkillList'
 
 export interface IWeaponSkillsProps {
 	index: number
@@ -19,33 +20,18 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 	const { editMode, messageToApp } = state
 	const list = skillList
 
-	// force re-render when skill changes
 	const weaponSkill: TWeaponSkill = useWatch({
 		control,
 		name: `weapons.${index}.skill`,
-		defaultValue: 'custom',
+		defaultValue: 'Other',
 	})
 
-	// skill values
-	let brawlSkill = useWatch({
+	let skills = useWatch({
 		control,
-		name: `skills.${'Fighting (Brawl)'}.value`,
+		name: `skills`,
 		defaultValue: '',
 	}) as string
 
-	let handgunSkill = useWatch({
-		control,
-		name: `skills.${'Firearms (Handgun)'}.value`,
-		defaultValue: '',
-	}) as string
-
-	let rifleSkill = useWatch({
-		control,
-		name: `skills.${'Firearms (Rifle/Shotgun)'}.value`,
-		defaultValue: '',
-	}) as string
-
-	// weapon skill values
 	const regular = useWatch({
 		control,
 		name: `weapons.${index}.regular`,
@@ -53,37 +39,34 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 	}) as string
 
 	// get default skill values
-	const skillValues = {
-		brawl: brawlSkill.length
-			? brawlSkill
-			: list.find(s => s.name === 'Fighting (Brawl)')!.starting,
-		handgun: handgunSkill.length
-			? handgunSkill
-			: list.find(s => s.name === 'Firearms (Handgun)')!.starting,
-		rifle: rifleSkill.length
-			? rifleSkill
-			: list.find(s => s.name === 'Firearms (Rifle/Shotgun)')!.starting,
-		custom: '0',
-	} as { [key in TWeaponSkill]: string }
+	// const skillValues = {
+	// 	brawl: brawlSkill.length
+	// 		? brawlSkill
+	// 		: list.find(s => s.name === 'Fighting (Brawl)')!.starting,
+	// 	handgun: handgunSkill.length
+	// 		? handgunSkill
+	// 		: list.find(s => s.name === 'Firearms (Handgun)')!.starting,
+	// 	rifle: rifleSkill.length
+	// 		? rifleSkill
+	// 		: list.find(s => s.name === 'Firearms (Rifle/Shotgun)')!.starting,
+	// 	custom: '0',
+	// } as { [key in TWeaponSkill]: string }
 
-	const regularSkill = regular.length
-		? regular
-		: skillValues[weaponSkill].toString()
-	const hardSkill = Math.floor(parseInt(regularSkill) / 2).toString()
-	const extremeSkill = Math.floor(parseInt(regularSkill) / 5).toString()
+	// const regularSkill = regular.length
+	// 	? regular
+	// 	: skillValues[weaponSkill].toString()
+	// const hardSkill = Math.floor(parseInt(regularSkill) / 2).toString()
+	// const extremeSkill = Math.floor(parseInt(regularSkill) / 5).toString()
+
+	const regularSkill = '0'
+	const hardSkill = '0'
+	const extremeSkill = '0'
 
 	const handleSkillClick = (skill: string) => {
 		messageToApp &&
 			messageToApp('send message', {
 				message: `/roll d10 < ${skill}`,
 			})
-	}
-
-	const weaponSkillLabel = {
-		brawl: 'Brawl',
-		handgun: 'Handgun',
-		rifle: 'Rifle/Shotgun',
-		custom: 'Custom',
 	}
 
 	return (
@@ -93,12 +76,11 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 					className={twMerge('text-black', editMode === 'view' ? 'hidden' : '')}
 					{...register(`weapons.${index}.skill`)}
 				>
-					<option value='brawl'>Brawl</option>
-					<option value='handgun'>Handgun</option>
-					<option value='rifle'>Rifle/Shotgun</option>
-					<option value='custom'>Custom</option>
+					{weaponSkillList.map(skill => (
+						<option key={skill}>{skill}</option>
+					))}
 				</select>
-				{editMode === 'view' && weaponSkillLabel[weaponSkill]}
+				{editMode === 'view' && weaponSkill}
 			</td>
 			<td>
 				<Input

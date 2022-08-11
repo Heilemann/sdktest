@@ -19,7 +19,7 @@ const HInput = forwardRef<HTMLInputElement, IHInputProps>(
 				)}
 			>
 				<Label
-					className='flex-shrink flex-grow self-center dark:text-gray-500 whitespace-nowrap'
+					className='w-2/5 self-center dark:text-gray-500 whitespace-nowrap'
 					htmlFor={rest.name}
 				>
 					{label}
@@ -27,7 +27,7 @@ const HInput = forwardRef<HTMLInputElement, IHInputProps>(
 
 				<Input
 					ref={ref}
-					className='flex-grow bg-transparent text-right dark:bg-transparent'
+					className=' my-1 py-1.5 hover:bg-gray-200 bg-transparent text-right dark:bg-transparent'
 					id={rest.name}
 					{...rest}
 				/>

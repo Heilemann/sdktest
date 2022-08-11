@@ -28,7 +28,7 @@ export default function SkillsList(props: ISkillsListProps) {
 	}
 
 	return (
-		<div className='-mx-4 grid grid-cols-none sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+		<div className='-mx-4 columns-none sm:columns-2 md:columns-3 lg:columns-4'>
 			{skillList.map(skill => {
 				let value = skill.starting
 

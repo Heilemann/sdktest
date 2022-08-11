@@ -1,29 +1,8 @@
 import { useFormContext, useWatch } from 'react-hook-form'
 import HInput from '../HInput'
+import weaponSkillList from '../weaponSkillList'
 
 export interface IWeaponProps {}
-
-const weaponSkillList = [
-	'Artillery',
-	'Demolitions',
-	'Electrical Repair',
-	'Fighting (Axe)',
-	'Fighting (Brawl)',
-	'Fighting (Chainsaw)',
-	'Fighting (Flail)',
-	'Fighting (Garrote)',
-	'Fighting (Spear)',
-	'Fighting (Sword)',
-	'Fighting (Whip)',
-	'Firearms (Bow)',
-	'Firearms (Flamethrower)',
-	'Firearms (Handgun)',
-	'Firearms (Heavy)',
-	'Firearms (MG)',
-	'Firearms (Rifle/Shotgun)',
-	'Firearms (SMG)',
-	'Throw',
-]
 
 export default function Weapon(props: IWeaponProps) {
 	const { register, control } = useFormContext()
@@ -33,8 +12,6 @@ export default function Weapon(props: IWeaponProps) {
 		name: 'skill',
 		defaultValue: 'Firearms(Handgun)',
 	})
-
-	console.log(skill)
 
 	return (
 		<div className='mx-auto max-w-md w-full'>
@@ -76,7 +53,7 @@ export default function Weapon(props: IWeaponProps) {
 				{...register('malfunction')}
 			/>
 
-			<HInput label='Common Era' placeholder='—' {...register('malfunction')} />
+			<HInput label='Common Era' placeholder='—' {...register('commonEra')} />
 		</div>
 	)
 }

@@ -1,8 +1,8 @@
-import { XIcon } from '@heroicons/react/solid'
+import { InformationCircleIcon, XIcon } from '@heroicons/react/solid'
 import { useContext } from 'react'
 import { UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
-import { TWeapon } from '../../interfaces'
+import { TWeaponOnCharacter } from '../../interfaces'
 import Button from '../Button'
 import WeaponSkills from './WeaponSkills'
 import context from '../context'
@@ -22,7 +22,7 @@ export default function WeaponRow(props: IWeaponRowProps) {
 
 	const weapon = useWatch({
 		name: `weapons.${index}`,
-	}) as TWeapon
+	}) as TWeaponOnCharacter
 
 	const handleRemove = (index: number) => {
 		remove(index)
@@ -41,8 +41,11 @@ export default function WeaponRow(props: IWeaponRowProps) {
 				/>
 				{editMode === 'view' && <span>{weapon.name || '—'}</span>}
 			</td>
+
 			<WeaponSkills index={index} />
+
 			<WeaponDamage index={index} />
+
 			<td>
 				<Input
 					className={twMerge(
@@ -54,6 +57,7 @@ export default function WeaponRow(props: IWeaponRowProps) {
 				/>
 				{editMode === 'view' && <span>{weapon.range || '—'}</span>}
 			</td>
+
 			<td>
 				<Input
 					className={twMerge(
@@ -65,6 +69,54 @@ export default function WeaponRow(props: IWeaponRowProps) {
 				/>
 				{editMode === 'view' && <span>{weapon.weight || '—'}</span>}
 			</td>
+
+			<td>
+				<Input
+					className={twMerge(
+						'bg-transparent dark:bg-transparent',
+						editMode === 'view' && 'hidden',
+					)}
+					placeholder='—'
+					{...register(`weapons.${index}.ammoCapacity`)}
+				/>
+				{editMode === 'view' && <span>{weapon.ammoCapacity || '—'}</span>}
+			</td>
+
+			<td>
+				<Input
+					className={twMerge(
+						'bg-transparent dark:bg-transparent',
+						editMode === 'view' && 'hidden',
+					)}
+					placeholder='—'
+					{...register(`weapons.${index}.usesPerRound`)}
+				/>
+				{editMode === 'view' && <span>{weapon.usesPerRound || '—'}</span>}
+			</td>
+
+			<td>
+				<Input
+					className={twMerge(
+						'bg-transparent dark:bg-transparent',
+						editMode === 'view' && 'hidden',
+					)}
+					placeholder='—'
+					{...register(`weapons.${index}.weight`)}
+				/>
+				{editMode === 'view' && <span>{weapon.malfunction || '—'}</span>}
+			</td>
+
+			<td className='w-4'>
+				<Button onClick={() => {}} className='self-end p-1.5'>
+					<InformationCircleIcon className='h-4 w-4' />
+				</Button>
+				<input
+					type='hidden'
+					name={`weapons.${index}.documentId`}
+					defaultValue={weapon.documentId}
+				/>
+			</td>
+
 			<td className='w-4'>
 				<Button onClick={() => handleRemove(index)} className='self-end p-1.5'>
 					<XIcon className='h-4 w-4' />
