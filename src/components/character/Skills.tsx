@@ -70,7 +70,7 @@ export default function SkillsList(props: ISkillsListProps) {
 							placeholder={skill.starting.toString()}
 							{...register(`skills.${skill.name}.value`)}
 						/>
-						<span className='self-center'>%</span>
+						{editMode === 'edit' && <span className='self-center'>%</span>}
 						{editMode === 'view' && (
 							<Button
 								className='w-14 px-2'

@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import { FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
 import Button from '../Button'
-import WeaponRow from '../weapon/WeaponRow'
+import WeaponRow from './WeaponRow'
 
 // type weaponSkill = 'brawl' | 'handgun' | 'rifle' | 'custom'
 
@@ -32,9 +32,9 @@ export default function Weapons(props: IWeaponsProps) {
 					<tr className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
 						<th className='font-normal text-gray-500'>Name</th>
 						<th className='font-normal text-gray-500'>Skill</th>
-						<th className='w-12 text-center font-normal text-gray-500'>Re</th>
-						<th className='w-12 text-center font-normal text-gray-500'>Ha</th>
-						<th className='w-12 text-center font-normal text-gray-500'>Ex</th>
+						<th className='w-12 text-center font-normal text-gray-500'>Reg.</th>
+						<th className='w-12 text-center font-normal text-gray-500'>Har.</th>
+						<th className='w-12 text-center font-normal text-gray-500'>Exp.</th>
 						<th>
 							<span className='font-normal text-gray-500 hidden md:inline'>
 								Damage
@@ -54,7 +54,7 @@ export default function Weapons(props: IWeaponsProps) {
 				</thead>
 				<tbody>
 					{fields.map((weapon, index) => {
-						return <WeaponRow index={index} remove={remove} />
+						return <WeaponRow key={index} index={index} remove={remove} />
 					})}
 				</tbody>
 			</table>

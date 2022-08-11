@@ -1,17 +1,22 @@
 import { useContext } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
+import { twMerge } from 'tailwind-merge'
+import Button from '../Button'
 import context from '../context'
 import VInput from '../VInput'
+import Dodge from './Dodge'
 
 export interface ICombatProps {}
 
 export default function Combat(props: ICombatProps) {
 	const { state } = useContext(context)
-	const { document } = state
+	const { document, editMode } = state
 	const { values } = document
 	const { register } = useFormContext()
 
-	// if (!register) return null
+	const damagebonus = useWatch({
+		name: 'damagebonus',
+	}) as string
 
 	return (
 		<div className='flex space-x-2'>
@@ -33,12 +38,22 @@ export default function Combat(props: ICombatProps) {
 				label='Damage Bonus'
 				placeholder='—'
 				defaultValue={values.damagebonus}
+				className={twMerge(editMode === 'view' && 'hidden')}
 				{...register('damagebonus')}
 			/>
+			{editMode === 'view' && (
+				<div>
+					<Button onClick={() => {}}>
+						Damage Bonus
+						<br />
+						{damagebonus}
+					</Button>
+				</div>
+			)}
 
 			<VInput label='Build' placeholder='—' {...register('build')} />
 
-			<VInput label='Dodge' placeholder='—' {...register('dodge')} />
+			<Dodge />
 		</div>
 	)
 }

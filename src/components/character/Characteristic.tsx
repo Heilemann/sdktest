@@ -2,6 +2,7 @@ import { forwardRef, useContext } from 'react'
 import VInput from '../VInput'
 import context from '../context'
 import Button from '../Button'
+import { twMerge } from 'tailwind-merge'
 
 export interface ICharacteristicProps {
 	label: string
@@ -12,6 +13,7 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 	(props: ICharacteristicProps, ref) => {
 		const { label, value, ...rest } = props
 		const { state } = useContext(context)
+		const { editMode } = state
 
 		const handleRoll = () => {
 			if (!value) return
@@ -20,27 +22,27 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 			state.messageToApp('send message', { message: `/roll d100 < ${value}` })
 		}
 
-		if (state.editMode === 'edit') {
-			return (
+		return (
+			<>
 				<VInput
 					ref={ref}
-					className='mx-1 sm:mx-2'
+					className={twMerge('mx-1 sm:mx-2', editMode === 'view' && 'hidden')}
 					label={label}
 					placeholder='&mdash;'
 					defaultValue={value}
 					{...rest}
 				/>
-			)
-		} else {
-			return (
-				<Button onClick={handleRoll} className='m-1'>
-					<div className='flex'>
-						<div>{label}</div>
-						<div className='flex-1 text-right'>{value ? value : '—'}</div>
-					</div>
-				</Button>
-			)
-		}
+
+				{editMode === 'view' && (
+					<Button onClick={handleRoll} className='m-1'>
+						<div className='flex flex-col text-xs font-bold'>
+							<div>{label}</div>
+							<div className='flex-1'>{value ? value + '%' : '—'}</div>
+						</div>
+					</Button>
+				)}
+			</>
+		)
 	},
 )
 
