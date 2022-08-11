@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { TDocument, TState } from '../interfaces'
 import systemConfig from '../system.json'
 import Button from './Button'
@@ -7,6 +7,21 @@ import context from './context'
 import Tabs from './Tabs'
 
 export interface IDevToolbarProps {}
+
+let initialData = {
+	documentId: '123',
+	editMode: 'edit',
+	documents: [
+		{
+			_id: '123',
+			creator: 'abc',
+			access: [],
+			type: 'character',
+			values: {},
+		},
+	],
+	assets: [],
+}
 
 export default function DevToolbar(props: IDevToolbarProps) {
 	const { state, dispatch } = useContext(context)
@@ -16,13 +31,13 @@ export default function DevToolbar(props: IDevToolbarProps) {
 
 	useEffect(() => {
 		const subscription = watch(values => {
-			if (!values) return
+			const { editMode } = values
 
 			dispatch({
 				type: 'LOAD',
 				payload: {
 					...state,
-					...values,
+					editMode,
 				},
 			})
 		})
@@ -30,13 +45,12 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		return () => {
 			subscription.unsubscribe()
 		}
-	}, [])
+	}, [dispatch, state, watch])
 
-	// useEffect(() => {
+	// const fakeDocumentsFromSystemConfig = () => {
 	// 	setCollections(systemConfig.collections)
 
 	// 	const fakeData = {
-	// 		document: {} as TDocument,
 	// 		documents: [],
 	// 		assets: [],
 	// 		editMode: 'edit',
@@ -65,14 +79,21 @@ export default function DevToolbar(props: IDevToolbarProps) {
 	// 		...savedData,
 	// 	}
 
-	// 	dispatch({
-	// 		type: 'LOAD',
-	// 		payload: {
-	// 			...state,
-	// 			...fakeData,
-	// 		},
+	// 	window.postMessage({
+	// 		source: 'App',
+	// 		message: 'load',
+	// 		data: fakeData,
 	// 	})
-	// }, []) // eslint-disable-line
+
+	// 	// dispatch({
+	// 	// 	type: 'LOAD',
+	// 	// 	payload: {
+	// 	// 		...state,
+	// 	// 		...fakeData,
+	// 	// 	},
+	// 	// })
+	// }
+	// useEffect(fakeDocumentsFromSystemConfig, [])
 
 	const handleChange = (e: any) => {
 		const { value } = e.target
@@ -117,12 +138,56 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		window.location.reload()
 	}
 
+	const simulateParentFrameOnDev = () => {
+		const simulatedMessages = ({ data: payload }: any) => {
+			const { message, source, data } = payload
+
+			if (source !== 'System') return
+
+			console.log('app heard message from system:', message, ', data:', data)
+
+			switch (message) {
+				case 'system is ready':
+					let loadedState = JSON.parse(localStorage.getItem('state') || '{}')
+
+					if (Object.keys(loadedState).length) {
+						initialData = {
+							...initialData,
+							...loadedState,
+						}
+					}
+
+					window.parent.postMessage({
+						source: 'Aux',
+						message: 'load',
+						data: initialData,
+					})
+
+					break
+
+				case 'save':
+					const newState = {
+						...state,
+						documents: [payload.data],
+					}
+
+					localStorage.setItem('state', JSON.stringify(newState))
+			}
+		}
+
+		window.addEventListener('message', simulatedMessages)
+
+		return () => {
+			window.removeEventListener('message', simulatedMessages)
+		}
+	}
+	useEffect(simulateParentFrameOnDev, []) // eslint-disable-line
+
 	return (
-		<div className='sticky top-0 flex bg-black py-4 px-4 text-sm text-white'>
+		<div className='sticky top-0 flex bg-black py-4 px-4 text-sm text-white z-40'>
 			<select
 				ref={selectRef}
 				className='mr-4 text-black'
-				// defaultValue={state.document.type}
 				onChange={handleChange}
 			>
 				{collections.map((collection: any) => (

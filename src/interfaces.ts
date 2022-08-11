@@ -36,10 +36,11 @@ export type TSkill = {
 
 export type TWeapon = {
   name: string
+  skills: 'custom' | 'brawl' | 'handgun' | 'rifle'
+  regular: string
   damage: number
   range: number
   weight: number
-  cost: number
 }
 
 export type TAsset = {

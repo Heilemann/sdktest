@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react'
+import { useReducer } from 'react'
 import './App.css'
 import Container from './components/Container'
 import Context from './components/context'
@@ -6,70 +6,10 @@ import DevToolbar from './components/DevToolbar'
 import Reducer from './components/reducer'
 import { TState } from './interfaces'
 
-let initialData = {
-	documentId: '123',
-	editMode: 'edit',
-	documents: [
-		{
-			_id: '123',
-			creator: 'abc',
-			access: [],
-			type: 'character',
-			values: {},
-		},
-	],
-	assets: [],
-}
-
 function App() {
 	// @ts-ignore
 	const [state, dispatch] = useReducer(Reducer, {} as TState)
 	const isDevelopment = process.env.NODE_ENV === 'development'
-
-	const simulateParentFrameOnDev = () => {
-		const simulatedMessages = ({ data: payload }: any) => {
-			const { message, source, data } = payload
-
-			if (source !== 'System') return
-
-			console.log('app heard message from system:', message, ', data:', data)
-
-			switch (message) {
-				case 'system is ready':
-					let loadedState = JSON.parse(localStorage.getItem('state') || '{}')
-
-					if (Object.keys(loadedState).length) {
-						initialData = {
-							...initialData,
-							...loadedState,
-						}
-					}
-
-					window.parent.postMessage({
-						source: 'Aux',
-						message: 'load',
-						data: initialData,
-					})
-
-					break
-
-				case 'save':
-					const newState = {
-						...state,
-						documents: [payload.data],
-					}
-
-					localStorage.setItem('state', JSON.stringify(newState))
-			}
-		}
-
-		if (isDevelopment) window.addEventListener('message', simulatedMessages)
-
-		return () => {
-			window.removeEventListener('message', simulatedMessages)
-		}
-	}
-	useEffect(simulateParentFrameOnDev, []) // eslint-disable-line
 
 	return (
 		<Context.Provider value={{ state, dispatch }}>

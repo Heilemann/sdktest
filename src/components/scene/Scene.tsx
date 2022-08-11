@@ -1,21 +1,18 @@
 import { useContext } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
-import Asset from './Asset'
-import Button from './Button'
-import context from './context'
-import Input from './Input'
-import Label from './Label'
-import SectionDivider from './SectionDivider'
+import Asset from '../Asset'
+import Button from '../Button'
+import context from '../context'
+import Input from '../Input'
+import Label from '../Label'
+import SectionDivider from '../SectionDivider'
 
-export interface ISceneProps {
-	messageToApp: (message: string, data?: any) => void
-}
+export interface ISceneProps {}
 
 export default function Scene(props: ISceneProps) {
-	const { messageToApp } = props
 	const { state } = useContext(context)
-	const { document } = state
+	const { document, messageToApp } = state
 	const { values } = document
 	const { register, setValue } = useFormContext()
 
@@ -23,9 +20,10 @@ export default function Scene(props: ISceneProps) {
 	if (!document?.values) return null
 
 	const handleSetScene = () => {
-		messageToApp('set scene', {
-			sceneId: document._id,
-		})
+		messageToApp &&
+			messageToApp('set scene', {
+				sceneId: document._id,
+			})
 	}
 
 	const hasMapAndCover = values?.mapId && values?.coverId

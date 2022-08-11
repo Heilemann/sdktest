@@ -1,10 +1,11 @@
 import { useCallback, useContext, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { TDocument, TSystemReceivableMessages, TValues } from '../interfaces'
-import Character from './Character'
+import Character from './character/Character'
 import context from './context'
-import Note from './Note'
-import Scene from './Scene'
+import Note from './note/Note'
+import Scene from './scene/Scene'
+import Weapon from './weapon/Weapon'
 
 export interface IContainerProps {}
 
@@ -132,7 +133,8 @@ export default function Container(props: IContainerProps) {
 			<div className='bottom-0 box-border flex min-h-full w-full flex-col bg-gray-100 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'>
 				{type === 'character' && <Character />}
 				{type === 'note' && <Note />}
-				{type === 'scene' && <Scene messageToApp={messageToApp} />}
+				{type === 'scene' && <Scene />}
+				{type === 'weapon' && <Weapon />}
 			</div>
 		</FormProvider>
 	)

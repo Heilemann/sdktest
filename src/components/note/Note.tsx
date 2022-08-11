@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { useFormContext } from 'react-hook-form'
-import context from './context'
-import Input from './Input'
-import TextArea from './Textarea'
+import context from '../context'
+import Input from '../Input'
+import TextArea from '../Textarea'
 
 export interface INoteProps {}
 

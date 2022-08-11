@@ -1,7 +1,7 @@
 import { forwardRef, useContext } from 'react'
-import VInput from './VInput'
-import context from './context'
-import Button from './Button'
+import VInput from '../VInput'
+import context from '../context'
+import Button from '../Button'
 
 export interface ICharacteristicProps {
 	label: string

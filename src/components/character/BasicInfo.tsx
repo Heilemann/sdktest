@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { useFormContext } from 'react-hook-form'
-import Asset from './Asset'
-import context from './context'
-import HInput from './HInput'
-import Label from './Label'
+import Asset from '../Asset'
+import context from '../context'
+import HInput from '../HInput'
+import Label from '../Label'
 
 export interface IBasicInfoProps {}
 

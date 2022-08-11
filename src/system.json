@@ -33,6 +33,15 @@
 			"hasEditMode": "false",
 			"windowSize": "small",
 			"allowCreate": "false"
+		},
+		{
+			"type": "weapon",
+			"singularName": "Weapon",
+			"pluralName": "Weapons",
+			"description": "Various things to hit, shoot and blow up things with.",
+			"hasEditMode": "true",
+			"windowSize": "small",
+			"allowCreate": "false"
 		}
 	]
 }

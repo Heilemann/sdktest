@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
-import Button from './Button'
-import context from './context'
-import Input from './Input'
-import Label from './Label'
+import Button from '../Button'
+import context from '../context'
+import Input from '../Input'
+import Label from '../Label'
 import skillList from './skillList'
 
 export interface ISkillsListProps {}
@@ -63,7 +63,7 @@ export default function SkillsList(props: ISkillsListProps) {
 							// type='number'
 							className={twMerge(
 								'my-1 w-12 appearance-none bg-transparent py-1 pr-0 text-right dark:bg-transparent',
-								// editMode === 'view' && 'hidden',
+								editMode === 'view' && 'hidden',
 							)}
 							disabled={state.editMode ? false : true}
 							id={skill.name}

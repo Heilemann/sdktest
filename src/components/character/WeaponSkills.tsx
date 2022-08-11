@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
-import Input from './Input'
-import context from './context'
-import Button from './Button'
+import Input from '../Input'
+import context from '../context'
+import Button from '../Button'
 import skillList from './skillList'
 import { twMerge } from 'tailwind-merge'
 
@@ -72,8 +72,6 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 	const hardSkill = Math.floor(parseInt(regularSkill) / 2).toString()
 	const extremeSkill = Math.floor(parseInt(regularSkill) / 5).toString()
 
-	console.log(skillValues, regular, regularSkill, hardSkill, extremeSkill)
-
 	const handleSkillClick = (skill: string) => {
 		messageToApp &&
 			messageToApp('send message', {
@@ -112,36 +110,40 @@ export default function WeaponSkills(props: IWeaponSkillsProps) {
 					{...register(`weapons.${index}.regular`)}
 				/>
 
-				{/* {editMode === 'view' && ( */}
-				<Button
-					className='w-12 px-1 py-1 text-center'
-					onClick={() =>
-						handleSkillClick(regular.length ? regular : regularSkill)
-					}
-				>
-					{regularSkill ? regularSkill : '—'}%
-				</Button>
-				{/* )} */}
+				{editMode === 'view' && (
+					<Button
+						className='w-12 px-1 py-1 text-center m-1'
+						onClick={() =>
+							handleSkillClick(regular.length ? regular : regularSkill)
+						}
+					>
+						{regularSkill ? regularSkill : '—'}%
+					</Button>
+				)}
 			</td>
 			<td>
-				{/* {editMode === 'view' && ( */}
-				<Button
-					className='w-12 px-1 py-1 text-center'
-					onClick={() => handleSkillClick(hardSkill)}
-				>
-					{hardSkill ? hardSkill : '—'}%
-				</Button>
-				{/* )} */}
+				{editMode === 'edit' && hardSkill}
+
+				{editMode === 'view' && (
+					<Button
+						className='w-12 px-1 py-1 text-center m-1'
+						onClick={() => handleSkillClick(hardSkill)}
+					>
+						{hardSkill ? hardSkill : '—'}%
+					</Button>
+				)}
 			</td>
 			<td>
-				{/* {editMode === 'view' && ( */}
-				<Button
-					className='w-12 px-1 py-1 text-center'
-					onClick={() => handleSkillClick(extremeSkill)}
-				>
-					{extremeSkill ? extremeSkill : '—'}%
-				</Button>
-				{/* )} */}
+				{editMode === 'edit' && extremeSkill}
+
+				{editMode === 'view' && (
+					<Button
+						className='w-12 px-1 py-1 text-center m-1'
+						onClick={() => handleSkillClick(extremeSkill)}
+					>
+						{extremeSkill ? extremeSkill : '—'}%
+					</Button>
+				)}
 			</td>
 		</>
 	)

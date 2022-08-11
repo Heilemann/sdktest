@@ -1,8 +1,8 @@
 import BasicInfo from './BasicInfo'
 import Characteristics from './Characteristics'
 import Combat from './Combat'
-import Copyright from './Copyright'
-import SectionDivider from './SectionDivider'
+import Copyright from '../Copyright'
+import SectionDivider from '../SectionDivider'
 import Skills from './Skills'
 import Weapons from './Weapons'
 

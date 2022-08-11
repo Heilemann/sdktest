@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useFormContext } from 'react-hook-form'
-import context from './context'
-import VInput from './VInput'
+import context from '../context'
+import VInput from '../VInput'
 
 export interface ICombatProps {}
 
