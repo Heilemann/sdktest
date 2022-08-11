@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
-import { TDocument, TState } from '../interfaces'
+import { TState } from '../interfaces'
 import systemConfig from '../system.json'
 import Button from './Button'
 import context from './context'
@@ -26,8 +26,17 @@ let initialData = {
 export default function DevToolbar(props: IDevToolbarProps) {
 	const { state, dispatch } = useContext(context)
 	const [collections, setCollections] = useState<any[]>([])
-	const selectRef = useRef(null)
-	const { register, watch } = useForm()
+	const { register, watch, control } = useForm()
+
+	const documentId = useWatch({
+		control,
+		name: 'documentId',
+		defaultValue: localStorage.getItem('documentId') || 'character',
+	})
+
+	useEffect(() => {
+		localStorage.setItem('documentId', documentId)
+	}, [documentId])
 
 	useEffect(() => {
 		const subscription = watch(values => {
@@ -47,77 +56,51 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		}
 	}, [dispatch, state, watch])
 
-	// const fakeDocumentsFromSystemConfig = () => {
-	// 	setCollections(systemConfig.collections)
+	const fakeDocumentsFromSystemConfig = () => {
+		setCollections(systemConfig.collections)
 
-	// 	const fakeData = {
-	// 		documents: [],
-	// 		assets: [],
-	// 		editMode: 'edit',
-	// 	} as TState
+		const fakeData = {
+			documents: [],
+			assets: [],
+			editMode: 'edit',
+		} as Partial<TState>
 
-	// 	// for each collection create a fake document we can use to switch UI
-	// 	systemConfig.collections.forEach(collection => {
-	// 		const document = {
-	// 			_id: collection.type,
-	// 			type: collection.type,
-	// 			creator: 'abc',
-	// 			access: [],
-	// 			values: {
-	// 				name: 'No name',
-	// 			},
-	// 		}
-	// 		fakeData.documents.push(document)
-	// 	})
+		// for each collection create a fake document we can use to switch UI
+		systemConfig.collections.forEach(collection => {
+			const document = {
+				_id: collection.type,
+				type: collection.type,
+				creator: 'abc',
+				access: [],
+				values: {
+					name: 'No name',
+				},
+			}
+			fakeData.documents?.push(document)
+		})
 
-	// 	fakeData['document'] = fakeData.documents[0]
+		fakeData['document'] = fakeData.documents![0]
 
-	// 	const savedData = JSON.parse(localStorage.getItem('state') || '{}')
+		const savedData = JSON.parse(localStorage.getItem('state') || '{}')
 
-	// 	fakeData.document = {
-	// 		...fakeData.document,
-	// 		...savedData,
-	// 	}
+		fakeData['documentId'] = documentId
 
-	// 	window.postMessage({
-	// 		source: 'App',
-	// 		message: 'load',
-	// 		data: fakeData,
-	// 	})
-
-	// 	// dispatch({
-	// 	// 	type: 'LOAD',
-	// 	// 	payload: {
-	// 	// 		...state,
-	// 	// 		...fakeData,
-	// 	// 	},
-	// 	// })
-	// }
-	// useEffect(fakeDocumentsFromSystemConfig, [])
-
-	const handleChange = (e: any) => {
-		const { value } = e.target
-		const type = value
-
-		let document = state.documents.find(doc => doc.type === value) as TDocument
-
-		const savedData = JSON.parse(localStorage.getItem(type) || '{}')
-
-		document.values = {
-			...document.values,
+		fakeData.document = {
+			...fakeData.document,
 			...savedData,
 		}
 
-		console.log('handleChange', value, document)
+		// console.log('fakeData', fakeData)
 
-		dispatch({
-			type: 'LOAD',
-			payload: {
-				...state,
-				document,
-			},
-		})
+		setTimeout(() => {
+			window.postMessage({
+				message: 'load',
+				source: 'App',
+				data: fakeData,
+			})
+		}, 200)
 	}
+	useEffect(fakeDocumentsFromSystemConfig, [documentId])
 
 	const tabs = {
 		name: 'editMode',
@@ -185,11 +168,7 @@ export default function DevToolbar(props: IDevToolbarProps) {
 
 	return (
 		<div className='sticky top-0 flex bg-black py-4 px-4 text-sm text-white z-40'>
-			<select
-				ref={selectRef}
-				className='mr-4 text-black'
-				onChange={handleChange}
-			>
+			<select className='mr-4 text-black' {...register('documentId')}>
 				{collections.map((collection: any) => (
 					<option
 						key={collection.type}

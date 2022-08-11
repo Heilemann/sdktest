@@ -148,3 +148,8 @@ export type TSystemReceivableMessages = {
     name: string
   }
 }
+
+
+type TWeaponSkills = 'Firearms (Bow)' | 'Fighting (Brawl)' | 'Firearms (Handgun)' | 'Firearms (Rifle/Shotgun)' | 'Fighting (Whip)' | 'Fighting (Garrote)' | 'Fighting (Axe)' | 'Fighting (Flail)' | 'Throw' | 'Fighting (Spear)' | 'Fighting (Chainsaw)' | 'Fighting (Sword)' | 'Firearms (SMG)' | 'Firearms (MG)' | 'Firearms (HG)' | 'Firearms (Heavy)' | 'Electrical Repair' | 'Demolitions' | 'Artillery' | 'Firearms (Flamethrower)'
+
+

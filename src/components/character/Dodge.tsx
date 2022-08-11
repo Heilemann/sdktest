@@ -21,7 +21,7 @@ export default function Dodge(props: IDodgeProps) {
 
 	const defaultValue = dexterity && (parseInt(dexterity) / 2).toString()
 
-	console.log(defaultValue)
+	// console.log(defaultValue)
 
 	return (
 		<div>

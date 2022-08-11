@@ -63,6 +63,8 @@ export default function Container(props: IContainerProps) {
 						(d: TDocument) => d._id === documentId,
 					)
 
+					console.log('load', documentId, document)
+
 					if (!document) {
 						throw new Error(`document with id ${documentId} not found by aux`)
 					}

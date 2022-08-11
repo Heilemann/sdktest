@@ -19,7 +19,7 @@ const HInput = forwardRef<HTMLInputElement, IHInputProps>(
 				)}
 			>
 				<Label
-					className='flex-shrink flex-grow self-center dark:text-gray-500'
+					className='flex-shrink flex-grow self-center dark:text-gray-500 whitespace-nowrap'
 					htmlFor={rest.name}
 				>
 					{label}

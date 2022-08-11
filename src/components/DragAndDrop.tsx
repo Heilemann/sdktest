@@ -27,28 +27,30 @@ export default function DragAndDrop(props: IDragAndDropProps) {
 	const fireSyntheticEvent = useSyntheticEvent()
 
 	const handleDragEnterFromParent = useCallback(
-		(e: DragEvent) => fireSyntheticEvent(e, 'dragEnter'),
+		(e: MessageEvent) => fireSyntheticEvent(e, 'dragEnter'),
 		[fireSyntheticEvent],
 	)
 
 	const handleDragOverFromParent = useCallback(
-		(e: DragEvent) => fireSyntheticEvent(e, 'dragOver'),
+		(e: MessageEvent) => fireSyntheticEvent(e, 'dragOver'),
 		[fireSyntheticEvent],
 	)
 
 	const handleDropFromParent = useCallback(
-		(e: DragEvent) => fireSyntheticEvent(e, 'drop'),
+		(e: MessageEvent) => fireSyntheticEvent(e, 'drop'),
 		[fireSyntheticEvent],
 	)
 
 	const postMessageListener = useCallback(
 		(e: MessageEvent) => {
 			const payload: TDragAndDropMessages = e.data
-			const { message } = payload
+			const { message, source } = payload
+			const wrongSource = source !== 'App' && source !== 'Aux'
 
-			console.log('drag and drop message listener', message)
-
+			if (wrongSource) return
 			// if (e.origin !== parentOrigin || source !== 'App') return
+
+			console.log('drag and drop message listener', message, source)
 
 			switch (message) {
 				case 'onDragEnter':
@@ -92,5 +94,9 @@ export default function DragAndDrop(props: IDragAndDropProps) {
 	}
 	useEffect(handleInitialLoad, [postMessageListener])
 
-	return <div onDrop={handleDrop}>{children}</div>
+	return (
+		<div className='min-h-full h-full' onDrop={handleDrop}>
+			{children}
+		</div>
+	)
 }
