@@ -26,7 +26,11 @@ export default function Weapons(props: IWeaponsProps) {
 	}
 
 	return (
-		<div>
+		<div
+			onDrop={e => {
+				console.log(e)
+			}}
+		>
 			<table className='w-full border-collapse'>
 				<thead>
 					<tr className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
