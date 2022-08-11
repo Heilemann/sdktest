@@ -189,6 +189,77 @@ const skillList = [
     name: 'Track',
     starting: '10',
   },
+  {
+    name: 'Artillery',
+    starting: '1',
+    hidden: true,
+  },
+  {
+    name: 'Demolitions',
+    starting: '1',
+    hidden: true,
+  },
+  {
+    name: 'Fighting (Axe)',
+    starting: '15',
+    hidden: true,
+  },
+  {
+    name: 'Fighting (Chainsaw)',
+    starting: '10',
+    hidden: true
+  },
+  {
+    name: 'Fighting (Flail)',
+    starting: '10',
+    hidden: true
+  },
+  {
+    name: 'Fighting (Garrote)',
+    starting: '15',
+    hidden: true
+  },
+  {
+    name: 'Fighting (Spear)',
+    starting: '20',
+    hidden: true
+  },
+  {
+    name: 'Fighting (Sword)',
+    starting: '20',
+    hidden: true
+  },
+  {
+    name: 'Fighting (Whip)',
+    starting: '5',
+    hidden: true
+  },
+  {
+    name: 'Firearms (Bow)',
+    starting: '15',
+    hidden: true
+  },
+  {
+    name: 'Firearms (Flamethrower)',
+    starting: '10',
+    hidden: true
+  },
+  {
+    name: 'Firearms (Heavy)',
+    starting: '10',
+    hidden: true
+  },
+  {
+    name: 'Firearms (MG)',
+    starting: '10',
+    hidden: true
+  },
+  {
+    name: 'Firearms (SMG)',
+    starting: '15',
+    hidden: true
+  },
+
 ]
 
 export default skillList

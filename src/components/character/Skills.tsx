@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import Button from '../Button'
@@ -13,6 +13,12 @@ export default function SkillsList(props: ISkillsListProps) {
 	const { state } = useContext(context)
 	const { document, editMode, messageToApp } = state
 	const { register } = useFormContext()
+
+	// sort a-z and hide hidden skills
+	const skills = useMemo(() => {
+		return skillList.sort((a, b) => (a.name < b.name ? -1 : 1))
+		// .filter(skill => !skill.hidden)
+	}, [])
 
 	const skillValues = useWatch({
 		name: 'skills',
@@ -29,7 +35,7 @@ export default function SkillsList(props: ISkillsListProps) {
 
 	return (
 		<div className='-mx-4 columns-none sm:columns-2 md:columns-3 lg:columns-4'>
-			{skillList.map(skill => {
+			{skills.map(skill => {
 				let value = skill.starting
 
 				if (

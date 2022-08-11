@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import { DragEvent, useContext } from 'react'
 import { FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
-import { TWeaponOnCharacter } from '../../interfaces'
+import { TWeapon, TWeaponOnCharacter } from '../../interfaces'
 import Button from '../Button'
 import context from '../context'
 import WeaponRow from './WeaponRow'
@@ -44,7 +44,14 @@ export default function Weapons(props: IWeaponsProps) {
 
 		const type: string = droppedDoc.type
 
-		console.log('handleDrop', type, droppedDoc)
+		if (type !== 'weapon') return
+
+		const droppedWeapon = droppedDoc.values as TWeapon
+
+		prepend({
+			...droppedWeapon,
+			documentId: droppedDoc._id,
+		} as TWeaponOnCharacter)
 	}
 
 	return (
