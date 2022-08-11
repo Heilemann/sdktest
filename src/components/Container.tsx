@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { TDocument, TSystemReceivableMessages, TValues } from '../interfaces'
 import Character from './character/Character'
 import context from './context'
+import DragAndDrop from './DragAndDrop'
 import Note from './note/Note'
 import Scene from './scene/Scene'
 import Weapon from './weapon/Weapon'
@@ -130,17 +131,19 @@ export default function Container(props: IContainerProps) {
 
 	return (
 		<FormProvider {...form}>
-			<div
-				className='bottom-0 box-border flex min-h-full w-full flex-col bg-gray-100 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'
-				onDrop={e => {
-					console.log('dropped on iframe', e)
-				}}
-			>
-				{type === 'character' && <Character />}
-				{type === 'note' && <Note />}
-				{type === 'scene' && <Scene />}
-				{type === 'weapon' && <Weapon />}
-			</div>
+			<DragAndDrop>
+				<div
+					className='bottom-0 box-border flex min-h-full w-full flex-col bg-gray-100 p-4 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-100'
+					onDrop={e => {
+						console.log('dropped on iframe', e)
+					}}
+				>
+					{type === 'character' && <Character />}
+					{type === 'note' && <Note />}
+					{type === 'scene' && <Scene />}
+					{type === 'weapon' && <Weapon />}
+				</div>
+			</DragAndDrop>
 		</FormProvider>
 	)
 }
