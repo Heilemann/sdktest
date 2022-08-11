@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from 'react'
+import { DragEvent, useCallback, useContext, useEffect } from 'react'
 import useSyntheticEvent from './UseSyntheticEvent'
 import context from './context'
 
@@ -27,17 +27,17 @@ export default function DragAndDrop(props: IDragAndDropProps) {
 	const fireSyntheticEvent = useSyntheticEvent()
 
 	const handleDragEnterFromParent = useCallback(
-		(e: any) => fireSyntheticEvent(e, 'dragEnter'),
+		(e: DragEvent) => fireSyntheticEvent(e, 'dragEnter'),
 		[fireSyntheticEvent],
 	)
 
 	const handleDragOverFromParent = useCallback(
-		(e: any) => fireSyntheticEvent(e, 'dragOver'),
+		(e: DragEvent) => fireSyntheticEvent(e, 'dragOver'),
 		[fireSyntheticEvent],
 	)
 
 	const handleDropFromParent = useCallback(
-		(e: any) => fireSyntheticEvent(e, 'drop'),
+		(e: DragEvent) => fireSyntheticEvent(e, 'drop'),
 		[fireSyntheticEvent],
 	)
 
@@ -67,9 +67,10 @@ export default function DragAndDrop(props: IDragAndDropProps) {
 		[handleDragEnterFromParent, handleDragOverFromParent, handleDropFromParent],
 	)
 
-	const handleDrop = (e: any) => {
+	const handleDrop = (e: DragEvent) => {
 		const droppedDocumentId = e.dataTransfer.getData('documentId')[0]
 		const droppedDoc = documents.find(d => d._id === droppedDocumentId)
+
 		if (!droppedDoc)
 			throw new Error(
 				`Could not find dropped document. ID: ${droppedDocumentId}`,

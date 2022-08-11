@@ -1,6 +1,8 @@
 import { PlusIcon } from '@heroicons/react/solid'
+import { DragEvent, useContext } from 'react'
 import { FieldValues, useFieldArray, useFormContext } from 'react-hook-form'
 import Button from '../Button'
+import context from '../context'
 import WeaponRow from './WeaponRow'
 
 // type weaponSkill = 'brawl' | 'handgun' | 'rifle' | 'custom'
@@ -8,6 +10,8 @@ import WeaponRow from './WeaponRow'
 export interface IWeaponsProps {}
 
 export default function Weapons(props: IWeaponsProps) {
+	const { state } = useContext(context)
+	const { documents } = state
 	const { control } = useFormContext()
 	const { fields, prepend, remove } = useFieldArray<FieldValues, any, any>({
 		control,
@@ -25,12 +29,22 @@ export default function Weapons(props: IWeaponsProps) {
 		})
 	}
 
+	const handleDrop = (e: DragEvent) => {
+		const droppedDocumentId = e.dataTransfer.getData('documentId')[0]
+		const droppedDoc = documents.find(d => d._id === droppedDocumentId)
+
+		if (!droppedDoc)
+			throw new Error(
+				`Could not find dropped document. ID: ${droppedDocumentId}`,
+			)
+
+		const type: string = droppedDoc.type
+
+		console.log('handleDrop', type, droppedDoc)
+	}
+
 	return (
-		<div
-			onDrop={e => {
-				console.log(e)
-			}}
-		>
+		<div onDrop={handleDrop}>
 			<table className='w-full border-collapse'>
 				<thead>
 					<tr className='border-b border-gray-300 p-2 text-left dark:border-gray-800'>
