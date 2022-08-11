@@ -73,7 +73,6 @@ export default function Weapons(props: IWeaponsProps) {
 							</span>
 						</th>
 						<th className='font-normal text-gray-500'>Range</th>
-						<th className='font-normal text-gray-500'>Weight</th>
 						<th className='font-normal text-gray-500'>Ammo</th>
 						<th className='font-normal text-gray-500'>Uses Per Round</th>
 						<th className='font-normal text-gray-500'>Malfunction</th>

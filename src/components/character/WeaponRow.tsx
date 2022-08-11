@@ -46,7 +46,7 @@ export default function WeaponRow(props: IWeaponRowProps) {
 
 			<WeaponDamage index={index} />
 
-			<td>
+			<td className='text-center'>
 				<Input
 					className={twMerge(
 						'bg-transparent dark:bg-transparent',
@@ -58,19 +58,7 @@ export default function WeaponRow(props: IWeaponRowProps) {
 				{editMode === 'view' && <span>{weapon.range || '—'}</span>}
 			</td>
 
-			<td>
-				<Input
-					className={twMerge(
-						'bg-transparent dark:bg-transparent',
-						editMode === 'view' && 'hidden',
-					)}
-					placeholder='—'
-					{...register(`weapons.${index}.weight`)}
-				/>
-				{editMode === 'view' && <span>{weapon.weight || '—'}</span>}
-			</td>
-
-			<td>
+			<td className='text-center'>
 				<Input
 					className={twMerge(
 						'bg-transparent dark:bg-transparent',
@@ -82,7 +70,7 @@ export default function WeaponRow(props: IWeaponRowProps) {
 				{editMode === 'view' && <span>{weapon.ammoCapacity || '—'}</span>}
 			</td>
 
-			<td>
+			<td className='text-center'>
 				<Input
 					className={twMerge(
 						'bg-transparent dark:bg-transparent',
@@ -94,14 +82,14 @@ export default function WeaponRow(props: IWeaponRowProps) {
 				{editMode === 'view' && <span>{weapon.usesPerRound || '—'}</span>}
 			</td>
 
-			<td>
+			<td className='text-center'>
 				<Input
 					className={twMerge(
 						'bg-transparent dark:bg-transparent',
 						editMode === 'view' && 'hidden',
 					)}
 					placeholder='—'
-					{...register(`weapons.${index}.weight`)}
+					{...register(`weapons.${index}.malfunction`)}
 				/>
 				{editMode === 'view' && <span>{weapon.malfunction || '—'}</span>}
 			</td>
