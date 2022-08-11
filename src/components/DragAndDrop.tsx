@@ -46,6 +46,8 @@ export default function DragAndDrop(props: IDragAndDropProps) {
 			const payload: TDragAndDropMessages = e.data
 			const { message } = payload
 
+			console.log('drag and drop message listener', message)
+
 			// if (e.origin !== parentOrigin || source !== 'App') return
 
 			switch (message) {
