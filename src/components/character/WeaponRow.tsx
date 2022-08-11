@@ -17,12 +17,18 @@ export interface IWeaponRowProps {
 export default function WeaponRow(props: IWeaponRowProps) {
 	const { index, remove } = props
 	const { state } = useContext(context)
-	const { editMode } = state
+	const { editMode, messageToApp } = state
 	const { register } = useFormContext()
 
 	const weapon = useWatch({
 		name: `weapons.${index}`,
 	}) as TWeaponOnCharacter
+
+	const handleOpenWeapon = () => {
+		const { documentId } = weapon
+		console.log('trying to open weapon', documentId)
+		messageToApp && messageToApp('open document', { documentId })
+	}
 
 	const handleRemove = (index: number) => {
 		remove(index)
@@ -95,14 +101,13 @@ export default function WeaponRow(props: IWeaponRowProps) {
 			</td>
 
 			<td className='w-4'>
-				<Button onClick={() => {}} className='self-end p-1.5'>
+				<Button onClick={handleOpenWeapon} className='self-end p-1.5'>
 					<InformationCircleIcon className='h-4 w-4' />
 				</Button>
-				<input
-					type='hidden'
-					name={`weapons.${index}.documentId`}
-					defaultValue={weapon.documentId}
-				/>
+				<input type='hidden' {...register(`weapons.${index}.documentId`)} />
+				{/* {weapons[index].documentId && (
+					<input type='hidden' {...register(`weapons.${index}.documentId`)} />
+				)} */}
 			</td>
 
 			<td className='w-4'>
