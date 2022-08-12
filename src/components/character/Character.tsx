@@ -21,9 +21,16 @@ export default function Character(props: ICharacterProps) {
 					<SectionDivider>Characteristics</SectionDivider>
 					<Characteristics />
 
-					<SectionDivider>Combat</SectionDivider>
-					<Combat />
+					<div className='space-y-4 hidden lg:block'>
+						<SectionDivider>Combat</SectionDivider>
+						<Combat />
+					</div>
 				</div>
+			</div>
+
+			<div className='space-y-4 block lg:hidden'>
+				<SectionDivider>Combat</SectionDivider>
+				<Combat />
 			</div>
 
 			<SectionDivider>Skills</SectionDivider>

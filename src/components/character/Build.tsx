@@ -9,7 +9,7 @@ export default function Build(props: IBuildProps) {
 
 	const str = useWatch({ name: 'characteristics.strength', defaultValue: 0 })
 	const siz = useWatch({ name: 'characteristics.size', defaultValue: 0 })
-	const build = useWatch({ name: 'build', defaultValue: 0 })
+	// const build = useWatch({ name: 'build', defaultValue: 0 })
 
 	let autocalcValue = useMemo(() => {
 		const bonusTable = {
