@@ -8,7 +8,7 @@ export interface ICombatProps {}
 
 export default function Combat(props: ICombatProps) {
 	return (
-		<div className='flex space-x-4'>
+		<div className='grid grid-cols-5 gap-4'>
 			<HitPoints />
 			<DamageBonus />
 			<Build />

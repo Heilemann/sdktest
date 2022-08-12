@@ -17,17 +17,21 @@ export default function Character(props: ICharacterProps) {
 					<BasicInfo />
 				</div>
 
-				<div className='flex-1'>
+				<div className='flex-1 space-y-4'>
 					<SectionDivider>Characteristics</SectionDivider>
 					<Characteristics />
+
+					<SectionDivider>Combat</SectionDivider>
+					<Combat />
 				</div>
 			</div>
+
 			<SectionDivider>Skills</SectionDivider>
 			<Skills />
-			<SectionDivider>Combat</SectionDivider>
-			<Combat />
+
 			<SectionDivider>Weapons</SectionDivider>
 			<Weapons />
+
 			<Copyright />
 		</div>
 	)
