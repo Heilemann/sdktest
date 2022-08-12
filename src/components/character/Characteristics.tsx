@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import Characteristic from './Characteristic'
 import context from '../context'
+import Move from './Move'
 
 export interface ICharacteristicsProps {}
 

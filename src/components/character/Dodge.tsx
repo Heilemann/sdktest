@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import Button from '../Button'
 import context from '../context'
@@ -28,7 +28,7 @@ export default function Dodge(props: IDodgeProps) {
 			<VInput
 				className={editMode === 'view' ? 'hidden' : ''}
 				label='Dodge'
-				placeholder={defaultValue || '—'}
+				placeholder={'—'}
 				{...register('dodge')}
 			/>
 
