@@ -140,6 +140,7 @@ export default function Container(props: IContainerProps) {
 						console.log('dropped on iframe', e)
 					}}
 				>
+					{/* <Sizes /> */}
 					{type === 'character' && <Character />}
 					{type === 'note' && <Note />}
 					{type === 'scene' && <Scene />}

@@ -11,14 +11,6 @@ export interface ICharacterProps {}
 export default function Character(props: ICharacterProps) {
 	return (
 		<div className='space-y-4'>
-			<div className='text-center'>
-				<div className='font-bold block sm:hidden'>xs</div>
-				<div className='font-bold hidden sm:block md:hidden'>sm</div>
-				<div className='font-bold hidden md:block lg:hidden'>md</div>
-				<div className='font-bold hidden lg:block xl:hidden'>lg</div>
-				<div className='font-bold hidden xl:block'>xl</div>
-			</div>
-
 			<div className='md:flex space-x-4'>
 				<div className='flex-1'>
 					<SectionDivider>Basic Information</SectionDivider>
