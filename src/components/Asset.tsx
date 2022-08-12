@@ -45,7 +45,11 @@ const Asset: FC<AssetProps> = props => {
 	}
 
 	if (!asset) {
-		return <Button onClick={handleUpload}>{addLabel || 'Upload'}</Button>
+		return (
+			<Button className='w-full' onClick={handleUpload}>
+				{addLabel || 'Upload'}
+			</Button>
+		)
 	}
 
 	// TODO: Other file types

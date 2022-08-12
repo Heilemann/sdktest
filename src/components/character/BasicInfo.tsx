@@ -31,7 +31,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 				</div>
 			)} */}
 
-			<div className='flex flex-col w-40 md:w-40 min-h-30 flex-0 md:min-h-40 bg-gray-200 rounded-lg mr-4 justify-center'>
+			<div className='flex flex-col w-40 md:w-40 min-h-30 flex-0 md:min-h-40 bg-gray-200 rounded-lg mr-4 mt-2'>
 				{/* <div className='max-w-60 flex max-h-60 flex-col space-y-2'>
 					<Asset
 						name='portrait'
@@ -41,7 +41,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 					/>
 				</div> */}
 
-				<div className='max-w-60 flex flex-col space-y-2 mt-2'>
+				<div className='max-w-60 flex flex-col space-y-2'>
 					{/* <Label className='mt-2 w-32' htmlFor='coverId'>
 						Token
 					</Label> */}
