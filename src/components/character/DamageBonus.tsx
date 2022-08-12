@@ -63,13 +63,11 @@ export default function DamageBonus(props: IDamageBonusProps) {
 				{...register('damagebonus')}
 			/>
 			{editMode === 'view' && (
-				<div>
-					<Button onClick={() => {}}>
-						Dmg Bonus
-						<br />
-						{damagebonus}
-					</Button>
-				</div>
+				<Button className='w-full' onClick={() => {}}>
+					Dmg Bonus
+					<br />
+					{damagebonus}
+				</Button>
 			)}
 		</>
 	)
