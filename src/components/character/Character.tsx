@@ -11,7 +11,7 @@ export interface ICharacterProps {}
 export default function Character(props: ICharacterProps) {
 	return (
 		<div className='space-y-4'>
-			<div className='md:flex space-x-4'>
+			<div className='md:flex md:space-x-4'>
 				<div className='flex-1'>
 					<SectionDivider>Basic Information</SectionDivider>
 					<BasicInfo />
