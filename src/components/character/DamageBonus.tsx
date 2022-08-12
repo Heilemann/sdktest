@@ -56,7 +56,7 @@ export default function DamageBonus(props: IDamageBonusProps) {
 	return (
 		<>
 			<VInput
-				label='Dmg Bonus'
+				label='Damage'
 				placeholder={bonus}
 				defaultValue={values.damagebonus}
 				className={twMerge(editMode === 'view' && 'hidden')}

@@ -33,7 +33,11 @@ export default function Dodge(props: IDodgeProps) {
 			/>
 
 			{editMode === 'view' && (
-				<Button onClick={() => {}} disabled={!dodge && !defaultValue}>
+				<Button
+					className='w-full'
+					onClick={() => {}}
+					disabled={!dodge && !defaultValue}
+				>
 					Dodge
 					<br />
 					{dodge || defaultValue}%

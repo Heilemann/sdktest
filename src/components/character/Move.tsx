@@ -48,20 +48,7 @@ export default function Move(props: IMoveProps) {
 
 	return (
 		<div>
-			<VInput
-				className={editMode === 'view' ? 'hidden' : ''}
-				label='Move'
-				placeholder={autocalc}
-				{...register('move')}
-			/>
-
-			{editMode === 'view' && (
-				<Button onClick={() => {}} disabled={!move && !autocalc}>
-					Move
-					<br />
-					{move || autocalc}%
-				</Button>
-			)}
+			<VInput label='Move' placeholder={autocalc} {...register('move')} />
 		</div>
 	)
 }

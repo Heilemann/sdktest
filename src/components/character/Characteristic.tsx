@@ -5,7 +5,8 @@ import Button from '../Button'
 import { twMerge } from 'tailwind-merge'
 import { useWatch } from 'react-hook-form'
 
-export interface ICharacteristicProps {
+export interface ICharacteristicProps
+	extends React.InputHTMLAttributes<HTMLInputElement> {
 	label: string
 	name: string
 }
@@ -28,7 +29,7 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 		}
 
 		return (
-			<>
+			<div>
 				<VInput
 					ref={ref}
 					className={twMerge('', editMode === 'view' && 'hidden')}
@@ -68,7 +69,7 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 						</div>
 					</div>
 				)}
-			</>
+			</div>
 		)
 	},
 )
