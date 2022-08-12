@@ -1,5 +1,7 @@
+import { info } from 'console'
 import { useContext } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
+import { twMerge } from 'tailwind-merge'
 import Asset from '../Asset'
 import context from '../context'
 import HInput from '../HInput'
@@ -9,14 +11,27 @@ export interface IBasicInfoProps {}
 
 export default function BasicInfo(props: IBasicInfoProps) {
 	const { state } = useContext(context)
-	const { messageToApp } = state
+	const { editMode, messageToApp } = state
 	const { register, setValue } = useFormContext()
+
+	const name = useWatch({ name: 'name' })
+	const info = useWatch({ name: 'info', defaultValue: {} })
 
 	if (!messageToApp) return null
 
 	return (
 		<div className='flex flex-col sm:flex-row'>
-			<div className='flex-1'>
+			{editMode === 'view' && (
+				<div className='text-center text-lg'>
+					<strong>{name || 'Unnamed Character'}</strong>
+					{info.occupation && ` — ${info.occupation}`}
+					{info.residence && `• Resides in ${info.residence}`}
+					{info.birthplace && `• Born in ${info.birthplace}`}
+					{info.age && `• ${info.age}yo`}
+				</div>
+			)}
+
+			<div className={twMerge('flex-1', editMode === 'view' && 'hidden')}>
 				<div className='-ml-2 grid grid-cols-1 xl:grid-cols-2'>
 					<HInput
 						className='mx-2'

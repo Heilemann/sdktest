@@ -3,23 +3,28 @@ import VInput from '../VInput'
 import context from '../context'
 import Button from '../Button'
 import { twMerge } from 'tailwind-merge'
+import { useWatch } from 'react-hook-form'
 
 export interface ICharacteristicProps {
 	label: string
-	value: string
+	name: string
 }
 
 const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 	(props: ICharacteristicProps, ref) => {
-		const { label, value, ...rest } = props
+		const { label, name, ...rest } = props
 		const { state } = useContext(context)
-		const { editMode } = state
+		const { editMode, messageToApp } = state
 
-		const handleRoll = () => {
-			if (!value) return
-			if (!state.messageToApp) return
+		const value = useWatch({ name: name })
+		const hasNoValue = value === undefined || value === null
 
-			state.messageToApp('send message', { message: `/roll d100 < ${value}` })
+		const hard = Math.floor(parseInt(value, 10) / 2)
+		const extreme = Math.floor(parseInt(value, 10) / 5)
+
+		const handleRoll = (val: string | number) => {
+			messageToApp &&
+				messageToApp('send message', { message: `/roll d100 < ${val}` })
 		}
 
 		return (
@@ -29,17 +34,41 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 					className={twMerge('mx-1 sm:mx-2', editMode === 'view' && 'hidden')}
 					label={label}
 					placeholder='&mdash;'
-					defaultValue={value}
+					name={name}
 					{...rest}
 				/>
 
 				{editMode === 'view' && (
-					<Button onClick={handleRoll} className='m-1'>
-						<div className='flex flex-col text-xs font-bold'>
-							<div>{label}</div>
-							<div className='flex-1'>{value ? value + '%' : '—'}</div>
+					<div className='flex flex-col text-xs'>
+						<div className='text-center font-bold'>{label}</div>
+						<div className='flex'>
+							<Button
+								onClick={() => handleRoll(value)}
+								className='m-0.5 px-2'
+								disabled={hasNoValue}
+							>
+								<div className='flex-1'>{value ? value + '%' : '—'}</div>
+							</Button>
+
+							<div className='flex-col'>
+								<Button
+									onClick={() => handleRoll(hard)}
+									className='m-0.5 px-2'
+									disabled={hasNoValue}
+								>
+									<div className='flex-1'>{hard ? hard + '%' : '—'}</div>
+								</Button>
+
+								<Button
+									onClick={() => handleRoll(extreme)}
+									className='m-0.5 px-2'
+									disabled={hasNoValue}
+								>
+									<div className='flex-1'>{extreme ? extreme + '%' : '—'}</div>
+								</Button>
+							</div>
 						</div>
-					</Button>
+					</div>
 				)}
 			</>
 		)

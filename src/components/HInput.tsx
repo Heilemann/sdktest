@@ -27,7 +27,7 @@ const HInput = forwardRef<HTMLInputElement, IHInputProps>(
 
 				<Input
 					ref={ref}
-					className=' my-1 py-1.5 hover:bg-gray-200 bg-transparent text-right dark:bg-transparent'
+					className=' my-1 py-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 bg-transparent text-right dark:bg-transparent'
 					id={rest.name}
 					{...rest}
 				/>
