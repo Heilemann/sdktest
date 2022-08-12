@@ -20,7 +20,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 	if (!messageToApp) return null
 
 	return (
-		<div className='flex flex-col sm:flex-row'>
+		<div className='flex flex-row my-2'>
 			{/* {editMode === 'view' && (
 				<div className='text-center text-lg'>
 					<strong>{name || 'Unnamed Character'}</strong>
@@ -31,15 +31,16 @@ export default function BasicInfo(props: IBasicInfoProps) {
 				</div>
 			)} */}
 
-			<div className='flex flex-col w-30 md:w-40 mr-4'>
-				<div className='max-w-60 flex max-h-60 flex-col space-y-2'>
+			<div className='flex flex-col w-40 md:w-40 h-30 flex-0 md:h-40 bg-gray-200 rounded-lg mr-4 justify-center'>
+				{/* <div className='max-w-60 flex max-h-60 flex-col space-y-2'>
 					<Asset
 						name='portrait'
 						addLabel='Add Portrait'
 						setValue={setValue}
 						style={{ maxWidth: '200px' }}
 					/>
-				</div>
+				</div> */}
+
 				<div className='max-w-60 flex flex-col space-y-2 mt-2'>
 					{/* <Label className='mt-2 w-32' htmlFor='coverId'>
 						Token
