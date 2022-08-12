@@ -54,7 +54,7 @@ export default function DamageBonus(props: IDamageBonusProps) {
 	}) as string
 
 	return (
-		<>
+		<div>
 			<VInput
 				label='Damage'
 				placeholder={bonus}
@@ -69,6 +69,6 @@ export default function DamageBonus(props: IDamageBonusProps) {
 					{damagebonus}
 				</Button>
 			)}
-		</>
+		</div>
 	)
 }

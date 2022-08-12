@@ -26,7 +26,7 @@ export default function Depletable(props: IDepletableProps) {
 
 	return (
 		<div className={twMerge('flex flex-col border-b flex-1', className)}>
-			<Label className='text-gray-500 text-center'>{label}</Label>
+			<Label className='text-gray-500 text-center -mb-2'>{label}</Label>
 
 			<div className='flex'>
 				<Input
