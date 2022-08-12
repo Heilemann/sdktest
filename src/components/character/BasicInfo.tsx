@@ -21,7 +21,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 
 	return (
 		<div className='flex flex-col sm:flex-row'>
-			{editMode === 'view' && (
+			{/* {editMode === 'view' && (
 				<div className='text-center text-lg'>
 					<strong>{name || 'Unnamed Character'}</strong>
 					{info.occupation && ` — ${info.occupation}`}
@@ -29,9 +29,37 @@ export default function BasicInfo(props: IBasicInfoProps) {
 					{info.birthplace && `• Born in ${info.birthplace}`}
 					{info.age && `• ${info.age}yo`}
 				</div>
-			)}
+			)} */}
 
-			<div className={twMerge('flex-1', editMode === 'view' && 'hidden')}>
+			<div className='flex flex-col w-30 md:w-40 mr-4'>
+				<div className='max-w-60 flex max-h-60 flex-col space-y-2'>
+					<Asset
+						name='portrait'
+						addLabel='Add Portrait'
+						setValue={setValue}
+						style={{ maxWidth: '200px' }}
+					/>
+				</div>
+				<div className='max-w-60 flex flex-col space-y-2 mt-2'>
+					{/* <Label className='mt-2 w-32' htmlFor='coverId'>
+						Token
+					</Label> */}
+					<Asset
+						name='token'
+						addLabel='Add Token'
+						removeLabel='Remove Token'
+						setValue={setValue}
+						style={{ maxWidth: '200px' }}
+					/>
+				</div>
+			</div>
+
+			<div
+				className={twMerge(
+					'flex-1',
+					// , editMode === 'view' && 'hidden'
+				)}
+			>
 				<div className='-ml-2 grid grid-cols-1 xl:grid-cols-2'>
 					<HInput
 						className='mx-2'
@@ -73,29 +101,6 @@ export default function BasicInfo(props: IBasicInfoProps) {
 						label='Age'
 						placeholder='&mdash;'
 						{...register('info.age')}
-					/>
-				</div>
-			</div>
-
-			<div className='flex flex-col'>
-				<div className='max-w-60 flex max-h-60 flex-col space-y-2'>
-					<Asset
-						name='portrait'
-						addLabel='Add Portrait'
-						setValue={setValue}
-						style={{ maxWidth: '200px' }}
-					/>
-				</div>
-				<div className='max-w-60 flex flex-col space-y-2 mt-2'>
-					{/* <Label className='mt-2 w-32' htmlFor='coverId'>
-						Token
-					</Label> */}
-					<Asset
-						name='token'
-						addLabel='Upload Token'
-						removeLabel='Remove Token'
-						setValue={setValue}
-						style={{ maxWidth: '200px' }}
 					/>
 				</div>
 			</div>

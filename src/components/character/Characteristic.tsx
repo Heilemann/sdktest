@@ -40,33 +40,31 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 
 				{editMode === 'view' && (
 					<div className='flex flex-col text-xs'>
-						<div className='text-center font-bold'>{label}</div>
-						<div className='flex'>
+						<div className='flex space-x-px'>
 							<Button
 								onClick={() => handleRoll(value)}
-								className='m-0.5 px-2'
+								className='flex-1'
 								disabled={hasNoValue}
 							>
-								<div className='flex-1'>{value ? value + '%' : '—'}</div>
+								<div className='text-center font-bold'>{label}</div>
+								{value ? value + '%' : '—'}
 							</Button>
 
-							<div className='flex-col'>
-								<Button
-									onClick={() => handleRoll(hard)}
-									className='m-0.5 px-2'
-									disabled={hasNoValue}
-								>
-									<div className='flex-1'>{hard ? hard + '%' : '—'}</div>
-								</Button>
+							{/* <Button
+								onClick={() => handleRoll(hard)}
+								className='flex-1'
+								disabled={hasNoValue}
+							>
+								{hard ? hard + '%' : '—'}
+							</Button> */}
 
-								<Button
-									onClick={() => handleRoll(extreme)}
-									className='m-0.5 px-2'
-									disabled={hasNoValue}
-								>
-									<div className='flex-1'>{extreme ? extreme + '%' : '—'}</div>
-								</Button>
-							</div>
+							{/* <Button
+								onClick={() => handleRoll(extreme)}
+								className='flex-1'
+								disabled={hasNoValue}
+							>
+								{extreme ? extreme + '%' : '—'}
+							</Button> */}
 						</div>
 					</div>
 				)}
