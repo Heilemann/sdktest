@@ -19,7 +19,7 @@ const HInput = forwardRef<HTMLInputElement, IHInputProps>(
 				)}
 			>
 				<Label
-					className='w-2/5 self-center dark:text-gray-500 whitespace-nowrap'
+					className='w-2/5 self-center text-gray-500 whitespace-nowrap'
 					htmlFor={rest.name}
 				>
 					{label}

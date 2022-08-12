@@ -24,7 +24,7 @@ export default function Weapon(props: IWeaponProps) {
 					))}
 				</select>
 				<div className='absolute w-full h-full top-0 left-0 flex pointer-events-none'>
-					<span className='self-center flex-1'>Skill</span>
+					<span className='self-center flex-1 text-gray-500'>Skill</span>
 					<span className='self-center'>{skill}</span>
 				</div>
 			</div>
