@@ -10,10 +10,12 @@ interface AssetProps {
 	setValue: UseFormSetValue<any>
 	className?: string
 	style?: React.CSSProperties
+	addLabel?: string
+	removeLabel?: string
 }
 
 const Asset: FC<AssetProps> = props => {
-	const { name, setValue, className, style } = props
+	const { name, setValue, className, style, addLabel, removeLabel } = props
 	const { state } = useContext(context)
 	const { assets, document, messageToApp } = state
 	const [assetId, setAssetId] = useState<string>(document.values[name])
@@ -43,7 +45,7 @@ const Asset: FC<AssetProps> = props => {
 	}
 
 	if (!asset) {
-		return <Button onClick={handleUpload}>Upload</Button>
+		return <Button onClick={handleUpload}>{addLabel || 'Upload'}</Button>
 	}
 
 	// TODO: Other file types
@@ -72,7 +74,7 @@ const Asset: FC<AssetProps> = props => {
 					}}
 				/>
 			)}
-			<Button onClick={handleRemoveAsset}>Remove</Button>
+			<Button onClick={handleRemoveAsset}>{removeLabel || 'Remove'}</Button>
 		</div>
 	)
 }

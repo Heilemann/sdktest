@@ -185,7 +185,7 @@ export default function DevToolbar(props: IDevToolbarProps) {
 
 				<Button
 					onClick={handleClearStorage}
-					className='rounded-full bg-gray-900 dark:bg-gray-900'
+					className='rounded-full bg-gray-800 dark:bg-gray-800'
 				>
 					Clear <span className='hidden sm:inline'>Storage</span>
 				</Button>

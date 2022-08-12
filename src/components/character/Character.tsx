@@ -11,11 +11,17 @@ export interface ICharacterProps {}
 export default function Character(props: ICharacterProps) {
 	return (
 		<div className='space-y-4'>
-			<SectionDivider>Basic Information</SectionDivider>
-			<BasicInfo />
+			<div className='sm:flex space-x-4'>
+				<div className='flex-1'>
+					<SectionDivider>Basic Information</SectionDivider>
+					<BasicInfo />
+				</div>
 
-			<SectionDivider>Characteristics</SectionDivider>
-			<Characteristics />
+				<div className='flex-1'>
+					<SectionDivider>Characteristics</SectionDivider>
+					<Characteristics />
+				</div>
+			</div>
 
 			<SectionDivider>Skills</SectionDivider>
 			<Skills />

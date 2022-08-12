@@ -21,7 +21,7 @@ export default function Tabs(props: ITabsProps) {
 	const { tabs, register, activeTab } = props
 
 	return (
-		<div className='flex rounded-full bg-gray-900'>
+		<div className='flex rounded-full bg-gray-800'>
 			{tabs.options.map(tab => (
 				<div key={tab.value} className='flex self-center'>
 					<input

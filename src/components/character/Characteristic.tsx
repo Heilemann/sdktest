@@ -31,7 +31,7 @@ const Characteristic = forwardRef<HTMLInputElement, ICharacteristicProps>(
 			<>
 				<VInput
 					ref={ref}
-					className={twMerge('mx-1 sm:mx-2', editMode === 'view' && 'hidden')}
+					className={twMerge('', editMode === 'view' && 'hidden')}
 					label={label}
 					placeholder='&mdash;'
 					name={name}

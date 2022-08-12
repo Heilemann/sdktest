@@ -77,23 +77,23 @@ export default function BasicInfo(props: IBasicInfoProps) {
 				</div>
 			</div>
 
-			<div className='mt-4 flex flex-row md:mt-0 md:flex-col'>
-				<div className='max-w-60 mx-2 flex max-h-60 flex-col space-y-2'>
-					<Label className='mt-2 w-32' htmlFor='coverId'>
-						Portrait
-					</Label>
+			<div className='flex flex-col'>
+				<div className='max-w-60 flex max-h-60 flex-col space-y-2'>
 					<Asset
 						name='portrait'
+						addLabel='Add Portrait'
 						setValue={setValue}
 						style={{ maxWidth: '200px' }}
 					/>
 				</div>
-				<div className='max-w-60 flex flex-col space-y-2'>
-					<Label className='mt-2 w-32' htmlFor='coverId'>
+				<div className='max-w-60 flex flex-col space-y-2 mt-2'>
+					{/* <Label className='mt-2 w-32' htmlFor='coverId'>
 						Token
-					</Label>
+					</Label> */}
 					<Asset
 						name='token'
+						addLabel='Upload Token'
+						removeLabel='Remove Token'
 						setValue={setValue}
 						style={{ maxWidth: '200px' }}
 					/>
