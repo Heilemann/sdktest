@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { TDocument, TSystemReceivableMessages, TValues } from '../interfaces'
 import Character from './character/Character'
 import context from './context'
+import Copyright from './Copyright'
 import DragAndDrop from './DragAndDrop'
 import Note from './note/Note'
 import Scene from './scene/Scene'
@@ -145,6 +146,8 @@ export default function Container(props: IContainerProps) {
 					{type === 'note' && <Note />}
 					{type === 'scene' && <Scene />}
 					{type === 'weapon' && <Weapon />}
+
+					<Copyright />
 				</div>
 			</DragAndDrop>
 		</FormProvider>
