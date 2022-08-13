@@ -37,18 +37,19 @@ export default function SkillsList(props: ISkillsListProps) {
 		<div className='-mx-4 columns-none sm:columns-2 md:columns-3 lg:columns-4'>
 			{skills.map(skill => {
 				let value = skill.starting
+				const sluggifiedName = skill.name.replace(/ /g, '-')
 
 				if (
 					skillValues &&
-					skillValues[skill.name] &&
-					skillValues[skill.name].value
+					skillValues[sluggifiedName] &&
+					skillValues[sluggifiedName].value
 				) {
-					value = skillValues[skill.name].value
+					value = skillValues[sluggifiedName].value
 				}
 
 				return (
 					<div
-						key={skill.name}
+						key={sluggifiedName}
 						className='mx-4 flex space-x-2 border-b border-gray-200 py-0.5 dark:border-gray-800'
 					>
 						<input
@@ -57,7 +58,7 @@ export default function SkillsList(props: ISkillsListProps) {
 								'h-4 w-4 cursor-pointer appearance-none self-center rounded-md bg-gray-200 hover:bg-gray-700 dark:bg-gray-800',
 								skill.tickable === false && 'opacity-0',
 							)}
-							{...register(`skills.${skill.name}.ticked`)}
+							{...register(`skills.${sluggifiedName}.ticked`)}
 						/>
 
 						<Label className='flex-1 self-center' htmlFor={skill.name}>
@@ -72,9 +73,9 @@ export default function SkillsList(props: ISkillsListProps) {
 								editMode === 'view' && 'hidden',
 							)}
 							disabled={state.editMode ? false : true}
-							id={skill.name}
+							id={sluggifiedName}
 							placeholder={skill.starting.toString()}
-							{...register(`skills.${skill.name}.value`)}
+							{...register(`skills.${sluggifiedName}.value`)}
 						/>
 						{editMode === 'edit' && <span className='self-center'>%</span>}
 						{editMode === 'view' && (
