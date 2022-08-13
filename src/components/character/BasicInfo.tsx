@@ -31,7 +31,7 @@ export default function BasicInfo(props: IBasicInfoProps) {
 				</div>
 			)} */}
 
-			<div className='flex flex-col w-40 md:w-40 min-h-30 flex-0 md:min-h-40 bg-gray-200 rounded-lg mr-4 mt-2'>
+			<div className='flex flex-col w-40 md:w-40 min-h-30 flex-0 md:min-h-40 bg-gray-200 dark:bg-gray-800 rounded-lg mr-4 mt-2'>
 				{/* <div className='max-w-60 flex max-h-60 flex-col space-y-2'>
 					<Asset
 						name='portrait'

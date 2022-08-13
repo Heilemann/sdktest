@@ -5,6 +5,7 @@ import Copyright from '../Copyright'
 import SectionDivider from '../SectionDivider'
 import Skills from './Skills'
 import Weapons from './Weapons'
+import TestWeapon from './TestWeapon'
 
 export interface ICharacterProps {}
 
@@ -26,16 +27,15 @@ export default function Character(props: ICharacterProps) {
 				</div>
 			</div>
 
-			{/* <div className='space-y-4 block lg:hidden'>
-				<SectionDivider>Combat</SectionDivider>
-				<Combat />
-			</div> */}
-
-			<SectionDivider>Skills</SectionDivider>
-			<Skills />
+			{/* <SectionDivider>Skills</SectionDivider>
+			<Skills /> */}
 
 			<SectionDivider>Weapons</SectionDivider>
 			<Weapons />
+
+			<TestWeapon />
+			<TestWeapon />
+			<TestWeapon />
 
 			<Copyright />
 		</div>

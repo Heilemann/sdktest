@@ -78,7 +78,9 @@ const Asset: FC<AssetProps> = props => {
 					}}
 				/>
 			)}
-			<Button onClick={handleRemoveAsset}>{removeLabel || 'Remove'}</Button>
+			<Button className='w-full' onClick={handleRemoveAsset}>
+				{removeLabel || 'Remove'}
+			</Button>
 		</div>
 	)
 }
