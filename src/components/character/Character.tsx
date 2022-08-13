@@ -27,15 +27,15 @@ export default function Character(props: ICharacterProps) {
 				</div>
 			</div>
 
-			{/* <SectionDivider>Skills</SectionDivider>
-			<Skills /> */}
+			<SectionDivider>Skills</SectionDivider>
+			<Skills />
 
 			<SectionDivider>Weapons</SectionDivider>
 			<Weapons />
 
+			{/* <TestWeapon />
 			<TestWeapon />
-			<TestWeapon />
-			<TestWeapon />
+			<TestWeapon /> */}
 
 			<Copyright />
 		</div>
