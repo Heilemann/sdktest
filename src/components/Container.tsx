@@ -7,6 +7,7 @@ import Copyright from './Copyright'
 import DragAndDrop from './DragAndDrop'
 import Note from './note/Note'
 import Scene from './scene/Scene'
+import Sizes from './Sizes'
 import Weapon from './weapon/Weapon'
 
 export interface IContainerProps {}
@@ -141,7 +142,7 @@ export default function Container(props: IContainerProps) {
 						console.log('dropped on iframe', e)
 					}}
 				>
-					{/* <Sizes /> */}
+					<Sizes />
 					{type === 'character' && <Character />}
 					{type === 'note' && <Note />}
 					{type === 'scene' && <Scene />}

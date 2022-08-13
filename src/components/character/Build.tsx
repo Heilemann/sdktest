@@ -44,8 +44,6 @@ export default function Build(props: IBuildProps) {
 		return lookedUpValue
 	}, [str, siz])
 
-	console.log('build', autocalcValue)
-
 	return (
 		<div>
 			<VInput

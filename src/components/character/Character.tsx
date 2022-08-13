@@ -1,4 +1,5 @@
 import SectionDivider from '../SectionDivider'
+import Backstory from './BackStory'
 import BasicInfo from './BasicInfo'
 import Characteristics from './Characteristics'
 import Combat from './Combat'
@@ -31,6 +32,7 @@ export default function Character(props: ICharacterProps) {
 			<SectionDivider>Weapons</SectionDivider>
 			<Weapons />
 
+			<Backstory />
 			{/* <TestWeapon />
 			<TestWeapon />
 			<TestWeapon /> */}
