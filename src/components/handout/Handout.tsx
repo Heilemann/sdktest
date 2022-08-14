@@ -18,8 +18,6 @@ export default function Handout(props: IHandoutProps) {
 
 	return (
 		<div>
-			{editMode === 'view' && <div>{values.note}</div>}
-
 			<Input
 				className={twMerge(
 					'flex-0 font-bold mb-2',
@@ -29,7 +27,7 @@ export default function Handout(props: IHandoutProps) {
 				{...register('name')}
 			/>
 
-			<Asset name='image' addLabel='Add Media' />
+			<Asset name='image' addLabel='Add Media' removeLabel='Remove Media' />
 
 			<TextArea
 				className={twMerge(
@@ -39,6 +37,8 @@ export default function Handout(props: IHandoutProps) {
 				placeholder='Note...'
 				{...register('note')}
 			/>
+
+			{editMode === 'view' && <div className='mt-2'>{values.note}</div>}
 		</div>
 	)
 }

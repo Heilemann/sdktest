@@ -17,12 +17,7 @@ export default function Note(props: INoteProps) {
 
 	return (
 		<>
-			{editMode === 'view' && (
-				<div>
-					<div className='mb-4 font-bold'>{values.name}</div>
-					<div>{values.note}</div>
-				</div>
-			)}
+			{editMode === 'view' && <div>{values.note}</div>}
 
 			<Input
 				className={twMerge('flex-0 font-bold', editMode === 'view' && 'hidden')}
