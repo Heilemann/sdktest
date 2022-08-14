@@ -48,7 +48,7 @@
 			"singularName": "Handout",
 			"pluralName": "Handouts",
 			"description": "Evidence, newspaper clippings, notes and the like.",
-			"hasEditMode": "false",
+			"hasEditMode": "true",
 			"windowSize": "small",
 			"allowCreate": "false"
 		}
