@@ -18,12 +18,7 @@ export default function Handout(props: IHandoutProps) {
 
 	return (
 		<div>
-			{editMode === 'view' && (
-				<div>
-					<div className='mb-4 font-bold'>{values.name}</div>
-					<div>{values.note}</div>
-				</div>
-			)}
+			{editMode === 'view' && <div>{values.note}</div>}
 
 			<Input
 				className={twMerge(
