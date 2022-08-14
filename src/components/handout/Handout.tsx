@@ -34,11 +34,7 @@ export default function Handout(props: IHandoutProps) {
 				{...register('name')}
 			/>
 
-			<Asset
-				className={editMode === 'view' ? 'hidden' : 'block'}
-				name='image'
-				addLabel='Add Media'
-			/>
+			<Asset name='image' addLabel='Add Media' />
 
 			<TextArea
 				className={twMerge(
