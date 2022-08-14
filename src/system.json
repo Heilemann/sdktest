@@ -50,7 +50,8 @@
 			"description": "Evidence, newspaper clippings, notes and the like.",
 			"hasEditMode": "true",
 			"windowSize": "small",
-			"allowCreate": "false"
+			"allowCreate": "false",
+			"thumbnailField": ["image"]
 		}
 	]
 }
