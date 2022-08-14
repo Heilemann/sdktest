@@ -121,22 +121,14 @@ export default function Scene(props: ISceneProps) {
 					<Label className='mt-2 w-32' htmlFor='mapId'>
 						Map
 					</Label>
-					<Asset
-						name='mapId'
-						setValue={setValue}
-						style={{ maxWidth: '200px' }}
-					/>
+					<Asset name='mapId' style={{ maxWidth: '200px' }} />
 				</div>
 
 				<div className='flex flex-1 flex-col space-y-2'>
 					<Label className='mt-2 w-32' htmlFor='coverId'>
 						Cover
 					</Label>
-					<Asset
-						name='coverId'
-						setValue={setValue}
-						style={{ maxWidth: '200px' }}
-					/>
+					<Asset name='coverId' style={{ maxWidth: '200px' }} />
 				</div>
 			</div>
 

@@ -5,6 +5,7 @@ import Character from './character/Character'
 import context from './context'
 import Copyright from './Copyright'
 import DragAndDrop from './DragAndDrop'
+import Handout from './handout/Handout'
 import Note from './note/Note'
 import Scene from './scene/Scene'
 import Sizes from './Sizes'
@@ -142,11 +143,12 @@ export default function Container(props: IContainerProps) {
 						console.log('dropped on iframe', e)
 					}}
 				>
-					<Sizes />
+					{/* <Sizes /> */}
 					{type === 'character' && <Character />}
 					{type === 'note' && <Note />}
 					{type === 'scene' && <Scene />}
 					{type === 'weapon' && <Weapon />}
+					{type === 'handout' && <Handout />}
 
 					<Copyright />
 				</div>

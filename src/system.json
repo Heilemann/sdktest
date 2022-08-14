@@ -42,6 +42,15 @@
 			"hasEditMode": "true",
 			"windowSize": "small",
 			"allowCreate": "false"
+		},
+		{
+			"type": "handout",
+			"singularName": "Handout",
+			"pluralName": "Handouts",
+			"description": "Evidence, newspaper clippings, notes and the like.",
+			"hasEditMode": "false",
+			"windowSize": "small",
+			"allowCreate": "false"
 		}
 	]
 }

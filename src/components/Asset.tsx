@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useState } from 'react'
-import { UseFormSetValue } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import { TAsset } from '../interfaces'
 import Button from './Button'
@@ -7,7 +7,6 @@ import context from './context'
 
 interface AssetProps {
 	name: string
-	setValue: UseFormSetValue<any>
 	className?: string
 	style?: React.CSSProperties
 	addLabel?: string
@@ -15,11 +14,12 @@ interface AssetProps {
 }
 
 const Asset: FC<AssetProps> = props => {
-	const { name, setValue, className, style, addLabel, removeLabel } = props
+	const { name, className, style, addLabel, removeLabel } = props
 	const { state } = useContext(context)
-	const { assets, document, messageToApp } = state
+	const { editMode, assets, document, messageToApp } = state
 	const [assetId, setAssetId] = useState<string>(document.values[name])
 	const asset = assetId && assets.find((asset: TAsset) => asset._id === assetId)
+	const { setValue } = useFormContext()
 
 	useEffect(() => {
 		setAssetId(document.values[name])
@@ -46,7 +46,10 @@ const Asset: FC<AssetProps> = props => {
 
 	if (!asset) {
 		return (
-			<Button className='w-full' onClick={handleUpload}>
+			<Button
+				className={twMerge('w-full', editMode === 'view' ? 'hidden' : 'block')}
+				onClick={handleUpload}
+			>
 				{addLabel || 'Upload'}
 			</Button>
 		)

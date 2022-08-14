@@ -1,11 +1,9 @@
-import { info } from 'console'
 import { useContext } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import Asset from '../Asset'
 import context from '../context'
 import HInput from '../HInput'
-import Label from '../Label'
 
 export interface IBasicInfoProps {}
 
@@ -36,7 +34,6 @@ export default function BasicInfo(props: IBasicInfoProps) {
 					<Asset
 						name='portrait'
 						addLabel='Add Portrait'
-						setValue={setValue}
 						style={{ maxWidth: '200px' }}
 					/>
 				</div> */}
@@ -49,7 +46,6 @@ export default function BasicInfo(props: IBasicInfoProps) {
 						name='token'
 						addLabel='Add Token'
 						removeLabel='Remove Token'
-						setValue={setValue}
 						style={{ maxWidth: '200px' }}
 					/>
 				</div>
