@@ -149,8 +149,6 @@ export default function Container(props: IContainerProps) {
 					{type === 'scene' && <Scene />}
 					{type === 'weapon' && <Weapon />}
 					{type === 'handout' && <Handout />}
-
-					<Copyright />
 				</div>
 			</DragAndDrop>
 		</FormProvider>
