@@ -27,7 +27,12 @@ export default function Handout(props: IHandoutProps) {
 				{...register('name')}
 			/>
 
-			<Asset name='image' addLabel='Add Media' removeLabel='Remove Media' />
+			<Asset
+				name='image'
+				addLabel='Add Media'
+				removeLabel='Remove Media'
+				className='-m-4'
+			/>
 
 			<TextArea
 				className={twMerge(

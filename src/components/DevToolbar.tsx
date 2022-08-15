@@ -93,8 +93,6 @@ export default function DevToolbar(props: IDevToolbarProps) {
 		// console.log('fakeData', fakeData)
 
 		setTimeout(() => {
-			console.log('devtoolbar load')
-
 			window.postMessage({
 				message: 'load',
 				source: 'App',
