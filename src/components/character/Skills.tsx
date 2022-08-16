@@ -29,7 +29,7 @@ export default function SkillsList(props: ISkillsListProps) {
 		if (!messageToApp) return
 
 		messageToApp('send message', {
-			message: `/roll d10 < ${skillValue} for ${skillName}`,
+			message: `/roll d100 < ${skillValue} for ${skillName}`,
 		})
 	}
 
@@ -68,12 +68,12 @@ export default function SkillsList(props: ISkillsListProps) {
 
 						<Input
 							// type='number'
+							id={sluggifiedName}
 							className={twMerge(
 								'my-1 w-12 appearance-none bg-transparent py-1 pr-0 text-right dark:bg-transparent',
 								editMode === 'view' && 'hidden',
 							)}
 							disabled={state.editMode ? false : true}
-							id={sluggifiedName}
 							placeholder={skill.starting.toString()}
 							{...register(`skills.${sluggifiedName}.value`)}
 						/>
