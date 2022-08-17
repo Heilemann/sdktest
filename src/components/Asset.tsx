@@ -47,7 +47,7 @@ const Asset: FC<AssetProps> = props => {
 	if (!asset) {
 		return (
 			<Button
-				className={twMerge('w-full', editMode === 'view' ? 'hidden' : 'block')}
+				// className={twMerge('w-full', editMode === 'view' ? 'hidden' : 'block')}
 				onClick={handleUpload}
 			>
 				{addLabel || 'Upload'}
